@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import br.com.insted.funcash.models.Crianca;
 
 public interface CriancaRepository extends CrudRepository<Crianca, Long> {
-    public List<Crianca> findByNomeContainingIgnoreCase(String nome);
+    List<Crianca> findByNomeContainingIgnoreCase(String nome);
     
 }
