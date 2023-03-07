@@ -3,6 +3,7 @@ package br.com.insted.funcash.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.assertj.core.api.Assertions;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -62,7 +64,19 @@ public class CrincaControllerTest {
 		String json = ow.writeValueAsString(crianca);
 		return json;
 	};
-    
+    @Test
+	public void deve_remover_uma_crianca_pelo_id() throws Exception {
+		Crianca crianca = new CriancaBuilder().construir();
+		criancaRepository.saveAll(Arrays.asList(crianca));
+
+		this.mockMvc
+				.perform(delete("/crianca/" + crianca.getId()))
+				.andExpect(status().isOk());
+
+		List<Crianca> criancaRetornados = criancaRepository.findByNomeContainingIgnoreCase(crianca.getNome());
+
+		Assertions.assertThat(criancaRetornados).isEmpty();
+	}
 
 
 
