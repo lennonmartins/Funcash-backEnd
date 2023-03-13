@@ -4,8 +4,6 @@ import br.com.insted.funcash.models.Crianca;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
