@@ -27,7 +27,7 @@ import br.com.insted.funcash.repository.CriancaRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CrincaControllerTest {
+public class CriancaControllerTest {
     
     @Autowired
     private MockMvc mockMvc;
