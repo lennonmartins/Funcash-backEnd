@@ -8,22 +8,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CriancaRequestDTO {
-    private String nome;
+public class CriancaResponseDTO {
+    private Long id;
+
     private String email;
-    private int idade;
+
     private String senha;
 
-    public CriancaRequestDTO(Crianca crianca) {
+    private String nome;
+
+    private int idade;
+    public CriancaResponseDTO(Crianca crianca) {
+        this.id = crianca.getId();
         this.email = crianca.getEmail();
         this.nome = crianca.getNome();
         this.idade = crianca.getIdade();
         this.senha = crianca.getSenha();
 
     }
-
-   
-
-    
-
 }

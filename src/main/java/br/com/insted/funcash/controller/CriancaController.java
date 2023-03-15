@@ -21,7 +21,7 @@ public class CriancaController {
     private CriancaRepository criancaRepository;
 
     @PostMapping
-    public ResponseEntity<Crianca> cadastrar(@RequestBody Crianca crianca) {
+    public ResponseEntity<Crianca> cadastrarCrianca(@RequestBody Crianca crianca) {
         Crianca criancaCadastrado = criancaRepository.save(crianca);
         return ResponseEntity.status(HttpStatus.CREATED).body(criancaCadastrado);
     }
