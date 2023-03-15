@@ -15,6 +15,7 @@
 	<description>Funcash - Projeto Integrador </description>
 	<properties>
 		<java.version>16</java.version>
+		<mssql-jdbc.version>9.4.1.jre8</mssql-jdbc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -49,6 +50,7 @@
 		<dependency>
     		<groupId>com.microsoft.sqlserver</groupId>
     		<artifactId>mssql-jdbc</artifactId>
+			
     		<scope>runtime</scope>
 		</dependency>
 		<dependency>
