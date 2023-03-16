@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.insted.funcash.dto.TarefaRequestDTO;
+import br.com.insted.funcash.dto.TarefaResponseDTO;
+import br.com.insted.funcash.mappers.TarefaMapper;
 import br.com.insted.funcash.models.Tarefa;
 import br.com.insted.funcash.repository.TarefaRepository;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
 @RequestMapping(path = "/tarefa")
@@ -19,9 +23,11 @@ public class TarefaController {
     @Autowired
     private TarefaRepository tarefaRepository;
 
+    @ApiResponse(responseCode = "201")
     @PostMapping
-    public ResponseEntity<Tarefa> cadastrar(@RequestBody Tarefa tarefa) {
-        Tarefa tarefaCadastrado = tarefaRepository.save(tarefa);
+    public ResponseEntity<TarefaResponseDTO> cadastrar(@RequestBody TarefaRequestDTO tarefaRequestDTO) {
+        Tarefa tarefa =TarefaMapper.toTarefa(tarefaRequestDTO);
+        TarefaResponseDTO tarefaCadastrado = new TarefaResponseDTO(tarefaRepository.save(tarefa));
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaCadastrado);
     }
     @DeleteMapping(path = "/{id}")

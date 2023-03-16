@@ -46,9 +46,9 @@ public class TarefaControllerTest {
 				.perform(post("/tarefa").content(json).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isCreated());
 
-		List<Tarefa> criancaRetornados = tarefaRepository.findByNomeContainingIgnoreCase(tarefa.getNome());
-		Assertions.assertThat(criancaRetornados.size()).isEqualTo(1);
-		Assertions.assertThat(criancaRetornados.stream().map(Tarefa::getNome).toList()).contains(tarefa.getNome());
+		List<Tarefa> tarefaRetornados = tarefaRepository.findByNomeContainingIgnoreCase(tarefa.getNome());
+		Assertions.assertThat(tarefaRetornados.size()).isEqualTo(1);
+		Assertions.assertThat(tarefaRetornados.stream().map(Tarefa::getNome).toList()).contains(tarefa.getNome());
 
 	}
 
