@@ -1,6 +1,8 @@
 package br.com.insted.funcash.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -14,16 +16,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 import br.com.insted.funcash.builders.CriancaBuilder;
+import br.com.insted.funcash.dto.CriancaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.repository.CriancaRepository;
+import br.com.insted.funcash.utils.JsonUtil;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -49,7 +55,7 @@ public class CriancaControllerTest {
 		String json = toJson(crianca);
 
 		this.mockMvc
-				.perform(post("/crianca").content(json).contentType(MediaType.APPLICATION_JSON_VALUE))
+				.perform(post("/api/v1/criancas").content(json).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isCreated());
 
 		List<Crianca> criancaRetornados = criancaRepository.findByNomeContainingIgnoreCase(crianca.getNome());
@@ -58,18 +64,35 @@ public class CriancaControllerTest {
 
 	}
 
+	@Test
+	void deve_buscar_uma_crianca_pelo_id() throws Exception {
+		Crianca crianca = new CriancaBuilder().construir();
+		criancaRepository.save(crianca);
+		
+		MvcResult mvcResult = mockMvc.perform(get("/api/v1/criancas/" + crianca.getId())).andReturn();
+
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(HttpStatus.OK.value(), status);
+
+		String content = mvcResult.getResponse().getContentAsString();
+		CriancaResponseDTO criancaDTO = JsonUtil.mapFomJson(content, CriancaResponseDTO.class);
+
+		Assertions.assertThat(crianca.getId()).isEqualTo(criancaDTO.getId());
+	}
+
     private String toJson(Crianca crianca) throws JsonProcessingException {
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		String json = ow.writeValueAsString(crianca);
 		return json;
 	};
+
     @Test
 	public void deve_remover_uma_crianca_pelo_id() throws Exception {
 		Crianca crianca = new CriancaBuilder().construir();
 		criancaRepository.saveAll(Arrays.asList(crianca));
 
 		this.mockMvc
-				.perform(delete("/crianca/" + crianca.getId()))
+				.perform(delete("/api/v1/criancas/" + crianca.getId()))
 				.andExpect(status().isOk());
 
 		List<Crianca> criancaRetornados = criancaRepository.findByNomeContainingIgnoreCase(crianca.getNome());

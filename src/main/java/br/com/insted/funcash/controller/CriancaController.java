@@ -1,9 +1,12 @@
 package br.com.insted.funcash.controller;
 
+import javax.naming.NameNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,21 +18,36 @@ import br.com.insted.funcash.dto.CriancaResponseDTO;
 import br.com.insted.funcash.mappers.CriancaMapper;
 import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.repository.CriancaRepository;
+import br.com.insted.funcash.service.CriancaService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
-@RequestMapping(path = "/crianca")
+@RequestMapping(path = "/api/v1/criancas")
 public class CriancaController {
+
+    @Autowired
+    private CriancaService criancaService;
     
     @Autowired
     private CriancaRepository criancaRepository;
 
+   @Autowired
+   private CriancaMapper criancaMapper;
+
     @ApiResponse(responseCode = "201")
     @PostMapping
     public ResponseEntity<CriancaResponseDTO> cadastrarCrianca(@RequestBody CriancaRequestDTO criancaRequestDTO) {
-        Crianca crianca = CriancaMapper.toCrianca(criancaRequestDTO);
+        Crianca crianca = criancaMapper.criancaRequestparaCrianca(criancaRequestDTO);
         CriancaResponseDTO criancaCadastrado = new CriancaResponseDTO(criancaRepository.save(crianca));
         return ResponseEntity.status(HttpStatus.CREATED).body(criancaCadastrado);
+    }
+
+    @Operation(summary ="Buscar uma criança pelo seu id")
+    @ApiResponse(responseCode = "200", description = "Retorna a criança solicitada" )
+    @GetMapping(path= "/{id}")
+    public ResponseEntity<CriancaResponseDTO> buscarPorId(@PathVariable Long id)  throws NameNotFoundException {
+        return ResponseEntity.ok(criancaService.buscarPorId(id));
     }
     
     @DeleteMapping(path = "/{id}")

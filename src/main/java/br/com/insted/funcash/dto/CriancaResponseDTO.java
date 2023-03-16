@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CriancaResponseDTO {
 
+    private Long id;
+
     private String email;
 
     private String senha;
@@ -20,6 +22,7 @@ public class CriancaResponseDTO {
 
     private int idade;
     public CriancaResponseDTO(Crianca crianca) {
+        this.id = crianca.getId();
         this.email = crianca.getEmail();
         this.nome = crianca.getNome();
         this.idade = crianca.getIdade();
