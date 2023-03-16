@@ -3,9 +3,7 @@ package br.com.insted.funcash.dto;
 import br.com.insted.funcash.models.Crianca;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor
