@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.insted.funcash.dto.TarefaRequestDTO;
 import br.com.insted.funcash.dto.TarefaResponseDTO;
 import br.com.insted.funcash.mappers.TarefaMapper;
+import br.com.insted.funcash.mappers.TarefaMapperImpl;
 import br.com.insted.funcash.models.Tarefa;
 import br.com.insted.funcash.repository.TarefaRepository;
+import br.com.insted.funcash.service.TarefaService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
@@ -23,13 +25,20 @@ public class TarefaController {
     @Autowired
     private TarefaRepository tarefaRepository;
 
+    @Autowired
+    private TarefaMapper tarefaMapper;
+
+    @Autowired
+    private TarefaService tarefaService;
+
     @ApiResponse(responseCode = "201")
     @PostMapping
     public ResponseEntity<TarefaResponseDTO> cadastrar(@RequestBody TarefaRequestDTO tarefaRequestDTO) {
-        Tarefa tarefa =TarefaMapper.toTarefa(tarefaRequestDTO);
+        Tarefa tarefa = tarefaMapper.tarefaRequestparaTarefa(tarefaRequestDTO);
         TarefaResponseDTO tarefaCadastrado = new TarefaResponseDTO(tarefaRepository.save(tarefa));
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaCadastrado);
     }
+
     @DeleteMapping(path = "/{id}")
     public void remover(@PathVariable Long id) {
         tarefaRepository.deleteById(id);
