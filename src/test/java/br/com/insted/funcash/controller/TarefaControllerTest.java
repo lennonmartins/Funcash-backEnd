@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 import org.assertj.core.api.Assertions;
 import java.util.List;
+import java.util.Arrays;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -57,4 +59,5 @@ public class TarefaControllerTest {
 		String json = ow.writeValueAsString(tarefa);
 		return json;
 	};
+	
 }//
