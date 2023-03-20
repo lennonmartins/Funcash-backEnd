@@ -7,25 +7,29 @@ import br.com.insted.funcash.dto.CriancaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
 
 @Component
-public class CriancaMapperImpl implements CriancaMapper{
+public class CriancaMapperImpl implements CriancaMapper {
 
     @Override
-    public  CriancaResponseDTO criancaParaCriancaResponseDTO(Crianca crianca) {
+    public CriancaResponseDTO criancaParaCriancaResponseDTO(Crianca crianca) {
         return new CriancaResponseDTO(
                 crianca.getId(),
+                crianca.getDataDeNascimento(),
                 crianca.getEmail(),
-                crianca.getNome(),
                 crianca.getSenha(),
-                crianca.getIdade());
+                crianca.getSaldo(),
+                crianca.getNome(),
+                crianca.getApelido());
     }
 
     @Override
-    public  Crianca criancaRequestparaCrianca(CriancaRequestDTO criancaRequestDTO) {
+    public Crianca criancaRequestparaCrianca(CriancaRequestDTO criancaRequestDTO) {
         return Crianca.builder()
+                .dataDeNascimento(criancaRequestDTO.getDataDeNascimento())
                 .email(criancaRequestDTO.getEmail())
-                .nome(criancaRequestDTO.getNome())
                 .senha(criancaRequestDTO.getSenha())
-                .idade(criancaRequestDTO.getIdade())
+                .saldo(criancaRequestDTO.getSaldo())
+                .nome(criancaRequestDTO.getNome())
+                .apelido(criancaRequestDTO.getApelido())
                 .build();
     }
 }

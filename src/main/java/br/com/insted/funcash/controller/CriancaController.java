@@ -1,6 +1,7 @@
 package br.com.insted.funcash.controller;
 
 import javax.naming.NameNotFoundException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class CriancaController {
 
     @ApiResponse(responseCode = "201")
     @PostMapping
-    public ResponseEntity<CriancaResponseDTO> cadastrarCrianca(@RequestBody CriancaRequestDTO criancaRequestDTO) {
+    public ResponseEntity<CriancaResponseDTO> cadastrarCrianca(@RequestBody @Valid CriancaRequestDTO criancaRequestDTO) {
         Crianca crianca = criancaMapper.criancaRequestparaCrianca(criancaRequestDTO);
         CriancaResponseDTO criancaCadastrado = new CriancaResponseDTO(criancaRepository.save(crianca));
         return ResponseEntity.status(HttpStatus.CREATED).body(criancaCadastrado);

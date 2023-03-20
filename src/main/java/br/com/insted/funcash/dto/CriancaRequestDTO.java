@@ -1,5 +1,7 @@
 package br.com.insted.funcash.dto;
 
+import java.util.Date;
+
 import br.com.insted.funcash.models.Crianca;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,17 +11,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CriancaRequestDTO {
-    private String nome;
+
+    private Date dataDeNascimento;
     private String email;
-    private int idade;
     private String senha;
+    private double saldo;
+    private String nome;
+    private String apelido;
 
     public CriancaRequestDTO(Crianca crianca) {
-        this.email = crianca.getEmail();
-        this.nome = crianca.getNome();
-        this.idade = crianca.getIdade();
-        this.senha = crianca.getSenha();
-
+        this.dataDeNascimento = dataDeNascimento;
+        this.email = email;
+        this.senha = senha;
+        this.saldo = saldo;
+        this.nome = nome;
+        this.apelido = apelido;
     }
 
 }
