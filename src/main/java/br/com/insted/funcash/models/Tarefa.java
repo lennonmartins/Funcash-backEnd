@@ -30,14 +30,18 @@ public class Tarefa {
     private Date data_limite;
 
     @Column(nullable = false, length = 15)
+    private Date data_de_criacao;
+
+    @Column(nullable = false, length = 15)
     private double moeda;
 
     @Column(nullable = false, length = 15)
     private String nome;
 
-    public Tarefa(double hora_limite,Date data_limite, double moeda, String nome) {
+    public Tarefa(double hora_limite,Date data_limite, Date data_de_criacao, double moeda, String nome) {
         this.hora_limite = hora_limite;
         this.data_limite = data_limite;
+        this.data_de_criacao = data_de_criacao;
         this.moeda = moeda;
         this.nome = nome;
 }
