@@ -1,5 +1,7 @@
 package br.com.insted.funcash.models;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +27,7 @@ public class Tarefa {
     private double hora_limite;
 
     @Column(nullable = false, length = 15)
-    private String data_limite;
+    private Date data_limite;
 
     @Column(nullable = false, length = 15)
     private double moeda;
@@ -33,7 +35,7 @@ public class Tarefa {
     @Column(nullable = false, length = 15)
     private String nome;
 
-    public Tarefa(double hora_limite,String data_limite, double moeda, String nome) {
+    public Tarefa(double hora_limite,Date data_limite, double moeda, String nome) {
         this.hora_limite = hora_limite;
         this.data_limite = data_limite;
         this.moeda = moeda;

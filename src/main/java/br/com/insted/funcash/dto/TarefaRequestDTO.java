@@ -1,5 +1,7 @@
 package br.com.insted.funcash.dto;
 
+import java.util.Date;
+
 import br.com.insted.funcash.models.Tarefa;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TarefaRequestDTO {
     private double hora_limite;
-    private String data_limite;
+    private Date data_limite;
     private double moeda;
     private String nome;
 
