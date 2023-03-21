@@ -25,23 +25,23 @@ public class Crianca {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false)
     private Date dataDeNascimento;
 
     @Email
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 50)
     private String email;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 16)
     private String senha;
 
     @Column(nullable = false, length = 15)
     private double saldo;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column(nullable = true, length = 15)
+    @Column(nullable = true, length = 50)
     private String apelido;
 
 
@@ -54,5 +54,7 @@ public class Crianca {
         this.nome = nome;
         this.apelido = apelido;
     }
+
+    
 
 }
