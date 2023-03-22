@@ -23,19 +23,19 @@ public class Tarefa {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false)
     private double hora_limite;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false)
     private Date data_limite;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false)
     private Date data_de_criacao;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false)
     private double moeda;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 50)
     private String nome;
 
     public Tarefa(double hora_limite,Date data_limite, Date data_de_criacao, double moeda, String nome) {
