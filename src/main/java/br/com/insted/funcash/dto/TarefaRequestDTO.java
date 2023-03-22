@@ -15,14 +15,14 @@ public class TarefaRequestDTO {
     private Time hora_limite;
     private Date data_limite;
     private Date data_de_criacao;
-    private double moeda;
+    private double valor;
     private String nome;
 
     public TarefaRequestDTO(Tarefa tarefa){
         this.hora_limite = tarefa.getHora_limite();
         this.data_limite = tarefa.getData_limite();
         this.data_de_criacao = tarefa.getData_de_criacao();
-        this.moeda = tarefa.getMoeda();
+        this.valor = tarefa.getValor();
         this.nome = tarefa.getNome();
     }
 }
