@@ -14,6 +14,7 @@ public class TarefaMapperImpl implements TarefaMapper {
         return new TarefaResponseDTO(
             tarefa.getHora_limite(),
             tarefa.getData_limite(),
+            tarefa.getData_de_criacao(),
             tarefa.getMoeda(),
             tarefa.getNome());
     }
@@ -23,6 +24,7 @@ public class TarefaMapperImpl implements TarefaMapper {
         return Tarefa.builder()
         .hora_limite(tarefaRequestDTO.getHora_limite())
         .data_limite(tarefaRequestDTO.getData_limite())
+        .data_de_criacao(tarefaRequestDTO.getData_de_criacao())
         .moeda(tarefaRequestDTO.getMoeda())
         .nome(tarefaRequestDTO.getNome())
         .build();
