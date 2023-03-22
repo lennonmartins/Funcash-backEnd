@@ -1,5 +1,6 @@
 package br.com.insted.funcash.models;
 
+import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ public class Tarefa {
     private Long id;
     
     @Column(nullable = false)
-    private double hora_limite;
+    private Time hora_limite;
 
     @Column(nullable = false)
     private Date data_limite;
@@ -38,8 +39,8 @@ public class Tarefa {
     @Column(nullable = false, length = 50)
     private String nome;
 
-    public Tarefa(double hora_limite,Date data_limite, Date data_de_criacao, double moeda, String nome) {
-        this.hora_limite = hora_limite;
+    public Tarefa(Time hora_limte,Date data_limite, Date data_de_criacao, double moeda, String nome) {
+        this.hora_limite = hora_limte;
         this.data_limite = data_limite;
         this.data_de_criacao = data_de_criacao;
         this.moeda = moeda;
