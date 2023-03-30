@@ -14,8 +14,8 @@ public class DesejoRequestDTO {
     private int valor;
 
     public DesejoRequestDTO(Desejo desejo){
-        this.nome = nome;
-        this.descricao = descricao;
-        this.valor = valor;
+        this.nome = desejo.getNome();
+        this.descricao = desejo.getDescricao();
+        this.valor = desejo.getValor();
     }
 }
