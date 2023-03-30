@@ -46,7 +46,7 @@ public class DesejoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(desejoCadastrado);
     }
     @Operation(summary ="Buscar uma desejo pelo seu id")
-    @ApiResponse(responseCode = "200", description = "Retorna a criança solicitada" )
+    @ApiResponse(responseCode = "200", description = "Retorna o desejo solicitada" )
     @GetMapping(path= "/{id}")
     public ResponseEntity<DesejoResponseDTO> buscarPorId(@PathVariable Long id)  throws NameNotFoundException {
         return ResponseEntity.ok(desejoService.buscarPorId(id));

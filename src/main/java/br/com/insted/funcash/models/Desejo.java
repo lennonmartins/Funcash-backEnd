@@ -23,13 +23,13 @@ public class Desejo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false, length = 200 )
+    @Column(nullable = false)
     private String descricao;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private int valor;
 
     public Desejo(String nome, String descricao, int valor) {
