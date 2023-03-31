@@ -5,7 +5,7 @@ import java.text.ParseException;
 
 public class DesejoBuilder {
     private String nome = "Cuidar do cachorro";
-    private String descricao = "trocar ração do cachorro";
+    private String descricao = "trocar racao";
     private int valor = 30;
 
     public DesejoBuilder(){
