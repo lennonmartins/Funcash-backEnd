@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import br.com.insted.funcash.models.Crianca;
+import br.com.insted.funcash.models.Genero;
 
 public class CriancaBuilder {
 
@@ -15,13 +16,14 @@ public class CriancaBuilder {
     private String apelido = "toinho";
     private String dataDeNascimentoemString = "20/03/2023";
     private Date dataDeNascimento;
+    private Genero genero = Genero.NAO_BINARIO;
 
     public CriancaBuilder() {
 
     }
 
     public Crianca construir() throws ParseException {
-        return new Crianca(obterData(dataDeNascimentoemString), email, senha, saldo, nome, apelido);
+        return new Crianca(obterData(dataDeNascimentoemString), email, senha, saldo, nome, apelido, genero);
     }
 
     public CriancaBuilder comEmail(String email) {
@@ -47,5 +49,10 @@ public class CriancaBuilder {
     private Date obterData(String dataEmString) throws ParseException {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.parse(dataEmString);
+    }
+
+    public CriancaBuilder comGenero(Genero genero) {
+        this.genero = genero;
+        return this;
     }
 }

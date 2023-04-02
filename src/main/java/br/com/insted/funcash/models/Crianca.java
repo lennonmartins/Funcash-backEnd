@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class Crianca {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -44,15 +46,22 @@ public class Crianca {
     @Column(nullable = true, length = 50)
     private String apelido;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
+    private Genero genero;
+
+
+
 
     public Crianca(Date dataDeNascimento, @Email String email, String senha, double saldo, String nome,
-            String apelido) {
+            String apelido, Genero genero) {
         this.dataDeNascimento = dataDeNascimento;
         this.email = email;
         this.senha = senha;
         this.saldo = saldo;
         this.nome = nome;
         this.apelido = apelido;
+        this.genero = genero;
     }
 
     
