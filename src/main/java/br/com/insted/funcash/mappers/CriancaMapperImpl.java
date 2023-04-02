@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.CriancaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
+import br.com.insted.funcash.utils.DataConvert;
 
 @Component
 public class CriancaMapperImpl implements CriancaMapper {
@@ -18,18 +19,20 @@ public class CriancaMapperImpl implements CriancaMapper {
                 crianca.getSenha(),
                 crianca.getSaldo(),
                 crianca.getNome(),
-                crianca.getApelido());
+                crianca.getApelido(),
+                crianca.getGenero());
     }
 
     @Override
     public Crianca criancaRequestparaCrianca(CriancaRequestDTO criancaRequestDTO) {
         return Crianca.builder()
-                .dataDeNascimento(criancaRequestDTO.getDataDeNascimento())
+                .dataDeNascimento(DataConvert.obterData(criancaRequestDTO.getDataDeNascimento()))
                 .email(criancaRequestDTO.getEmail())
                 .senha(criancaRequestDTO.getSenha())
                 .saldo(criancaRequestDTO.getSaldo())
                 .nome(criancaRequestDTO.getNome())
                 .apelido(criancaRequestDTO.getApelido())
+                .genero(criancaRequestDTO.getGenero())
                 .build();
     }
 }
