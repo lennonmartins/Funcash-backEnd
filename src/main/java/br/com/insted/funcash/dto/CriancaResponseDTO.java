@@ -1,8 +1,10 @@
 package br.com.insted.funcash.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import br.com.insted.funcash.models.Crianca;
+import br.com.insted.funcash.models.Genero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +18,7 @@ public class CriancaResponseDTO {
 
     private Long id;
     
-    private Date dataDeNascimento;
+    private LocalDate dataDeNascimento;
     
     private String email;
     
@@ -28,6 +30,8 @@ public class CriancaResponseDTO {
 
     private String apelido;
 
+    private Genero genero;
+
     public CriancaResponseDTO(Crianca crianca) {
         this.id = id;
         this.dataDeNascimento = dataDeNascimento;
@@ -36,6 +40,7 @@ public class CriancaResponseDTO {
         this.saldo = saldo;
         this.nome = nome;
         this.apelido = apelido;
+        this.genero = genero;
     }
 
 

@@ -1,10 +1,9 @@
 package br.com.insted.funcash.builders;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 import br.com.insted.funcash.models.Crianca;
+import br.com.insted.funcash.models.Genero;
 
 public class CriancaBuilder {
 
@@ -13,15 +12,15 @@ public class CriancaBuilder {
     private String senha = "1234";
     private double saldo = 100.00;
     private String apelido = "toinho";
-    private String dataDeNascimentoemString = "20/03/2023";
-    private Date dataDeNascimento;
+    private LocalDate dataDeNascimento = LocalDate.of(2010, 07, 19);
+    private Genero genero = Genero.NAO_BINARIO;
 
     public CriancaBuilder() {
 
     }
 
-    public Crianca construir() throws ParseException {
-        return new Crianca(obterData(dataDeNascimentoemString), email, senha, saldo, nome, apelido);
+    public Crianca construir() throws Exception {
+        return new Crianca(dataDeNascimento, email, senha, saldo, nome, apelido, genero);
     }
 
     public CriancaBuilder comEmail(String email) {
@@ -39,13 +38,15 @@ public class CriancaBuilder {
         return this;
     }
 
-    public CriancaBuilder comDataDeNascimento(String dataDeNascimento) throws ParseException {
-        this.dataDeNascimento = obterData(dataDeNascimento);
+    public CriancaBuilder comDataDeNascimento(LocalDate dataDeNascimento)  {
+        this.dataDeNascimento = dataDeNascimento;
         return this;
     }
 
-    private Date obterData(String dataEmString) throws ParseException {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        return formato.parse(dataEmString);
+ 
+
+    public CriancaBuilder comGenero(Genero genero) {
+        this.genero = genero;
+        return this;
     }
 }

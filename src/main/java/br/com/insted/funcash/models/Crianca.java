@@ -1,9 +1,11 @@
 package br.com.insted.funcash.models;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,11 +24,11 @@ import lombok.NoArgsConstructor;
 public class Crianca {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private Date dataDeNascimento;
+    private LocalDate dataDeNascimento;
 
     @Email
     @Column(nullable = false, length = 50)
@@ -44,17 +46,26 @@ public class Crianca {
     @Column(nullable = true, length = 50)
     private String apelido;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private Genero genero;
 
-    public Crianca(Date dataDeNascimento, @Email String email, String senha, double saldo, String nome,
-            String apelido) {
-        this.dataDeNascimento = dataDeNascimento;
-        this.email = email;
-        this.senha = senha;
-        this.saldo = saldo;
-        this.nome = nome;
-        this.apelido = apelido;
+    public Crianca(LocalDate _dataDeNascimento, @Email String _email, String _senha, double _saldo, String _nome,
+            String _apelido, Genero _genero) throws Exception {
+        validaDataDeNAscimento(_dataDeNascimento);
+        this.dataDeNascimento = _dataDeNascimento;
+        this.email = _email;
+        this.senha = _senha;
+        this.saldo = _saldo;
+        this.nome = _nome;
+        this.apelido = _apelido;
+        this.genero = _genero;
     }
 
-    
+    private void validaDataDeNAscimento(LocalDate dataDeNascimetno) throws Exception {
+        if (dataDeNascimetno == null) {
+            throw new Exception("A data de nascimento não pode ser vazia");
+        }
+    }
 
 }

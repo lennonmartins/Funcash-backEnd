@@ -1,8 +1,6 @@
 package br.com.insted.funcash.models;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +35,7 @@ public class Responsavel {
     private String cpf;
 
     @Column(nullable = false)
-    private LocalDateTime dataDeNascimentoResponsavel;
+    private LocalDate dataDeNascimentoResponsavel;
 
     @Column(nullable = false)
     private String genero;
@@ -50,7 +48,7 @@ public class Responsavel {
     private int senha;
     
 
-    public Responsavel(String nome, String email, String cpf, LocalDateTime dataDeNascimentoResponsavel, String genero, byte[] foto, int senha) {
+    public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, String genero, byte[] foto, int senha) {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
