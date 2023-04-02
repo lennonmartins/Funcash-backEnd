@@ -46,7 +46,29 @@ public class DesejoControllerTest {
     @AfterEach
     public void deleteDados(){
         desejoRepository.deleteAll();
-    }
+    };
+
+    @Test
+	public void deve_incluir_um_desejo() throws Exception {
+		Desejo desejo = new DesejoBuilder().construir(); 
+		String json = toJson(desejo);
+		this.mockMvc
+			.perform(post("/api/v1/desejo").content(json).contentType(MediaType.APPLICATION_JSON_VALUE))
+			.andExpect(status().isCreated());
+
+		List<Desejo> desejoRetornados = desejoRepository.findByNomeContainingIgnoreCase(desejo.getNome());
+
+		Assertions.assertThat(desejoRetornados.size()).isEqualTo(1);
+		Assertions.assertThat(
+			desejo.getNome()).isIn(desejoRetornados.stream().map(Desejo::getNome).toList()
+		);
+	}
+
+	private String toJson(Desejo desejo) throws JsonProcessingException {
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		String json = ow.writeValueAsString(desejo);
+		return json;
+	}
 
     @Test
 	public void deve_remover_um_desejo_pelo_id() throws Exception {

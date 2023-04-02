@@ -24,11 +24,11 @@ public class Desejo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String nome;
  
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String descricao;
 
     
