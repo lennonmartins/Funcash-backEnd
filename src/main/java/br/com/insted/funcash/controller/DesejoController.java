@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 
 @RestController
-@RequestMapping(path = "/api/v1/desejo")
+@RequestMapping(path = "/api/v1/desejos")
 public class DesejoController {
     @Autowired
     private DesejoService desejoService;

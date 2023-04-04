@@ -12,7 +12,7 @@ public class DesejoBuilder {
 
     }
 
-    public Desejo construir() throws ParseException {
+    public Desejo construir() throws Exception {
         return new Desejo(nome,descricao,valor);
     }
 }

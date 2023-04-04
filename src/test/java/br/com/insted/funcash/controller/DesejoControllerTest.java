@@ -52,8 +52,9 @@ public class DesejoControllerTest {
 	public void deve_incluir_um_desejo() throws Exception {
 		Desejo desejo = new DesejoBuilder().construir(); 
 		String json = toJson(desejo);
+
 		this.mockMvc
-			.perform(post("/api/v1/desejo").content(json).contentType(MediaType.APPLICATION_JSON_VALUE))
+			.perform(post("/api/v1/desejos").content(json).contentType(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(status().isCreated());
 
 		List<Desejo> desejoRetornados = desejoRepository.findByNomeContainingIgnoreCase(desejo.getNome());
