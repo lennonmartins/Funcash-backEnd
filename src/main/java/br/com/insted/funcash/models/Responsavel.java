@@ -38,24 +38,27 @@ public class Responsavel {
     private LocalDate dataDeNascimentoResponsavel;
 
     @Column(nullable = false)
-    private String genero;
-    
+    private Genero genero;
+   
     @Column(nullable = false)
-    @Lob
-    private byte[] foto;
-    
-    @Column(nullable = false)
-    private int senha;
+    private String senha;
     
 
-    public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, String genero, byte[] foto, int senha) {
+    public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,  String senha) throws Exception {
+        validarDataDeNascimento(dataDeNascimentoResponsavel);
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
         this.dataDeNascimentoResponsavel = dataDeNascimentoResponsavel;
         this.genero = genero;
-        this.foto = foto;
         this.senha = senha;
+    }
+
+
+    private void validarDataDeNascimento(LocalDate dataDeNascimentoResponsavel2) throws Exception{
+        if(dataDeNascimentoResponsavel2 == null){
+            throw new Exception("A data de nascimento não pode ser vazia");
+        }
     }
 
     

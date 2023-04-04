@@ -50,13 +50,13 @@ public class CriancaControllerTest {
     @Test
 	public void deve_incluir_uma_crianca() throws Exception  {
 		int quantitadeEsperado = 1;
-		String nome = "Flávio";
-		String email = "flavio@gmail";
+		String nome = "Pluto";
+		String email = "pluto@gmail";
 		String senha = "1234";
 		double saldo = 100.00;
 		String apelido = "toinho";
 		String dataDeNascimentoemString = "2023-03-23";
-		Genero genero = Genero.NAO_BINARIO;
+		Genero genero = Genero.MASCULINO;
 		CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTO(dataDeNascimentoemString, email,senha,saldo, nome, apelido, genero);
 
 		mockMvc.perform(post("/api/v1/criancas")

@@ -7,13 +7,13 @@ import br.com.insted.funcash.models.Genero;
 
 public class CriancaBuilder {
 
-    private String nome = "Flávio";
-    private String email = "flavio@gmail";
+    private String nome = "Pluto";
+    private String email = "pluto@gmail";
     private String senha = "1234";
     private double saldo = 100.00;
     private String apelido = "toinho";
     private LocalDate dataDeNascimento = LocalDate.of(2010, 07, 19);
-    private Genero genero = Genero.NAO_BINARIO;
+    private Genero genero = Genero.MASCULINO;
 
     public CriancaBuilder() {
 
