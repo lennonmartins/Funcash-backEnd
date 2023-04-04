@@ -3,6 +3,7 @@ package br.com.insted.funcash.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
@@ -16,14 +17,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.com.insted.funcash.builders.DesejoBuilder;
+import br.com.insted.funcash.dto.DesejoRequestDTO;
 import br.com.insted.funcash.dto.DesejoResponseDTO;
 import br.com.insted.funcash.models.Desejo;
 import br.com.insted.funcash.repository.DesejoRepository;
 import br.com.insted.funcash.utils.JsonUtil;
+import ch.qos.logback.core.net.ObjectWriter;
 
 
 @SpringBootTest
@@ -44,26 +51,33 @@ public class DesejoControllerTest {
 
     @Test
 	public void deve_incluir_um_desejo() throws Exception {
-		Desejo desejo = new DesejoBuilder().construir(); 
-		String json = toJson(desejo);
+		int quantidadeEsperada = 1;
+		String nome = "Cuidar do cachorro";
+		String descricao = "trocar racao";
+		int valor = 30;
+		
+		DesejoRequestDTO desejoRequestDTO = new DesejoRequestDTO(nome, descricao, valor);
+		
 
-		this.mockMvc
-			.perform(post("/api/v1/desejos").content(json).contentType(MediaType.APPLICATION_JSON_VALUE))
+		mockMvc
+			.perform(post("/api/v1/desejos")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(JsonUtil.toJson(desejoRequestDTO)))
 			.andExpect(status().isCreated());
 
-		List<Desejo> desejoRetornados = desejoRepository.findByNomeContainingIgnoreCase(desejo.getNome());
+		List<Desejo> desejoRetornados = desejoRepository.findByNomeContainingIgnoreCase(desejoRequestDTO.getNome());
 
-		Assertions.assertThat(desejoRetornados.size()).isEqualTo(1);
+		Assertions.assertThat(desejoRetornados.size()).isEqualTo(quantidadeEsperada);
 		Assertions.assertThat(
-			desejo.getNome()).isIn(desejoRetornados.stream().map(Desejo::getNome).toList()
+			desejoRequestDTO.getNome()).isIn(desejoRetornados.stream().map(Desejo::getNome).toList()
 		);
 	}
 
-	private String toJson(Desejo desejo) throws JsonProcessingException {
-		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String json = ow.writeValueAsString(desejo);
-		return json;
-	}
+	// private String toJson(Desejo desejo) throws JsonProcessingException {
+	// 	ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+	// 	String json = ow.writeValueAsString(desejo);
+	// 	return json;
+	// }
 
     @Test
 	public void deve_remover_um_desejo_pelo_id() throws Exception {

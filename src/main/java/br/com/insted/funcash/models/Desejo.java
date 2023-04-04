@@ -27,7 +27,7 @@ public class Desejo {
     @Column(nullable = false, length = 200)
     private String nome;
  
-    @Column(nullable = false, length = 2500)
+    @Column( length = 2500)
     private String descricao;
 
     @Column(nullable = false)

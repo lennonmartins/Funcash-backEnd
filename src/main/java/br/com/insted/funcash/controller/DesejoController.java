@@ -26,10 +26,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 
 @RestController
-@RequestMapping(path = "/api/v1/desejos")
+@RequestMapping(path = {"/api/v1/desejos"}, produces = {"application/json"})
 public class DesejoController {
-    @Autowired
-    private DesejoService desejoService;
+    private final DesejoService desejoService;
+
+    public DesejoController( DesejoService desejoService){
+        this.desejoService = desejoService;
+    }
 
     @Autowired
     private DesejoRepository desejoRepository;
@@ -38,11 +41,9 @@ public class DesejoController {
     private DesejoMapper desejoMapper;
 
     @ApiResponse(responseCode = "201")
-    @PostMapping
+    @PostMapping(consumes = {"application/json"})
     public ResponseEntity<DesejoResponseDTO> cadastrarDesejo(@RequestBody @Valid DesejoRequestDTO desejoRequestDTO){
-        Desejo desejo = desejoMapper.desejoRequestDesejo(desejoRequestDTO);
-        DesejoResponseDTO desejoCadastrado = new DesejoResponseDTO(desejoRepository.save(desejo));
-        return ResponseEntity.status(HttpStatus.CREATED).body(desejoCadastrado);
+        return ResponseEntity.status(HttpStatus.CREATED).body(desejoService.cadastrar(desejoRequestDTO));
     }
     @Operation(summary ="Buscar uma desejo pelo seu id")
     @ApiResponse(responseCode = "200", description = "Retorna o desejo solicitada" )

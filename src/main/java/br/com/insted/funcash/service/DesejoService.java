@@ -3,9 +3,12 @@ package br.com.insted.funcash.service;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.insted.funcash.dto.DesejoRequestDTO;
 import br.com.insted.funcash.dto.DesejoResponseDTO;
 import br.com.insted.funcash.mappers.DesejoMapper;
 import br.com.insted.funcash.models.Desejo;
@@ -30,4 +33,10 @@ public class DesejoService {
     }
     return desejoOptional.get();
   }
+
+public DesejoResponseDTO cadastrar(DesejoRequestDTO desejoRequestDTO) {
+  Desejo desejo = desejoMapper.desejoRequestDesejo(desejoRequestDTO);
+  desejoRepository.save(desejo);
+  return desejoMapper.desejoParaDesejoResponseDTO(desejo);
+}
 }
