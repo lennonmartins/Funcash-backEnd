@@ -45,7 +45,6 @@ public class Responsavel {
     
 
     public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,  String senha) throws Exception {
-        validarDataDeNascimento(dataDeNascimentoResponsavel);
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
@@ -55,11 +54,6 @@ public class Responsavel {
     }
 
 
-    private void validarDataDeNascimento(LocalDate dataDeNascimentoResponsavel2) throws Exception{
-        if(dataDeNascimentoResponsavel2 == null){
-            throw new Exception("A data de nascimento não pode ser vazia");
-        }
-    }
 
     
 }
