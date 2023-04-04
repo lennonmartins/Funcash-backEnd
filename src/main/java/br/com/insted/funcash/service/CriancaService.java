@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.CriancaResponseDTO;
 import br.com.insted.funcash.mappers.CriancaMapper;
 import br.com.insted.funcash.models.Crianca;
@@ -29,5 +30,11 @@ public class CriancaService {
             throw new NoSuchElementException();
         }
         return criancaOptional.get();
+    }
+
+    public CriancaResponseDTO cadastrar(CriancaRequestDTO criancaRequestDTO){
+        Crianca crianca = criancaMapper.criancaRequestparaCrianca(criancaRequestDTO);
+        criancaRepository.save(crianca);
+        return criancaMapper.criancaParaCriancaResponseDTO(crianca);
     }
 }

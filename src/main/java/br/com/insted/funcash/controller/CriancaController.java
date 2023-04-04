@@ -16,32 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.CriancaResponseDTO;
-import br.com.insted.funcash.mappers.CriancaMapper;
-import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.repository.CriancaRepository;
 import br.com.insted.funcash.service.CriancaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
-@RequestMapping(path = "/api/v1/criancas")
+@RequestMapping(path = {"/api/v1/criancas"}, produces = {"application/json"})
 public class CriancaController {
+    private final CriancaService criancaService;
 
-    @Autowired
-    private CriancaService criancaService;
+    public CriancaController(CriancaService criancaService){
+        this.criancaService = criancaService;
+    }
     
     @Autowired
     private CriancaRepository criancaRepository;
 
-   @Autowired
-   private CriancaMapper criancaMapper;
-
+    @Operation(summary = "Cadastrar uma nova crianca")
     @ApiResponse(responseCode = "201")
-    @PostMapping
+    @PostMapping(consumes = {"application/json"})
     public ResponseEntity<CriancaResponseDTO> cadastrarCrianca(@RequestBody @Valid CriancaRequestDTO criancaRequestDTO) {
-        Crianca crianca = criancaMapper.criancaRequestparaCrianca(criancaRequestDTO);
-        CriancaResponseDTO criancaCadastrado = new CriancaResponseDTO(criancaRepository.save(crianca));
-        return ResponseEntity.status(HttpStatus.CREATED).body(criancaCadastrado);
+        return ResponseEntity.status(HttpStatus.CREATED).body(criancaService.cadastrar(criancaRequestDTO));
     }
 
     @Operation(summary ="Buscar uma criança pelo seu id")

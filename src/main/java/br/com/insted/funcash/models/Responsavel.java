@@ -1,8 +1,6 @@
 package br.com.insted.funcash.models;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,27 +35,30 @@ public class Responsavel {
     private String cpf;
 
     @Column(nullable = false)
-    private LocalDateTime dataDeNascimentoResponsavel;
+    private LocalDate dataDeNascimentoResponsavel;
 
     @Column(nullable = false)
-    private String genero;
-    
+    private Genero genero;
+   
     @Column(nullable = false)
-    @Lob
-    private byte[] foto;
-    
-    @Column(nullable = false)
-    private int senha;
+    private String senha;
     
 
-    public Responsavel(String nome, String email, String cpf, LocalDateTime dataDeNascimentoResponsavel, String genero, byte[] foto, int senha) {
+    public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,  String senha) throws Exception {
+        validarDataDeNascimento(dataDeNascimentoResponsavel);
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
         this.dataDeNascimentoResponsavel = dataDeNascimentoResponsavel;
         this.genero = genero;
-        this.foto = foto;
         this.senha = senha;
+    }
+
+
+    private void validarDataDeNascimento(LocalDate dataDeNascimentoResponsavel2) throws Exception{
+        if(dataDeNascimentoResponsavel2 == null){
+            throw new Exception("A data de nascimento não pode ser vazia");
+        }
     }
 
     

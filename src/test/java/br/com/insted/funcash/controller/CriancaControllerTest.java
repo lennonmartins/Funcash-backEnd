@@ -21,13 +21,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-
 import br.com.insted.funcash.builders.CriancaBuilder;
+import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.CriancaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
+import br.com.insted.funcash.models.Genero;
 import br.com.insted.funcash.repository.CriancaRepository;
 import br.com.insted.funcash.utils.JsonUtil;
 
@@ -51,16 +49,24 @@ public class CriancaControllerTest {
 
     @Test
 	public void deve_incluir_uma_crianca() throws Exception  {
-		Crianca crianca = new CriancaBuilder().construir();
-		String json = toJson(crianca);
+		int quantitadeEsperado = 1;
+		String nome = "Pluto";
+		String email = "pluto@gmail";
+		String senha = "1234";
+		double saldo = 100.00;
+		String apelido = "toinho";
+		String dataDeNascimentoemString = "2023-03-23";
+		Genero genero = Genero.MASCULINO;
+		CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTO(dataDeNascimentoemString, email,senha,saldo, nome, apelido, genero);
 
-		this.mockMvc
-				.perform(post("/api/v1/criancas").content(json).contentType(MediaType.APPLICATION_JSON_VALUE))
+		mockMvc.perform(post("/api/v1/criancas")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(JsonUtil.toJson(criancaRequestDTO)))
 				.andExpect(status().isCreated());
 
-		List<Crianca> criancaRetornados = criancaRepository.findByNomeContainingIgnoreCase(crianca.getNome());
-		Assertions.assertThat(criancaRetornados.size()).isEqualTo(1);
-		Assertions.assertThat(criancaRetornados.stream().map(Crianca::getNome).toList()).contains(crianca.getNome());
+		List<Crianca> criancaRetornados = criancaRepository.findByNomeContainingIgnoreCase(criancaRequestDTO.getNome());
+		Assertions.assertThat(criancaRetornados.size()).isEqualTo(quantitadeEsperado);
+		Assertions.assertThat(criancaRetornados.stream().map(Crianca::getNome).toList()).contains(criancaRequestDTO.getNome());
 
 	}
 
@@ -78,13 +84,7 @@ public class CriancaControllerTest {
 		CriancaResponseDTO criancaDTO = JsonUtil.mapFomJson(content, CriancaResponseDTO.class);
 
 		Assertions.assertThat(crianca.getId()).isEqualTo(criancaDTO.getId());
-	}
-
-    private String toJson(Crianca crianca) throws JsonProcessingException {
-		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String json = ow.writeValueAsString(crianca);
-		return json;
-	};
+	}	
 
     @Test
 	public void deve_remover_uma_crianca_pelo_id() throws Exception {
