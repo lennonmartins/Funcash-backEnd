@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +24,7 @@ public class Desejo {
     @Column(nullable = false, length = 200)
     private String nome;
 
-    @Column(length = 500)
+    @Column(length = 500, nullable = true)
     private String descricao;
 
     @Column(nullable = false)

@@ -36,8 +36,7 @@ public class CriancaController {
     @Operation(summary = "Cadastrar uma nova crianca")
     @ApiResponse(responseCode = "201")
     @PostMapping(consumes = {"application/json"})
-    public ResponseEntity<CriancaResponseDTO> cadastrarCrianca(@RequestBody @Valid CriancaRequestDTO 
-    criancaRequestDTO) {
+    public ResponseEntity<CriancaResponseDTO> cadastrarCrianca(@RequestBody @Valid CriancaRequestDTO criancaRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(criancaService.cadastrar(criancaRequestDTO));
     }
 
