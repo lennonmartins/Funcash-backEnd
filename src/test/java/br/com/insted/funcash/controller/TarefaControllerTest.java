@@ -45,7 +45,9 @@ public class TarefaControllerTest {
 		String json = toJson(tarefa);
 
 		this.mockMvc
-				.perform(post("/tarefa").content(json).contentType(MediaType.APPLICATION_JSON_VALUE))
+				.perform(post("/tarefa")
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isCreated());
 
 		List<Tarefa> tarefaRetornados = tarefaRepository.findByNomeContainingIgnoreCase(tarefa.getNome());

@@ -1,6 +1,8 @@
 package br.com.insted.funcash.models;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -21,17 +23,17 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Tarefa {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @Column(nullable = false)
-    private Time hora_limite;
+    private String horaLimite;
 
     @Column(nullable = false)
-    private Date data_limite;
+    private LocalDate dataLimite;
 
     @Column(nullable = false)
-    private Date data_de_criacao;
+    private LocalDateTime dataDeCriacao;
 
     @Column(nullable = false)
     private double valor;
@@ -39,11 +41,11 @@ public class Tarefa {
     @Column(nullable = false, length = 50)
     private String nome;
 
-    public Tarefa(Time hora_limte,Date data_limite, Date data_de_criacao, double valor, String nome) {
-        this.hora_limite = hora_limte;
-        this.data_limite = data_limite;
-        this.data_de_criacao = data_de_criacao;
+    public Tarefa(String horaLimite,LocalDate dataLimite, double valor, String nome) {
+        this.horaLimite = horaLimite;
+        this.dataLimite = dataLimite;
         this.valor = valor;
         this.nome = nome;
+        this.dataDeCriacao = LocalDateTime.now();
 }
 }

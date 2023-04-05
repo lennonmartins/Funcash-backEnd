@@ -12,9 +12,9 @@ public class TarefaMapperImpl implements TarefaMapper {
 @Override
     public TarefaResponseDTO tarefaParaTarefaResponseDTO(Tarefa tarefa){
         return new TarefaResponseDTO(
-            tarefa.getHora_limite(),
-            tarefa.getData_limite(),
-            tarefa.getData_de_criacao(),
+            tarefa.getHoraLimite(),
+            tarefa.getDataLimite(),
+            tarefa.getDataDeCriacao(),
             tarefa.getValor(),
             tarefa.getNome());
     }
@@ -22,9 +22,8 @@ public class TarefaMapperImpl implements TarefaMapper {
     @Override
     public Tarefa tarefaRequestparaTarefa(TarefaRequestDTO tarefaRequestDTO) {
         return Tarefa.builder()
-        .hora_limite(tarefaRequestDTO.getHora_limite())
-        .data_limite(tarefaRequestDTO.getData_limite())
-        .data_de_criacao(tarefaRequestDTO.getData_de_criacao())
+        .horaLimite(tarefaRequestDTO.getHoraLimite())
+        .dataLimite(tarefaRequestDTO.getDataLimite())
         .valor(tarefaRequestDTO.getValor())
         .nome(tarefaRequestDTO.getNome())
         .build();
