@@ -3,11 +3,14 @@ package br.com.insted.funcash.models;
 import java.sql.Time;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +41,10 @@ public class Tarefa {
 
     @Column(nullable = false, length = 50)
     private String nome;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="crianca_id")
+    private Crianca crianca;
 
     public Tarefa(Time hora_limte,Date data_limite, Date data_de_criacao, double valor, String nome) {
         this.hora_limite = hora_limte;
