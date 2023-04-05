@@ -1,5 +1,7 @@
 package br.com.insted.funcash.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,22 +22,26 @@ import br.com.insted.funcash.service.TarefaService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
-@RequestMapping(path = "/tarefa")
+@RequestMapping(path = "api/v1/tarefas")
 public class TarefaController {
+    private final TarefaService tarefaService;
+
+    public TarefaController(TarefaService tarefaService){
+        this.tarefaService = tarefaService;
+    }
+
     @Autowired
     private TarefaRepository tarefaRepository;
 
     @Autowired
     private TarefaMapper tarefaMapper;
 
-    @Autowired
-    private TarefaService tarefaService;
-
     @ApiResponse(responseCode = "201")
     @PostMapping
-    public ResponseEntity<TarefaResponseDTO> cadastrar(@RequestBody TarefaRequestDTO tarefaRequestDTO) {
+    public ResponseEntity<TarefaResponseDTO> cadastrar(@RequestBody @Valid TarefaRequestDTO tarefaRequestDTO) {
         Tarefa tarefa = tarefaMapper.tarefaRequestparaTarefa(tarefaRequestDTO);
-        TarefaResponseDTO tarefaCadastrado = new TarefaResponseDTO(tarefaRepository.save(tarefa));
+        tarefaRepository.save(tarefa);
+        TarefaResponseDTO tarefaCadastrado = new TarefaResponseDTO(tarefa);
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaCadastrado);
     }
 
@@ -43,4 +49,6 @@ public class TarefaController {
     public void remover(@PathVariable Long id) {
         tarefaRepository.deleteById(id);
     }
+
+    
 }

@@ -16,7 +16,7 @@ public class CriancaTest {
     @Test
     void deve_criar_uma_crianca_com_genero() throws Exception{
         Genero genero =  Genero.FEMININO;
-
+        
         Crianca crianca = new CriancaBuilder().comGenero(genero).construir();
 
         assertEquals(genero, crianca.getGenero());

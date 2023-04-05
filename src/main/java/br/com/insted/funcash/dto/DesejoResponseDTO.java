@@ -14,13 +14,5 @@ public class DesejoResponseDTO {
     private Long id;
     private String nome;
     private String descricao;
-    private int valor;
-
-    public DesejoResponseDTO(Desejo desejo){
-        this.id = desejo.getId();
-        this.nome = desejo.getNome();
-        this.descricao = desejo.getDescricao();
-        this.valor = desejo.getValor();
-    }
-
+    private double valor;
 }

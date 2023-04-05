@@ -4,13 +4,13 @@ import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.models.Genero;
 
 public class CriancaRequestDTOBuilder {
-    private String nome = "Flávio";
-    private String email = "flavio@gmail";
+    private String nome = "Pluto";
+    private String email = "pluto@gmail";
     private String senha = "1234";
     private double saldo = 100.00;
     private String apelido = "toinho";
     private String dataDeNascimentoemString = "2023-03-23";
-    private Genero genero = Genero.NAO_BINARIO;
+    private Genero genero = Genero.MASCULINO;
 
     public CriancaRequestDTOBuilder comData(String dataEmString) {
         this.dataDeNascimentoemString = dataEmString;

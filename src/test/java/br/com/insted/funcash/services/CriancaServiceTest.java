@@ -12,15 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import br.com.insted.funcash.builders.CriancaRequestDTOBuilder;
 import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.CriancaResponseDTO;
-import br.com.insted.funcash.repository.CriancaRepository;
 import br.com.insted.funcash.service.CriancaService;
 import br.com.insted.funcash.utils.DataConvert;
 
 @SpringBootTest
 public class CriancaServiceTest {
-
-    @Autowired 
-    private CriancaRepository criancaRepository;
 
     @Autowired
     private CriancaService criancaService;

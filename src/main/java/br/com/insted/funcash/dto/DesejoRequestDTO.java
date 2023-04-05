@@ -1,21 +1,20 @@
 package br.com.insted.funcash.dto;
 
-import br.com.insted.funcash.models.Desejo;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class DesejoRequestDTO {
     private String nome;
     private String descricao;
-    private int valor;
+    private double valor;
 
-    public DesejoRequestDTO(Desejo desejo){
-        this.nome = desejo.getNome();
-        this.descricao = desejo.getDescricao();
-        this.valor = desejo.getValor();
+    public DesejoRequestDTO(String nome, String descricao, double valor) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.valor = valor;
     }
 }

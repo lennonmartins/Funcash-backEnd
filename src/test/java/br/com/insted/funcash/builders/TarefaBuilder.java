@@ -1,7 +1,6 @@
 package br.com.insted.funcash.builders;
 
 import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -28,12 +27,6 @@ public class TarefaBuilder {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.parse(data_limite_em_string);
     }
-    
-    // private String obterHora(String horaLimiteEmString) throws ParseException{
-    //     SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
-    //     DateFormat horaformatada = DateFormat.getDateTimeInstance();
-    //     return horaformatada.format(formato.parse(horaLimiteEmString).getTime());
-    // }
 
     private Time obterHora(String horaLimiteEmString){
         return Time.valueOf(horaLimiteEmString);

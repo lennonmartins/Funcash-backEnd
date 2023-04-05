@@ -5,11 +5,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +44,10 @@ public class Tarefa {
     @Column(nullable = false, length = 50)
     private String nome;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="crianca_id")
+    private Crianca crianca;
+
     public Tarefa(String horaLimite,LocalDate dataLimite, double valor, String nome) {
         this.horaLimite = horaLimite;
         this.dataLimite = dataLimite;
@@ -48,4 +55,5 @@ public class Tarefa {
         this.nome = nome;
         this.dataDeCriacao = LocalDateTime.now();
 }
+
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import br.com.insted.funcash.dto.TarefaRequestDTO;
 import br.com.insted.funcash.dto.TarefaResponseDTO;
 import br.com.insted.funcash.models.Tarefa;
+import br.com.insted.funcash.utils.DataConvert;
 
 @Component
 public class TarefaMapperImpl implements TarefaMapper {
@@ -23,7 +24,7 @@ public class TarefaMapperImpl implements TarefaMapper {
     public Tarefa tarefaRequestparaTarefa(TarefaRequestDTO tarefaRequestDTO) {
         return Tarefa.builder()
         .horaLimite(tarefaRequestDTO.getHoraLimite())
-        .dataLimite(tarefaRequestDTO.getDataLimite())
+        .dataLimite(DataConvert.obterData(tarefaRequestDTO.getDataLimite()))
         .valor(tarefaRequestDTO.getValor())
         .nome(tarefaRequestDTO.getNome())
         .build();

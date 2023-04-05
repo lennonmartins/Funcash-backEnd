@@ -14,14 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TarefaRequestDTO {
     private String horaLimite;
-    private LocalDate dataLimite;
+    private String dataLimite;
     private double valor;
     private String nome;
-
-    public TarefaRequestDTO(Tarefa tarefa){
-        this.horaLimite = tarefa.getHoraLimite();
-        this.dataLimite = tarefa.getDataLimite();
-        this.valor = tarefa.getValor();
-        this.nome = tarefa.getNome();
-    }
 }
