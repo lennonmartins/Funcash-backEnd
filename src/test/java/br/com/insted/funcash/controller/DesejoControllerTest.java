@@ -27,7 +27,6 @@ import br.com.insted.funcash.dto.DesejoResponseDTO;
 import br.com.insted.funcash.models.Desejo;
 import br.com.insted.funcash.repository.DesejoRepository;
 import br.com.insted.funcash.utils.JsonUtil;
-import io.swagger.v3.core.util.Json;
 
 
 @SpringBootTest
@@ -86,7 +85,7 @@ public class DesejoControllerTest {
 		desejoRepository.save(desejo);
 		
 		MvcResult mvcResult = 
-		mockMvc.perform(get("/api/v1/desejo/" + desejo.getId()))
+		mockMvc.perform(get("/api/v1/desejos/" + desejo.getId()))
 		.andReturn();
 
 		int status = mvcResult.getResponse().getStatus();
