@@ -1,6 +1,7 @@
 package br.com.insted.funcash.models;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 
 import lombok.AllArgsConstructor;
@@ -49,6 +53,16 @@ public class Crianca {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Genero genero;
+
+    @OneToMany(mappedBy = "crianca")
+    private List<Tarefa> tarefas;
+
+    @OneToMany(mappedBy = "crianca")
+    private List<Desejo> desejos;
+
+    @ManyToOne
+    @JoinColumn(name = "responsavel_id")
+    private Responsavel responsavel;
 
     public Crianca(LocalDate _dataDeNascimento, @Email String _email, String _senha, double _saldo, String _nome,
             String _apelido, Genero _genero) throws Exception {

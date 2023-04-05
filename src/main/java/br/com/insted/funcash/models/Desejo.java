@@ -1,5 +1,6 @@
 package br.com.insted.funcash.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +33,9 @@ public class Desejo {
     @Column(nullable = false)
     private double valor;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "crianca_id")
+    private Crianca crianca;
 
     public Desejo(String _nome, String _descricao, double _valor) throws Exception {
         validaNome(_nome);

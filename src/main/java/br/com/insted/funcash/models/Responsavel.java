@@ -1,12 +1,14 @@
 package br.com.insted.funcash.models;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +31,7 @@ public class Responsavel {
 
     @Column(nullable = false)
     private String email;
-    
+
     @Column(nullable = false)
     private String cpf;
 
@@ -38,12 +40,15 @@ public class Responsavel {
 
     @Column(nullable = false)
     private Genero genero;
-   
+
     @Column(nullable = false)
     private String senha;
-    
 
-    public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,  String senha) throws Exception {
+    @OneToMany(mappedBy = "responsavel")
+    private List<Crianca> criancas;
+
+    public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,
+            String senha) throws Exception {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
@@ -52,7 +57,4 @@ public class Responsavel {
         this.senha = senha;
     }
 
-
-
-    
 }
