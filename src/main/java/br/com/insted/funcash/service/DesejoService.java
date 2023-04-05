@@ -3,8 +3,6 @@ package br.com.insted.funcash.service;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

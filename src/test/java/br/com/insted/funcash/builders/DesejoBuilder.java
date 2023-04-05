@@ -1,7 +1,5 @@
 package br.com.insted.funcash.builders;
 
-import java.text.ParseException;
-
 import br.com.insted.funcash.models.Desejo;
 
 public class DesejoBuilder {

@@ -7,14 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.insted.funcash.dto.DesejoRequestDTO;
 import br.com.insted.funcash.dto.DesejoResponseDTO;
-import br.com.insted.funcash.repository.DesejoRepository;
 import br.com.insted.funcash.service.DesejoService;
 
 @SpringBootTest
 public class DesejoServiceTest {
-
-    @Autowired
-    private DesejoRepository desejoRepository;
 
     @Autowired
     private DesejoService desejoService;
