@@ -20,7 +20,7 @@ public class DesejoMapperImpl implements DesejoMapper {
     }
 
     @Override
-    public Desejo desejoRequestDesejo(DesejoRequestDTO desejoRequestDTO){
+    public Desejo desejoRequestDTOParaDesejo(DesejoRequestDTO desejoRequestDTO){
         return Desejo.builder()
         .nome(desejoRequestDTO.getNome())
         .descricao(desejoRequestDTO.getDescricao())

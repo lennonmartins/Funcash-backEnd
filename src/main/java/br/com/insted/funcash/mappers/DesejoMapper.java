@@ -6,5 +6,5 @@ import br.com.insted.funcash.models.Desejo;
 
 public interface DesejoMapper {
     public DesejoResponseDTO desejoParaDesejoResponseDTO(Desejo desejo);
-    public Desejo desejoRequestDesejo(DesejoRequestDTO desejoRequestDTO);
+    public Desejo desejoRequestDTOParaDesejo(DesejoRequestDTO desejoRequestDTO);
 }
