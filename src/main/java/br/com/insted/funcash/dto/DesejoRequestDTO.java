@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class DesejoRequestDTO {
     private String nome;
     private String descricao;
-    private int valor;
+    private double valor;
 
      
     

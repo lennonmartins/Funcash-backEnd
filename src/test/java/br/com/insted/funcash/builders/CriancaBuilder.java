@@ -43,8 +43,6 @@ public class CriancaBuilder {
         return this;
     }
 
- 
-
     public CriancaBuilder comGenero(Genero genero) {
         this.genero = genero;
         return this;

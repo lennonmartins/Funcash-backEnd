@@ -22,10 +22,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import br.com.insted.funcash.builders.CriancaBuilder;
+import br.com.insted.funcash.builders.CriancaRequestDTOBuilder;
 import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.CriancaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
-import br.com.insted.funcash.models.Genero;
 import br.com.insted.funcash.repository.CriancaRepository;
 import br.com.insted.funcash.utils.JsonUtil;
 
@@ -44,20 +44,13 @@ public class CriancaControllerTest {
 	public void deleteDados() {
 		criancaRepository.deleteAll();
 
-	}
-
+	};
 
     @Test
 	public void deve_incluir_uma_crianca() throws Exception  {
 		int quantitadeEsperado = 1;
-		String nome = "Pluto";
-		String email = "pluto@gmail";
-		String senha = "1234";
-		double saldo = 100.00;
-		String apelido = "toinho";
-		String dataDeNascimentoemString = "2023-03-23";
-		Genero genero = Genero.MASCULINO;
-		CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTO(dataDeNascimentoemString, email,senha,saldo, nome, apelido, genero);
+		
+		CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().construir();
 
 		mockMvc.perform(post("/api/v1/criancas")
 				.contentType(MediaType.APPLICATION_JSON)

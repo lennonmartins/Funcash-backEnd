@@ -21,16 +21,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import br.com.insted.funcash.builders.DesejoBuilder;
 import br.com.insted.funcash.dto.DesejoRequestDTO;
 import br.com.insted.funcash.dto.DesejoResponseDTO;
 import br.com.insted.funcash.models.Desejo;
 import br.com.insted.funcash.repository.DesejoRepository;
 import br.com.insted.funcash.utils.JsonUtil;
-import ch.qos.logback.core.net.ObjectWriter;
+import io.swagger.v3.core.util.Json;
 
 
 @SpringBootTest
@@ -54,16 +51,13 @@ public class DesejoControllerTest {
 		int quantidadeEsperada = 1;
 		String nome = "Cuidar do cachorro";
 		String descricao = "trocar racao";
-		int valor = 30;
-		
+		double valor = 30;
 		DesejoRequestDTO desejoRequestDTO = new DesejoRequestDTO(nome, descricao, valor);
-		
 
-		mockMvc
-			.perform(post("/api/v1/desejos")
-			.contentType(MediaType.APPLICATION_JSON)
-			.content(JsonUtil.toJson(desejoRequestDTO)))
-			.andExpect(status().isCreated());
+		mockMvc.perform(post("/api/v1/desejos")
+		.contentType(MediaType.APPLICATION_JSON)
+		.content(JsonUtil.toJson(desejoRequestDTO)))
+		.andExpect(status().isCreated());
 
 		List<Desejo> desejoRetornados = desejoRepository.findByNomeContainingIgnoreCase(desejoRequestDTO.getNome());
 
@@ -73,19 +67,13 @@ public class DesejoControllerTest {
 		);
 	}
 
-	// private String toJson(Desejo desejo) throws JsonProcessingException {
-	// 	ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-	// 	String json = ow.writeValueAsString(desejo);
-	// 	return json;
-	// }
-
     @Test
 	public void deve_remover_um_desejo_pelo_id() throws Exception {
 		Desejo desejo = new DesejoBuilder().construir();
 		desejoRepository.saveAll(Arrays.asList(desejo));
 
 		this.mockMvc
-				.perform(delete("/api/v1/desejo/" + desejo.getId()))
+				.perform(delete("/api/v1/desejos/" + desejo.getId()))
 				.andExpect(status().isOk());
 
 		List<Desejo> desejoRetornados = desejoRepository.findByNomeContainingIgnoreCase(desejo.getNome());
@@ -97,7 +85,9 @@ public class DesejoControllerTest {
 		Desejo desejo = new DesejoBuilder().construir();
 		desejoRepository.save(desejo);
 		
-		MvcResult mvcResult = mockMvc.perform(get("/api/v1/desejo/" + desejo.getId())).andReturn();
+		MvcResult mvcResult = 
+		mockMvc.perform(get("/api/v1/desejo/" + desejo.getId()))
+		.andReturn();
 
 		int status = mvcResult.getResponse().getStatus();
 		assertEquals(HttpStatus.OK.value(), status);
@@ -107,4 +97,4 @@ public class DesejoControllerTest {
 
 		Assertions.assertThat(desejo.getId()).isEqualTo(desejoDTO.getId());
 	}
-}//
+}

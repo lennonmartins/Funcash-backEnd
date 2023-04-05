@@ -14,7 +14,7 @@ public class DesejoResponseDTO {
     private Long id;
     private String nome;
     private String descricao;
-    private int valor;
+    private double valor;
 
     public DesejoResponseDTO(Desejo desejo){
         this.id = id;
