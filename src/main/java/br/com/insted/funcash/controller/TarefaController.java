@@ -14,15 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.insted.funcash.dto.TarefaRequestDTO;
 import br.com.insted.funcash.dto.TarefaResponseDTO;
-import br.com.insted.funcash.mappers.TarefaMapper;
-import br.com.insted.funcash.mappers.TarefaMapperImpl;
-import br.com.insted.funcash.models.Tarefa;
 import br.com.insted.funcash.repository.TarefaRepository;
 import br.com.insted.funcash.service.TarefaService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
-@RequestMapping(path = "api/v1/tarefas")
+@RequestMapping(path = {"api/v1/tarefas"}, produces ={"application/json"})
 public class TarefaController {
     private final TarefaService tarefaService;
 
@@ -33,16 +31,11 @@ public class TarefaController {
     @Autowired
     private TarefaRepository tarefaRepository;
 
-    @Autowired
-    private TarefaMapper tarefaMapper;
-
+    @Operation(summary = "Cadastrar uma nova tarefa")
     @ApiResponse(responseCode = "201")
-    @PostMapping
-    public ResponseEntity<TarefaResponseDTO> cadastrar(@RequestBody @Valid TarefaRequestDTO tarefaRequestDTO) {
-        Tarefa tarefa = tarefaMapper.tarefaRequestparaTarefa(tarefaRequestDTO);
-        tarefaRepository.save(tarefa);
-        TarefaResponseDTO tarefaCadastrado = new TarefaResponseDTO(tarefa);
-        return ResponseEntity.status(HttpStatus.CREATED).body(tarefaCadastrado);
+    @PostMapping(consumes = {"application/json"})
+    public ResponseEntity<TarefaResponseDTO> cadastrarTarefa(@RequestBody @Valid TarefaRequestDTO tarefaRequestDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.cadastrar(tarefaRequestDTO));
     }
 
     @DeleteMapping(path = "/{id}")

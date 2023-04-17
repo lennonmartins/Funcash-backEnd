@@ -1,16 +1,15 @@
 package br.com.insted.funcash.builders;
 
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import br.com.insted.funcash.models.Tarefa;
 
 public class TarefaBuilder {
-    private String horaLimiteEmString = "19:30:00";
+    private LocalTime horaLimite = LocalTime.of(19, 30, 0);
     private LocalDate dataLimite =  LocalDate.of(2023, 04, 05);
+    private LocalDateTime horaLimiteCompleta = LocalDateTime.of(dataLimite, horaLimite);
     private double moeda = 30;
     private String nome = "Tirar lixo";
 
@@ -20,20 +19,21 @@ public class TarefaBuilder {
     }
 
     public Tarefa construir(){
-        return new Tarefa(horaLimiteEmString,dataLimite,moeda,nome);
-    }
-
-    private Date obterData(String data_limite_em_string) throws ParseException {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        return formato.parse(data_limite_em_string);
-    }
-
-    private Time obterHora(String horaLimiteEmString){
-        return Time.valueOf(horaLimiteEmString);
+        return new Tarefa(horaLimiteCompleta,dataLimite,moeda,nome);
     }
 
     public TarefaBuilder comNome(String nome) {
         this.nome = nome;
+        return this;
+    }
+
+    public TarefaBuilder comDataLimite(LocalDate dataLimite) {
+        this.dataLimite = dataLimite;
+        return this;
+    }
+
+    public TarefaBuilder comHoraLimite(LocalDate dataLimite, LocalTime horaLimite) {
+        this.horaLimiteCompleta = LocalDateTime.of(dataLimite, horaLimite);
         return this;
     }
 }

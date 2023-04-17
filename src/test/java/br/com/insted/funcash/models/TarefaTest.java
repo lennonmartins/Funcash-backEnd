@@ -1,13 +1,12 @@
 package br.com.insted.funcash.models;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.isNotNull;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.core.api.ObjectAssert;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -33,6 +32,28 @@ public class TarefaTest {
 
         assertEquals(horaEsperada, tarefa.getDataDeCriacao());
     }
+
+    @Test
+    void deve_criar_uma_tarefa_com_data_limite(){
+        LocalDate dataLimiteEsperada = LocalDate.of(2023, 4,17);
+
+        Tarefa tarefa = new TarefaBuilder().comDataLimite(dataLimiteEsperada).construir();
+
+        assertEquals(dataLimiteEsperada, tarefa.getDataLimite());
+    }
+
+    @Test
+    void deve_cadastar_uma_tarefa_com_data_e_hora_limte(){
+        LocalDate dataLimiteEsperada = LocalDate.of(2023, 4, 17);
+        LocalTime horaLimiteEsperada = LocalTime.of(19, 30, 0);
+        LocalDateTime horDateTimeCompleta = LocalDateTime.of(dataLimiteEsperada,horaLimiteEsperada);
+
+        Tarefa tarefa = new TarefaBuilder().comHoraLimite(dataLimiteEsperada,horaLimiteEsperada).construir();
+
+        assertEquals(horDateTimeCompleta, tarefa.getHoraLimite());
+    }
+
+    
 
     
 

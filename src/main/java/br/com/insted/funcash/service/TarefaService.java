@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.insted.funcash.dto.TarefaRequestDTO;
 import br.com.insted.funcash.dto.TarefaResponseDTO;
 import br.com.insted.funcash.mappers.TarefaMapper;
 import br.com.insted.funcash.models.Tarefa;
@@ -29,6 +30,12 @@ public class TarefaService {
             throw new NoSuchElementException();
         }
         return tarefaOptional.get();
+    }
+
+    public TarefaResponseDTO cadastrar(TarefaRequestDTO  tarefaRequestDTO) {
+        Tarefa tarefa = tarefaMapper.tarefaRequestparaTarefa(tarefaRequestDTO);
+        tarefaRepository.save(tarefa);
+        return tarefaMapper.tarefaParaTarefaResponseDTO(tarefa);   
     }
 
     

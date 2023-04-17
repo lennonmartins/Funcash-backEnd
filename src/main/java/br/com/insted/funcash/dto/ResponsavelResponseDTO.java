@@ -3,7 +3,6 @@ package br.com.insted.funcash.dto;
 import java.time.LocalDate;
 
 import br.com.insted.funcash.models.Genero;
-import br.com.insted.funcash.models.Responsavel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

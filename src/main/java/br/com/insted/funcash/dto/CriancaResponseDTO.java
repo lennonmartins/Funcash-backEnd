@@ -2,7 +2,6 @@ package br.com.insted.funcash.dto;
 
 import java.time.LocalDate;
 
-import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Genero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

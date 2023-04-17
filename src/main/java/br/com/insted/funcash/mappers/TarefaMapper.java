@@ -5,6 +5,7 @@ import br.com.insted.funcash.dto.TarefaResponseDTO;
 import br.com.insted.funcash.models.Tarefa;
 
 public interface TarefaMapper {
+
     public TarefaResponseDTO tarefaParaTarefaResponseDTO(Tarefa tarefa);
     public Tarefa tarefaRequestparaTarefa(TarefaRequestDTO tarefaRequestDTO);
 }

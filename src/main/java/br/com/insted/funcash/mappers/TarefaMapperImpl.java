@@ -9,24 +9,22 @@ import br.com.insted.funcash.utils.DataConvert;
 
 @Component
 public class TarefaMapperImpl implements TarefaMapper {
-    
-@Override
-    public TarefaResponseDTO tarefaParaTarefaResponseDTO(Tarefa tarefa){
-        return new TarefaResponseDTO(
-            tarefa.getHoraLimite(),
-            tarefa.getDataLimite(),
-            tarefa.getDataDeCriacao(),
-            tarefa.getValor(),
-            tarefa.getNome());
+
+    @Override
+    public TarefaResponseDTO tarefaParaTarefaResponseDTO(Tarefa tarefa) {
+        return new TarefaResponseDTO(tarefa.getId(),
+                tarefa.getHoraLimite(),
+                tarefa.getDataLimite(),
+                tarefa.getDataDeCriacao(),
+                tarefa.getValor(),
+                tarefa.getNome());
     }
 
     @Override
     public Tarefa tarefaRequestparaTarefa(TarefaRequestDTO tarefaRequestDTO) {
-        return Tarefa.builder()
-        .horaLimite(tarefaRequestDTO.getHoraLimite())
-        .dataLimite(DataConvert.obterData(tarefaRequestDTO.getDataLimite()))
-        .valor(tarefaRequestDTO.getValor())
-        .nome(tarefaRequestDTO.getNome())
-        .build();
+        return new Tarefa(DataConvert.obterHoraLimiteCompleta(tarefaRequestDTO.getDataLimite(), tarefaRequestDTO.getHoraLimite()),
+        DataConvert.obterData(tarefaRequestDTO.getDataLimite()),tarefaRequestDTO.getValor(),
+        tarefaRequestDTO.getNome()
+        );
     }
 }

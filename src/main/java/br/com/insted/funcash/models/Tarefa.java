@@ -1,9 +1,7 @@
 package br.com.insted.funcash.models;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,14 +20,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Builder
 public class Tarefa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @Column(nullable = false)
-    private String horaLimite;
+    private LocalDateTime horaLimite;
 
     @Column(nullable = false)
     private LocalDate dataLimite;
@@ -48,7 +44,7 @@ public class Tarefa {
     @JoinColumn(name="crianca_id")
     private Crianca crianca;
 
-    public Tarefa(String horaLimite,LocalDate dataLimite, double valor, String nome) {
+    public Tarefa(LocalDateTime horaLimite,LocalDate dataLimite, double valor, String nome) {
         this.horaLimite = horaLimite;
         this.dataLimite = dataLimite;
         this.valor = valor;
