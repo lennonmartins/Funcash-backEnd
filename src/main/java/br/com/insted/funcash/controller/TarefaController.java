@@ -42,6 +42,4 @@ public class TarefaController {
     public void remover(@PathVariable Long id) {
         tarefaRepository.deleteById(id);
     }
-
-    
 }
