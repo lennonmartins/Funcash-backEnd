@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.insted.funcash.dto.TarefaRequestDTO;
 import br.com.insted.funcash.dto.TarefaResponseDTO;
 import br.com.insted.funcash.mappers.TarefaMapper;
-import br.com.insted.funcash.mappers.TarefaMapperImpl;
 import br.com.insted.funcash.models.Tarefa;
 import br.com.insted.funcash.repository.TarefaRepository;
 import br.com.insted.funcash.service.TarefaService;
@@ -43,4 +42,8 @@ public class TarefaController {
     public void remover(@PathVariable Long id) {
         tarefaRepository.deleteById(id);
     }
+
+    
+
+
 }

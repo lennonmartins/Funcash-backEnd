@@ -22,12 +22,12 @@ public class ResponsavelResponseDTO {
     private String senha;
 
     public ResponsavelResponseDTO(Responsavel responsavel){
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.cpf = cpf;
-        this.dataDeNascimentoResponsavel = dataDeNascimentoResponsavel;
-        this.genero = genero;
-        this.senha = senha;
+        this.id = responsavel.getId();
+        this.nome = responsavel.getNome();
+        this.email = responsavel.getEmail();
+        this.cpf = responsavel.getCpf();
+        this.dataDeNascimentoResponsavel = responsavel.getDataDeNascimentoResponsavel();
+        this.genero = responsavel.getGenero();
+        this.senha = responsavel.getSenha();
     }
 }

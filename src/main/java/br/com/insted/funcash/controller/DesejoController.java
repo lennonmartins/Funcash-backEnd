@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.insted.funcash.dto.DesejoRequestDTO;
 import br.com.insted.funcash.dto.DesejoResponseDTO;
-import br.com.insted.funcash.mappers.DesejoMapper;
 import br.com.insted.funcash.repository.DesejoRepository;
 import br.com.insted.funcash.service.DesejoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,9 +32,6 @@ public class DesejoController {
 
     @Autowired
     private DesejoRepository desejoRepository;
-
-    @Autowired
-    private DesejoMapper desejoMapper;
 
     @ApiResponse(responseCode = "201")
     @PostMapping(consumes = { "application/json" })

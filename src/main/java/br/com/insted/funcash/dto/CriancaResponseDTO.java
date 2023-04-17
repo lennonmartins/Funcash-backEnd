@@ -32,14 +32,14 @@ public class CriancaResponseDTO {
     private Genero genero;
 
     public CriancaResponseDTO(Crianca crianca) {
-        this.id = id;
-        this.dataDeNascimento = dataDeNascimento;
-        this.email = email;
-        this.senha = senha;
-        this.saldo = saldo;
-        this.nome = nome;
-        this.apelido = apelido;
-        this.genero = genero;
+        this.id = crianca.getId();
+        this.dataDeNascimento = crianca.getDataDeNascimento();
+        this.email = crianca.getEmail();
+        this.senha = crianca.getSenha();
+        this.saldo = crianca.getSaldo();
+        this.nome = crianca.getNome();
+        this.apelido = crianca.getApelido();
+        this.genero = crianca.getGenero();
     }
 
 
