@@ -2,6 +2,7 @@ package br.com.insted.funcash.controller;
 
 import java.util.Collection;
 
+import javax.persistence.Id;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,12 @@ public class TarefaController {
     @GetMapping
     public ResponseEntity<Collection<TarefaResponseDTO>> buscartodos(){
         return ResponseEntity.ok(tarefaService.buscarTodas());
+    }
+
+    @Operation(summary = "Buscar um tarefa pelo seu id")
+    @ApiResponse(responseCode = "200")
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<TarefaResponseDTO> buscarPorId(@PathVariable Long id){
+        return ResponseEntity.ok(tarefaService.buscarPorId(id));
     }
 }

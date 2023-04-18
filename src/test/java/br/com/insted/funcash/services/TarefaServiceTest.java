@@ -49,12 +49,22 @@ public class TarefaServiceTest {
         String dataLimiteEmString = "2023-04-17";
         LocalDate dataLimiteEsperada = LocalDate.of(2023, 04, 17);
         LocalDateTime horaLimteCompletaEsperada = LocalDateTime.of(dataLimiteEsperada, horalimiteEsperada);
-
         TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder().comDataLimite(dataLimiteEmString).comHoraLimite(horaLimiteEmString).construir();
 
         TarefaResponseDTO tarefaResponseDTO = tarefaService.cadastrar(tarefaRequestDTO);
 
         assertThat(horaLimteCompletaEsperada).isEqualTo(tarefaResponseDTO.getHoraLimite());
+    }
+
+    @Test
+    void deve_buscar_uma_tarefa_pelo_id(){
+        long idEsperado = 1L;
+        TarefaRequestDTO tarefaRequestDTO1 = new TarefaRequestDTOBuilder().construir();
+
+        TarefaResponseDTO tarefaResponseDTO = tarefaService.cadastrar(tarefaRequestDTO1);
+
+        assertThat(idEsperado).isEqualTo(tarefaResponseDTO.getId());
+
     }
 
 }

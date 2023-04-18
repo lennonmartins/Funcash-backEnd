@@ -77,5 +77,14 @@ public class TarefaControllerTest {
 		}
 	}
 
+	@Test
+	void deve_retornar_uma_tarefa_pelo_id() throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception{
+		Tarefa tarefa = new TarefaBuilder().construir();
+		tarefaRepository.save(tarefa);
 
+		TarefaResponseDTO tarefaResponseDTO = JsonUtil.mapFromJsonModuleJavaTime((this.mockMvc.perform(get("/api/v1/tarefas/" + tarefa.getId())).andReturn()).getResponse().
+		getContentAsString(), TarefaResponseDTO.class);
+
+		assertThat(tarefaResponseDTO.getId()).isEqualTo(tarefa.getId());
+	}
 }
