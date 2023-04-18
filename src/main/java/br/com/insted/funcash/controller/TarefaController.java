@@ -1,11 +1,14 @@
 package br.com.insted.funcash.controller;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,5 +46,10 @@ public class TarefaController {
         tarefaRepository.deleteById(id);
     }
 
-    
+    @Operation(summary ="Buscar uma lista das tarefas")
+    @ApiResponse(responseCode = "200", description = "Lista de tarefas cadastradas")
+    @GetMapping
+    public ResponseEntity<Collection<TarefaResponseDTO>> buscartodos(){
+        return ResponseEntity.ok(tarefaService.buscarTodas());
+    }
 }

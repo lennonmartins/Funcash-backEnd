@@ -74,7 +74,7 @@ public class CriancaControllerTest {
 		assertEquals(HttpStatus.OK.value(), status);
 
 		String content = mvcResult.getResponse().getContentAsString();
-		CriancaResponseDTO criancaDTO = JsonUtil.mapFromJson(content, CriancaResponseDTO.class);
+		CriancaResponseDTO criancaDTO = JsonUtil.mapFromJsonModuleJavaTime(content, CriancaResponseDTO.class);
 
 		Assertions.assertThat(crianca.getId()).isEqualTo(criancaDTO.getId());
 	}	

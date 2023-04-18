@@ -80,7 +80,7 @@ public class ResponsavelControllerTest {
         assertEquals(HttpStatus.OK.value(), status);
 
         String content = mvcResult.getResponse().getContentAsString();
-        ResponsavelResponseDTO responsavelDTO = JsonUtil.mapFromJson(content, ResponsavelResponseDTO.class);
+        ResponsavelResponseDTO responsavelDTO = JsonUtil.mapFromJsonModuleJavaTime(content, ResponsavelResponseDTO.class);
 
         Assertions.assertThat(responsavel.getId()).isEqualTo(responsavelDTO.getId());
     }

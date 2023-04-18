@@ -1,5 +1,6 @@
 package br.com.insted.funcash.service;
 
+import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -38,6 +39,7 @@ public class TarefaService {
         return tarefaMapper.tarefaParaTarefaResponseDTO(tarefa);   
     }
 
-    
-    
+    public Collection<TarefaResponseDTO> buscarTodas() {        
+        return tarefaMapper.tarefasParaTarefasResponsesDtos((Collection<Tarefa>) tarefaRepository.findAll());
+    }    
 }

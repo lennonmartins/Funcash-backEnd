@@ -14,10 +14,9 @@ public class JsonUtil {
     return mapper.writeValueAsBytes(object);
     }
 
-    public static <T> T mapFromJson(String json, Class<T> clazz) throws JsonMappingException, JsonProcessingException {
+    public static <T> T mapFromJsonModuleJavaTime(String json, Class<T> clazz) throws JsonMappingException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.readValue(json, clazz);
     } 
-
 }

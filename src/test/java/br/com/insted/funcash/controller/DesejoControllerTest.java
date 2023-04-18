@@ -92,7 +92,7 @@ public class DesejoControllerTest {
 		assertEquals(HttpStatus.OK.value(), status);
 
 		String content = mvcResult.getResponse().getContentAsString();
-		DesejoResponseDTO desejoDTO = JsonUtil.mapFromJson(content, DesejoResponseDTO.class);
+		DesejoResponseDTO desejoDTO = JsonUtil.mapFromJsonModuleJavaTime(content, DesejoResponseDTO.class);
 
 		Assertions.assertThat(desejo.getId()).isEqualTo(desejoDTO.getId());
 	}
