@@ -18,12 +18,14 @@ public class ResponsavelBuilder {
    
     private String senha = "1234567";
 
+    private byte[] foto;
+
     public ResponsavelBuilder(){
 
     }
 
     public Responsavel construir()throws Exception{
-        return new Responsavel(nome , email, cpf, dataDeNascimentoResponsavel, genero,senha);
+        return new Responsavel(nome , email, cpf, dataDeNascimentoResponsavel, genero,senha,foto);
     }
 
     public ResponsavelBuilder comNome(String nome){

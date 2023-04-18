@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
@@ -44,18 +45,23 @@ public class Responsavel {
 
     @Column(nullable = false)
     private String senha;
+    
+    
+    @Lob
+    private byte[] foto;
 
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.REMOVE)
     private List<Crianca> criancas;
 
     public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,
-            String senha) throws Exception {
+            String senha,byte[] foto ) throws Exception {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
         this.dataDeNascimentoResponsavel = dataDeNascimentoResponsavel;
         this.genero = genero;
         this.senha = senha;
+        this.foto = foto;
     }
 
 }
