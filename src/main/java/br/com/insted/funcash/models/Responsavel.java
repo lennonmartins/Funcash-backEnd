@@ -3,6 +3,7 @@ package br.com.insted.funcash.models;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class Responsavel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -44,7 +45,7 @@ public class Responsavel {
     @Column(nullable = false)
     private String senha;
 
-    @OneToMany(mappedBy = "responsavel")
+    @OneToMany(mappedBy = "responsavel", cascade = CascadeType.REMOVE)
     private List<Crianca> criancas;
 
     public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,
