@@ -3,6 +3,7 @@ package br.com.insted.funcash.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.UnsupportedEncodingException;
@@ -62,11 +63,14 @@ public class TarefaControllerTest {
 	}
 
 	@Test
-	void deve_retornar_uma_lista_de_tarefas() throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception{
+	void deve_retornar_uma_lista_de_tarefas()
+			throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception {
 		cadastrardezTarefas();
 		int quantidadeEsperada = 10;
 
-		TarefaResponseDTO[] tarefasRetornadas = JsonUtil.mapFromJsonModuleJavaTime(this.mockMvc.perform(get("/api/v1/tarefas")).andReturn().getResponse().getContentAsString(), TarefaResponseDTO[].class);
+		TarefaResponseDTO[] tarefasRetornadas = JsonUtil.mapFromJsonModuleJavaTime(
+				this.mockMvc.perform(get("/api/v1/tarefas")).andReturn().getResponse().getContentAsString(),
+				TarefaResponseDTO[].class);
 
 		assertThat(tarefasRetornadas).hasSize(quantidadeEsperada);
 	}
@@ -78,13 +82,33 @@ public class TarefaControllerTest {
 	}
 
 	@Test
-	void deve_retornar_uma_tarefa_pelo_id() throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception{
+	void deve_retornar_uma_tarefa_pelo_id()
+			throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception {
 		Tarefa tarefa = new TarefaBuilder().construir();
 		tarefaRepository.save(tarefa);
 
-		TarefaResponseDTO tarefaResponseDTO = JsonUtil.mapFromJsonModuleJavaTime((this.mockMvc.perform(get("/api/v1/tarefas/" + tarefa.getId())).andReturn()).getResponse().
-		getContentAsString(), TarefaResponseDTO.class);
+		TarefaResponseDTO tarefaResponseDTO = JsonUtil
+				.mapFromJsonModuleJavaTime((this.mockMvc.perform(get("/api/v1/tarefas/" + tarefa.getId())).andReturn())
+						.getResponse().getContentAsString(), TarefaResponseDTO.class);
 
 		assertThat(tarefaResponseDTO.getId()).isEqualTo(tarefa.getId());
+	}
+
+	@Test
+	void deve_retornar_uma_tarefa_atualizada() throws JsonProcessingException, Exception {
+		Tarefa tarefa = new TarefaBuilder().construir();
+		tarefaRepository.save(tarefa);
+		String nomeEsperado = "Limpar caixa do gato";
+		TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder().comNome(nomeEsperado).construir();
+
+		this.mockMvc
+				.perform(put("/api/v1/tarefas/" + tarefa.getId())
+						.content(JsonUtil.toJson(tarefaRequestDTO))
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+
+		
+		Iterable<Tarefa> tarefasEncontradas =  tarefaRepository.findAll();
+		assertThat(tarefasEncontradas).extracting(Tarefa::getNome).containsOnly(nomeEsperado);
 	}
 }

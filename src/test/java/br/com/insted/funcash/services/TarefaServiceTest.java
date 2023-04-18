@@ -59,12 +59,24 @@ public class TarefaServiceTest {
     @Test
     void deve_buscar_uma_tarefa_pelo_id(){
         long idEsperado = 1L;
-        TarefaRequestDTO tarefaRequestDTO1 = new TarefaRequestDTOBuilder().construir();
+        TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder().construir();
 
-        TarefaResponseDTO tarefaResponseDTO = tarefaService.cadastrar(tarefaRequestDTO1);
+        TarefaResponseDTO tarefaResponseDTO = tarefaService.cadastrar(tarefaRequestDTO);
 
         assertThat(idEsperado).isEqualTo(tarefaResponseDTO.getId());
+    }
 
+    @Test
+    void deve_atualizar_uma_tarefa(){
+        long idEsperado = 1L;
+        String nomeTarefaEsperada = "lavar louça";
+        TarefaRequestDTO tarefaRequestDto = new TarefaRequestDTOBuilder().construir();
+        TarefaResponseDTO tarefaResponseDTO = tarefaService.cadastrar(tarefaRequestDto);
+        tarefaRequestDto.setNome(nomeTarefaEsperada);
+
+        tarefaResponseDTO = tarefaService.alterar(tarefaRequestDto,idEsperado);
+
+        assertThat(nomeTarefaEsperada).isEqualTo(tarefaResponseDTO.getNome());
     }
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,5 +60,12 @@ public class TarefaController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<TarefaResponseDTO> buscarPorId(@PathVariable Long id){
         return ResponseEntity.ok(tarefaService.buscarPorId(id));
+    }
+
+    @Operation(summary = "Atualizar uma tarefa")
+    @ApiResponse(responseCode = "200")
+    @PutMapping(path="/{id}", consumes = {"application/json"})
+    public ResponseEntity<TarefaResponseDTO> alteraTarefa(@RequestBody @Valid TarefaRequestDTO tarefaRequestDTO, @PathVariable Long id){
+        return ResponseEntity.ok(tarefaService.alterar(tarefaRequestDTO, id));
     }
 }

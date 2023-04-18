@@ -22,4 +22,9 @@ public class TarefaRequestDTOBuilder {
         return this;
     }
 
+    public TarefaRequestDTOBuilder comNome(String nome) {
+        this.nome = nome;
+        return this;
+    }
+
 }

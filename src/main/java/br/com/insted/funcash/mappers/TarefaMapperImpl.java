@@ -25,8 +25,11 @@ public class TarefaMapperImpl implements TarefaMapper {
 
     @Override
     public Tarefa tarefaRequestparaTarefa(TarefaRequestDTO tarefaRequestDTO) {
-        return new Tarefa(DataConvert.obterHoraLimiteCompleta(tarefaRequestDTO.getDataLimite(), tarefaRequestDTO.getHoraLimite()),
-        DataConvert.obterData(tarefaRequestDTO.getDataLimite()),tarefaRequestDTO.getValor(),
+        return new Tarefa(
+        DataConvert.obterHoraLimiteCompleta(tarefaRequestDTO.getDataLimite(), 
+        tarefaRequestDTO.getHoraLimite()),
+        DataConvert.obterData(tarefaRequestDTO.getDataLimite()),
+        tarefaRequestDTO.getValor(),
         tarefaRequestDTO.getNome()
         );
     }

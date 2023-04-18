@@ -12,6 +12,7 @@ import br.com.insted.funcash.dto.TarefaResponseDTO;
 import br.com.insted.funcash.mappers.TarefaMapper;
 import br.com.insted.funcash.models.Tarefa;
 import br.com.insted.funcash.repository.TarefaRepository;
+import br.com.insted.funcash.utils.DataConvert;
 
 @Service
 public class TarefaService {
@@ -41,5 +42,18 @@ public class TarefaService {
 
     public Collection<TarefaResponseDTO> buscarTodas() {        
         return tarefaMapper.tarefasParaTarefasResponsesDtos((Collection<Tarefa>) tarefaRepository.findAll());
+    }
+
+    public TarefaResponseDTO alterar(TarefaRequestDTO tarefaRequestDto, long id) {
+        Tarefa tarefaParaAlterar = buscarTarefaPeloId(id);
+        tarefaParaAlterar.setDataLimite(DataConvert.obterData(tarefaRequestDto.getDataLimite()));
+        tarefaParaAlterar.setHoraLimite(DataConvert.obterHoraLimiteCompleta(tarefaRequestDto.getDataLimite(), tarefaRequestDto.getHoraLimite()));
+        tarefaParaAlterar.setNome(tarefaRequestDto.getNome());
+        tarefaParaAlterar.setValor(tarefaRequestDto.getValor());
+
+        tarefaRepository.save(tarefaParaAlterar);
+
+        return tarefaMapper.tarefaParaTarefaResponseDTO(tarefaParaAlterar);
+       
     }    
 }
