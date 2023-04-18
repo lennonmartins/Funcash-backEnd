@@ -3,6 +3,7 @@ package br.com.insted.funcash.dto;
 import java.time.LocalDate;
 
 import br.com.insted.funcash.models.Genero;
+import br.com.insted.funcash.models.Responsavel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +21,13 @@ public class ResponsavelResponseDTO {
     private Genero genero;
     private String senha;
 
+    public ResponsavelResponseDTO(Responsavel responsavel){
+        this.id = responsavel.getId();
+        this.nome = responsavel.getNome();
+        this.email = responsavel.getEmail();
+        this.cpf = responsavel.getCpf();
+        this.dataDeNascimentoResponsavel = responsavel.getDataDeNascimentoResponsavel();
+        this.genero = responsavel.getGenero();
+        this.senha = responsavel.getSenha();
+    }
 }

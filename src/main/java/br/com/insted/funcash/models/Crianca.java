@@ -3,6 +3,7 @@ package br.com.insted.funcash.models;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -54,10 +55,10 @@ public class Crianca {
     @Column(nullable = false, length = 20)
     private Genero genero;
 
-    @OneToMany(mappedBy = "crianca")
+    @OneToMany(mappedBy = "crianca", cascade = CascadeType.REMOVE)
     private List<Tarefa> tarefas;
 
-    @OneToMany(mappedBy = "crianca")
+    @OneToMany(mappedBy = "crianca", cascade = CascadeType.REMOVE)
     private List<Desejo> desejos;
 
     @ManyToOne

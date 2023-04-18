@@ -40,7 +40,7 @@ public class Tarefa {
     @Column(nullable = false, length = 50)
     private String nome;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name="crianca_id")
     private Crianca crianca;
 
