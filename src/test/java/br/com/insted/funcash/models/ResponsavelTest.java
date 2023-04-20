@@ -1,33 +1,48 @@
 package br.com.insted.funcash.models;
 
-import java.time.LocalDate;
+import org.junit.jupiter.api.BeforeEach;
 
+import br.com.insted.funcash.builders.ResponsavelBuilder;
 import br.com.insted.funcash.utils.ArquivoUtils;
-
-@SpringBootTest
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.time.LocalDate;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import java.io.IOException;
+import java.util.Arrays;
 public class ResponsavelTest {
     private byte[] icone;
 
     @BeforeEach
     public void carregarIcone() throws IOException {
-        this.icone = ArquivoUtils.abrirArquivo("src\\test\\java\\br\\com\\insted\\funcash\\icons\\Responsavel_Foto.svg");
+        this.icone = ArquivoUtils
+                .abrirArquivo("src\\test\\java\\br\\com\\insted\\funcash\\icons\\Responsavel_Foto.svg");
+
     }
 
-    @Test 
-    public void deve_criar_um_tipo() throws FileNotFoundException, IOException {
-        // Arrange
-        String nome = "Water";
-        String email = "#4592c4";
-        String cpf = "";
-        LocalDate data
+    @Test
+    public void deve_criar_um_responsavel() throws FileNotFoundException, IOException, Exception {
+        //Arrange
+        String nome = "isso ";
+        String email = "isso@gmail.com";
+        String cpf = "0098980";
+        LocalDate dataDeNascimentoResponsavel = LocalDate.of(2023, 4, 10);
+        Genero genero = Genero.MASCULINO;
+        String senha = "123";
         byte[] foto = this.icone;
 
-        // Action
-        Tipo tipo = new TipoBuilder().construir();
+        //Action
+        Responsavel responsavel = new ResponsavelBuilder().construir();
 
-        // Assert
-        Assertions.assertEquals(nome, tipo.getNome());
-        Assertions.assertEquals(cor, tipo.getCor());
-        Assertions.assertEquals(Arrays.toString(simbolo), Arrays.toString(tipo.getSimbolo()));
+        //Assert
+        Assertions.assertEquals(nome, responsavel.getNome());
+        Assertions.assertEquals(email, responsavel.getEmail());
+        Assertions.assertEquals(cpf, responsavel.getCpf());
+        Assertions.assertEquals(dataDeNascimentoResponsavel, responsavel.getDataDeNascimentoResponsavel());
+        Assertions.assertEquals(genero, responsavel.getGenero());
+        Assertions.assertEquals(senha, responsavel.getSenha());
+        Assertions.assertEquals(Arrays.toString(foto), Arrays.toString(responsavel.getFoto()));
     }
+
 }
