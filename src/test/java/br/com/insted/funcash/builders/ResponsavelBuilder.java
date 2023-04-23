@@ -21,7 +21,7 @@ public class ResponsavelBuilder {
 
     private byte[] foto;
 
-    public ResponsavelBuilder() throws IOException {
+    public ResponsavelBuilder()throws IOException {
         this.foto = ArquivoUtils.abrirArquivo("src\\test\\java\\br\\com\\insted\\funcash\\icons\\Responsavel_Foto.svg");
     }
 

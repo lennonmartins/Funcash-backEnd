@@ -24,7 +24,7 @@ public class ResponsavelTest {
     @Test
     public void deve_criar_um_responsavel() throws FileNotFoundException, IOException, Exception {
         //Arrange
-        String nome = "isso ";
+        String nome = "charmayanne ";
         String email = "isso@gmail.com";
         String cpf = "0098980";
         LocalDate dataDeNascimentoResponsavel = LocalDate.of(2023, 4, 10);
