@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +21,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import br.com.insted.funcash.builders.DesejoBuilder;
 import br.com.insted.funcash.dto.DesejoRequestDTO;
@@ -95,5 +99,22 @@ public class DesejoControllerTest {
 		DesejoResponseDTO desejoDTO = JsonUtil.mapFromJsonModuleJavaTime(content, DesejoResponseDTO.class);
 
 		Assertions.assertThat(desejo.getId()).isEqualTo(desejoDTO.getId());
+	}
+
+	@Test
+	void deve_retornar_uma_lista_de_todos_os_desejos() throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception{
+		cadastrarDezDesejos();
+		int quantidadeEsperada = 10;
+
+		DesejoResponseDTO[] desejoResponseDTOs = JsonUtil.mapFromJsonModuleJavaTime(
+			this.mockMvc.perform(get("/api/v1/desejos")).andReturn().getResponse().getContentAsString(),DesejoResponseDTO[].class );
+
+		Assertions.assertThat(desejoResponseDTOs).hasSize(quantidadeEsperada);
+	}
+
+	private void cadastrarDezDesejos() throws Exception{
+		for (int i = 0; i < 10; i++) {
+			desejoRepository.save(new DesejoBuilder().construir());			
+		}
 	}
 }

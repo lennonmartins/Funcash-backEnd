@@ -16,7 +16,7 @@ public class DesejoServiceTest {
     private DesejoService desejoService;
 
     @Test
-    void deve_cadastrar_um_desejo(){
+    void deve_cadastrar_um_desejo() {
         String nome = "livros HP";
         String descricao = "";
         double valor = 250.0;
@@ -27,6 +27,5 @@ public class DesejoServiceTest {
 
         Assertions.assertThat(desejoResponseDTO.getId()).isNotNull();
     }
-    
 
 }

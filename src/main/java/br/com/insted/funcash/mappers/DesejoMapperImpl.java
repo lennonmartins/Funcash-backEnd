@@ -1,5 +1,8 @@
 package br.com.insted.funcash.mappers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.stereotype.Component;
 
 import br.com.insted.funcash.dto.DesejoRequestDTO;
@@ -26,5 +29,15 @@ public class DesejoMapperImpl implements DesejoMapper {
         .descricao(desejoRequestDTO.getDescricao())
         .valor(desejoRequestDTO.getValor())
         .build();
+    }
+
+    @Override
+    public Collection<DesejoResponseDTO> desejoParaDesejosResponsesDtos(Collection<Desejo> desejos) {
+            Collection<DesejoResponseDTO> desejoResponseDTOs = new ArrayList<>();
+
+            for (Desejo desejo : desejos){
+                desejoResponseDTOs.add(desejoParaDesejoResponseDTO(desejo));
+            }
+        return desejoResponseDTOs;
     }
 }

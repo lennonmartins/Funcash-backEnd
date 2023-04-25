@@ -2,7 +2,6 @@ package br.com.insted.funcash.controller;
 
 import java.util.Collection;
 
-import javax.persistence.Id;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;

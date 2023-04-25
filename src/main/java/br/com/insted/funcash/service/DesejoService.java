@@ -1,5 +1,5 @@
 package br.com.insted.funcash.service;
-
+import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -38,4 +38,8 @@ public class DesejoService {
     desejoRepository.save(desejo);
     return desejoMapper.desejoParaDesejoResponseDTO(desejo);
   }
+
+public Collection<DesejoResponseDTO> buscarTodos() {
+    return desejoMapper.desejoParaDesejosResponsesDtos((Collection<Desejo>) desejoRepository.findAll());
+}
 }
