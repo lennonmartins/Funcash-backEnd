@@ -1,16 +1,17 @@
 package br.com.insted.funcash.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,8 +53,8 @@ public class DesejoControllerTest {
     @Test
 	public void deve_incluir_um_desejo() throws Exception {
 		int quantidadeEsperada = 1;
-		String nome = "Cuidar do cachorro";
-		String descricao = "trocar racao";
+		String nome = "Video Game";
+		String descricao = "PlayStation 1";
 		double valor = 30;
 		DesejoRequestDTO desejoRequestDTO = new DesejoRequestDTO(nome, descricao, valor);
 
@@ -64,8 +65,8 @@ public class DesejoControllerTest {
 
 		List<Desejo> desejoRetornados = desejoRepository.findByNomeContainingIgnoreCase(desejoRequestDTO.getNome());
 
-		Assertions.assertThat(desejoRetornados.size()).isEqualTo(quantidadeEsperada);
-		Assertions.assertThat(
+		assertThat(desejoRetornados.size()).isEqualTo(quantidadeEsperada);
+		assertThat(
 			desejoRequestDTO.getNome()).isIn(desejoRetornados.stream().map(Desejo::getNome).toList()
 		);
 	}
@@ -81,7 +82,7 @@ public class DesejoControllerTest {
 
 		List<Desejo> desejoRetornados = desejoRepository.findByNomeContainingIgnoreCase(desejo.getNome());
 
-		Assertions.assertThat(desejoRetornados).isEmpty();
+		assertThat(desejoRetornados).isEmpty();
 	};
     @Test
 	void deve_buscar_um_desejo_pelo_id() throws Exception {
@@ -98,7 +99,7 @@ public class DesejoControllerTest {
 		String content = mvcResult.getResponse().getContentAsString();
 		DesejoResponseDTO desejoDTO = JsonUtil.mapFromJsonModuleJavaTime(content, DesejoResponseDTO.class);
 
-		Assertions.assertThat(desejo.getId()).isEqualTo(desejoDTO.getId());
+		assertThat(desejo.getId()).isEqualTo(desejoDTO.getId());
 	}
 
 	@Test
@@ -109,12 +110,31 @@ public class DesejoControllerTest {
 		DesejoResponseDTO[] desejoResponseDTOs = JsonUtil.mapFromJsonModuleJavaTime(
 			this.mockMvc.perform(get("/api/v1/desejos")).andReturn().getResponse().getContentAsString(),DesejoResponseDTO[].class );
 
-		Assertions.assertThat(desejoResponseDTOs).hasSize(quantidadeEsperada);
+		assertThat(desejoResponseDTOs).hasSize(quantidadeEsperada);
 	}
 
 	private void cadastrarDezDesejos() throws Exception{
 		for (int i = 0; i < 10; i++) {
 			desejoRepository.save(new DesejoBuilder().construir());			
 		}
+	}
+
+	@Test
+	void deve_retornar_uma_desejo_alterado() throws Exception{
+		
+		Desejo desejo = new DesejoBuilder().construir();
+		desejoRepository.save(desejo);
+		String nome = "Video Game";
+		String descricao = "PlayStation 1";
+		double valor = 30;
+		DesejoRequestDTO desejoRequestDTO = new DesejoRequestDTO(nome, descricao, valor);
+		String nomeEsperado = "Copo da Stanley";
+		desejoRequestDTO.setNome(nomeEsperado);
+
+		this.mockMvc.perform(put("/api/v1/desejos/" + desejo.getId()).content(JsonUtil.toJson(desejoRequestDTO)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+
+		Iterable<Desejo> desejosEncontrados = desejoRepository.findAll();
+		assertThat(desejosEncontrados).extracting(Desejo::getNome).containsOnly(nomeEsperado);
+		
 	}
 }
