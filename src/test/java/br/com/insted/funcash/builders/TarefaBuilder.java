@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Tarefa;
+
 
 public class TarefaBuilder {
     private LocalTime horaLimite = LocalTime.of(19, 30, 0);
@@ -12,14 +14,16 @@ public class TarefaBuilder {
     private LocalDateTime horaLimiteCompleta = LocalDateTime.of(dataLimite, horaLimite);
     private double moeda = 30;
     private String nome = "Tirar lixo";
-
-
+    private Crianca crianca;
+    
+    
     public TarefaBuilder(){
-       
+        
     }
-
-    public Tarefa construir(){
-        return new Tarefa(horaLimiteCompleta,dataLimite,moeda,nome);
+    
+    public Tarefa construir() throws Exception{
+        crianca = new CriancaBuilder().construir(); 
+        return new Tarefa(horaLimiteCompleta,dataLimite,moeda,nome, crianca);
     }
 
     public TarefaBuilder comNome(String nome) {

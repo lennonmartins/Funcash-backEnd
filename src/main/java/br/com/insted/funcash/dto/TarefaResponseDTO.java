@@ -19,4 +19,5 @@ public class TarefaResponseDTO {
     private LocalDateTime dataDeCriacao;
     private double valor;
     private String nome;
+    private Long idDaCrianca;
 }

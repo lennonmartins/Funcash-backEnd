@@ -26,7 +26,7 @@ public class TarefaRepositoryTest {
    }
 
    @Test
-   void deve_registrar_uma_tarefa_no_banco_com_id(){
+   void deve_registrar_uma_tarefa_no_banco_com_id() throws Exception{
         Tarefa tarefa = new TarefaBuilder().construir();
 
         tarefaRepository.save(tarefa);
@@ -35,7 +35,7 @@ public class TarefaRepositoryTest {
    }
 
    @Test
-   void deve_salvar_uma_tarefa_com_data_limite(){
+   void deve_salvar_uma_tarefa_com_data_limite() throws Exception{
      LocalDate dataLimiteEsperada = LocalDate.of(2023, 04, 17);
      Tarefa tarefa = new TarefaBuilder().comDataLimite(dataLimiteEsperada).construir();
 
@@ -46,7 +46,7 @@ public class TarefaRepositoryTest {
    }
 
    @Test
-   void deve_salvar_uma_tarefa_com_data_e_hora_limte(){
+   void deve_salvar_uma_tarefa_com_data_e_hora_limte() throws Exception{
      LocalDate dataLimiteEsperada = LocalDate.of(2023, 4, 17);
         LocalTime horaLimiteEsperada = LocalTime.of(19, 30, 0);
         Tarefa tarefa = new TarefaBuilder().comHoraLimite(dataLimiteEsperada,horaLimiteEsperada).construir();

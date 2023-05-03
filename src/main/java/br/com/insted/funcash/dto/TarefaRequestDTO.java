@@ -12,4 +12,5 @@ public class TarefaRequestDTO {
     private String dataLimite;
     private double valor;
     private String nome;
+    private Long idDaCrianca;
 }

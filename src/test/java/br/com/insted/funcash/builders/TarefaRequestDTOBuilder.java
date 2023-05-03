@@ -7,9 +7,10 @@ public class TarefaRequestDTOBuilder {
     String dataLimiteEmString = "2023-03-23";
     double valor = 10.50;
     String nome = "Tirar o lixo";
+    Long idDaCrianca = 1L;
 
     public TarefaRequestDTO construir() {
-        return new TarefaRequestDTO(horaEmString, dataLimiteEmString, valor, nome);
+        return new TarefaRequestDTO(horaEmString, dataLimiteEmString, valor, nome, idDaCrianca);
     }
 
     public TarefaRequestDTOBuilder comDataLimite(String dataLimiteEmString) {

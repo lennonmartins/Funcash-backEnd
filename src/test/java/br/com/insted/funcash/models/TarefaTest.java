@@ -2,7 +2,6 @@ package br.com.insted.funcash.models;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -16,7 +15,7 @@ import br.com.insted.funcash.builders.TarefaBuilder;
 public class TarefaTest {
 
     @Test
-    void deve_criar_uma_tarefa() throws ParseException{
+    void deve_criar_uma_tarefa() throws Exception{
         String nomeEsperado = "tirar lixo";
 
         Tarefa tarefa = new TarefaBuilder().comNome(nomeEsperado).construir();
@@ -25,7 +24,7 @@ public class TarefaTest {
     }
 
     @Test
-    void deve_criar_uma_tarefa_com_o_horario_atual(){
+    void deve_criar_uma_tarefa_com_o_horario_atual() throws Exception{
        LocalDateTime horaEsperada = LocalDateTime.now();
         
         Tarefa tarefa = new TarefaBuilder().construir();
@@ -34,7 +33,7 @@ public class TarefaTest {
     }
 
     @Test
-    void deve_criar_uma_tarefa_com_data_limite(){
+    void deve_criar_uma_tarefa_com_data_limite() throws Exception{
         LocalDate dataLimiteEsperada = LocalDate.of(2023, 4,17);
 
         Tarefa tarefa = new TarefaBuilder().comDataLimite(dataLimiteEsperada).construir();
@@ -43,7 +42,7 @@ public class TarefaTest {
     }
 
     @Test
-    void deve_cadastar_uma_tarefa_com_data_e_hora_limte(){
+    void deve_cadastar_uma_tarefa_com_data_e_hora_limte() throws Exception{
         LocalDate dataLimiteEsperada = LocalDate.of(2023, 4, 17);
         LocalTime horaLimiteEsperada = LocalTime.of(19, 30, 0);
         LocalDateTime horDateTimeCompleta = LocalDateTime.of(dataLimiteEsperada,horaLimiteEsperada);

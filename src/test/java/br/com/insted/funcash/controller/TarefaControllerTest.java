@@ -75,7 +75,7 @@ public class TarefaControllerTest {
 		assertThat(tarefasRetornadas).hasSize(quantidadeEsperada);
 	}
 
-	private void cadastrardezTarefas() {
+	private void cadastrardezTarefas() throws Exception {
 		for (int i = 0; i < 10; i++) {
 			tarefaRepository.save(new TarefaBuilder().construir());
 		}
