@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.insted.funcash.dto.TarefaRequestDTO;
 import br.com.insted.funcash.dto.TarefaResponseDTO;
+import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.repository.TarefaRepository;
 import br.com.insted.funcash.service.TarefaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -67,4 +68,11 @@ public class TarefaController {
     public ResponseEntity<TarefaResponseDTO> alteraTarefa(@RequestBody @Valid TarefaRequestDTO tarefaRequestDTO, @PathVariable Long id){
         return ResponseEntity.ok(tarefaService.alterar(tarefaRequestDTO, id));
     }
+
+    @GetMapping(path="/crianca")
+    public ResponseEntity<Collection<TarefaResponseDTO>> buscartodaosPeloId(@PathVariable Crianca crianca){
+        return ResponseEntity.ok(tarefaService.buscarTodasPelaCrianca(crianca));
+    }
 }
+
+

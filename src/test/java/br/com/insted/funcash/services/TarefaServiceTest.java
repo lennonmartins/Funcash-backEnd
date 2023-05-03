@@ -80,4 +80,10 @@ public class TarefaServiceTest {
         assertThat(nomeTarefaEsperada).isEqualTo(tarefaResponseDTO.getNome());
     }
 
+    @Test
+    void deve_buscar_uma_lista_de_tarefas_de_uma_crianca(){
+        
+
+    }
+
 }
