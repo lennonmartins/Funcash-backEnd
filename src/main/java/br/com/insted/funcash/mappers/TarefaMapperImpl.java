@@ -2,7 +2,10 @@ package br.com.insted.funcash.mappers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.insted.funcash.dto.TarefaRequestDTO;
@@ -15,7 +18,8 @@ import br.com.insted.funcash.utils.DataConvert;
 @Component
 public class TarefaMapperImpl implements TarefaMapper {
 
-    CriancaRepository criancaRepository;
+    @Autowired
+    private CriancaRepository criancaRepository;
 
     @Override
     public TarefaResponseDTO tarefaParaTarefaResponseDTO(Tarefa tarefa) {
@@ -31,7 +35,11 @@ public class TarefaMapperImpl implements TarefaMapper {
 
     @Override
     public Tarefa tarefaRequestparaTarefa(TarefaRequestDTO tarefaRequestDTO) {
-        Crianca crianca = criancaRepository.findById(tarefaRequestDTO.getIdDaCrianca()).get();
+        Optional<Crianca> criancaOptional = criancaRepository.findById(tarefaRequestDTO.getIdDaCrianca());
+        if(criancaOptional.isEmpty()){
+            throw new NoSuchElementException();
+        }
+        Crianca crianca = criancaOptional.get();
         return new Tarefa(
         DataConvert.obterHoraLimiteCompleta(tarefaRequestDTO.getDataLimite(), 
         tarefaRequestDTO.getHoraLimite()),

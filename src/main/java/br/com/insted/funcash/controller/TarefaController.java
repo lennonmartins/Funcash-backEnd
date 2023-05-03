@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.TarefaRequestDTO;
 import br.com.insted.funcash.dto.TarefaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
@@ -69,9 +70,9 @@ public class TarefaController {
         return ResponseEntity.ok(tarefaService.alterar(tarefaRequestDTO, id));
     }
 
-    @GetMapping(path="/crianca")
-    public ResponseEntity<Collection<TarefaResponseDTO>> buscartodaosPeloId(@PathVariable Crianca crianca){
-        return ResponseEntity.ok(tarefaService.buscarTodasPelaCrianca(crianca));
+    @GetMapping(path="/crianca/{id}")
+    public ResponseEntity<Collection<TarefaResponseDTO>> buscarTodasPeloId(@RequestBody @Valid Crianca crianca, @PathVariable long id){
+        return ResponseEntity.ok(tarefaService.buscarTodasPelaCrianca(crianca, id));
     }
 }
 
