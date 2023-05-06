@@ -1,6 +1,6 @@
 package br.com.insted.funcash.services;
 
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ public class DesejoServiceTest {
     private DesejoService desejoService;
 
     @Test
-    void deve_cadastrar_um_desejo(){
+    void deve_cadastrar_um_desejo() {
         String nome = "livros HP";
         String descricao = "";
         double valor = 250.0;
@@ -25,8 +25,24 @@ public class DesejoServiceTest {
 
         DesejoResponseDTO desejoResponseDTO = desejoService.cadastrar(desejoRequestDTO);
 
-        Assertions.assertThat(desejoResponseDTO.getId()).isNotNull();
+        assertThat(desejoResponseDTO.getId()).isNotNull();
     }
-    
+
+    @Test
+    void deve_altera_um_desejo(){
+        String nome = "livros HP";
+        String descricao = "";
+        double valor = 250.0;
+        long idEsperado = 1L;
+        String nomeEsperado = "Copo stanley";
+        DesejoRequestDTO desejoRequestDTO = new DesejoRequestDTO(nome, descricao, valor);
+        DesejoResponseDTO desejoResponseDTO = desejoService.cadastrar(desejoRequestDTO);
+
+        desejoRequestDTO.setNome(nomeEsperado);
+        desejoResponseDTO = desejoService.alterar(desejoRequestDTO,idEsperado );
+
+        assertThat(idEsperado).isEqualTo(desejoResponseDTO.getId());
+        assertThat(nomeEsperado).isEqualTo(desejoResponseDTO.getNome());
+    }
 
 }

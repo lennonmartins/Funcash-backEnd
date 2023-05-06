@@ -21,6 +21,7 @@ public class TarefaServiceTest {
     @Autowired
     private TarefaService tarefaService;
 
+  
     @Test
     void deve_cadastrar_uma_tarefa_com_hora_atual(){
        TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder().construir();
@@ -63,7 +64,7 @@ public class TarefaServiceTest {
 
         TarefaResponseDTO tarefaResponseDTO = tarefaService.cadastrar(tarefaRequestDTO);
 
-        assertThat(idEsperado).isEqualTo(tarefaResponseDTO.getId());
+        assertThat(tarefaResponseDTO.getId()).isEqualTo(idEsperado);
     }
 
     @Test
