@@ -1,6 +1,5 @@
 package br.com.insted.funcash.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
