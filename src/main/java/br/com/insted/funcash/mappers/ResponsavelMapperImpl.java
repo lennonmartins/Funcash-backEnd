@@ -36,7 +36,7 @@ public class ResponsavelMapperImpl implements ResponsavelMapper {
                 .dataDeNascimentoResponsavel(DataConvert.obterData(responsavelRequestDTO.getDataDeNascimentoResponsavel()))
                 .genero(responsavelRequestDTO.getGenero())
                 .senha(responsavelRequestDTO.getSenha())
-                .foto(ArquivoUtils.converterfoto(responsavelRequestDTO.getFoto()))
+                .foto(responsavelRequestDTO.getFoto())
                 .build();
     }
 

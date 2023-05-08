@@ -55,7 +55,8 @@ public class ResponsavelControllerTest {
     //     String dataDeNascimentoResponsavelString = "2023-02-21";
     //     Genero genero = Genero.FEMININO;
     //     String senha = "1234567";
-    //     ResponsavelRequestDTO responsavelRequestDTO = new ResponsavelRequestDTO(nome, email, cpf,dataDeNascimentoResponsavelString,genero,senha );
+    //     byte [] foto = new byte[];
+    //     ResponsavelRequestDTO responsavelRequestDTO = new ResponsavelRequestDTO(nome, email, cpf,dataDeNascimentoResponsavelString,genero,senha, foto );
 
     //     mockMvc.perform(post("/api/v1/responsavel")
     //             .contentType(MediaType.APPLICATION_JSON)
