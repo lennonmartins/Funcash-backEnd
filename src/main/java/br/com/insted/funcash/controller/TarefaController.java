@@ -52,7 +52,7 @@ public class TarefaController {
     @Operation(summary ="Buscar uma lista das tarefas")
     @ApiResponse(responseCode = "200", description = "Lista de tarefas cadastradas")
     @GetMapping
-    public ResponseEntity<Collection<TarefaResponseDTO>> buscartodos(){
+    public ResponseEntity<Collection<TarefaResponseDTO>> buscarTodos(){
         return ResponseEntity.ok(tarefaService.buscarTodas());
     }
 
@@ -70,9 +70,10 @@ public class TarefaController {
         return ResponseEntity.ok(tarefaService.alterar(tarefaRequestDTO, id));
     }
 
+    @Operation(summary = "Buscar pelo id da criança")
     @GetMapping(path="/crianca/{id}")
-    public ResponseEntity<Collection<TarefaResponseDTO>> buscarTodasPeloId(@RequestBody @Valid Crianca crianca, @PathVariable long id){
-        return ResponseEntity.ok(tarefaService.buscarTodasPelaCrianca(crianca, id));
+    public ResponseEntity<Collection<TarefaResponseDTO>> buscarPelaCrianca(@PathVariable long id){
+        return ResponseEntity.ok(tarefaService.buscarTarefasPelaCrianca(id));
     }
 }
 

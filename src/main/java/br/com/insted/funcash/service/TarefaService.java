@@ -58,7 +58,8 @@ public class TarefaService {
        
     }    
 
-    public Collection<TarefaResponseDTO> buscarTodasPelaCrianca(Crianca crianca, Long id){
-        return tarefaMapper.tarefasParaTarefasResponsesDtos((Collection<Tarefa>) tarefaRepository.findAllByCrianca(crianca));
+    public Collection<TarefaResponseDTO> buscarTarefasPelaCrianca(Long id){
+        return tarefaMapper.tarefasParaTarefasResponsesDtos((Collection<Tarefa>) tarefaRepository.findAllByCrianca(id));
     }
+
 }
