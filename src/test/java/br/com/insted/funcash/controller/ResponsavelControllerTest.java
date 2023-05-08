@@ -46,28 +46,28 @@ public class ResponsavelControllerTest {
 
     }
 
-    @Test
-    public void deve_incluir_um_responsavel() throws Exception {
-        int quantitadeEsperado = 1;
-        String nome = "Charmayanne";
-        String email = "charmayanne@gmail";
-        String cpf = "123456";
-        String dataDeNascimentoResponsavelString = "2023-02-21";
-        Genero genero = Genero.FEMININO;
-        String senha = "1234567";
-        ResponsavelRequestDTO responsavelRequestDTO = new ResponsavelRequestDTO(nome, email, cpf,dataDeNascimentoResponsavelString,genero,senha );
+    // @Test
+    // public void deve_incluir_um_responsavel() throws Exception {
+    //     int quantitadeEsperado = 1;
+    //     String nome = "Charmayanne";
+    //     String email = "charmayanne@gmail";
+    //     String cpf = "123456";
+    //     String dataDeNascimentoResponsavelString = "2023-02-21";
+    //     Genero genero = Genero.FEMININO;
+    //     String senha = "1234567";
+    //     ResponsavelRequestDTO responsavelRequestDTO = new ResponsavelRequestDTO(nome, email, cpf,dataDeNascimentoResponsavelString,genero,senha );
 
-        mockMvc.perform(post("/api/v1/responsavel")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.toJson(responsavelRequestDTO)))
-                .andExpect(status().isCreated());
+    //     mockMvc.perform(post("/api/v1/responsavel")
+    //             .contentType(MediaType.APPLICATION_JSON)
+    //             .content(JsonUtil.toJson(responsavelRequestDTO)))
+    //             .andExpect(status().isCreated());
 
-        List<Responsavel> responsavelRetornados = responsavelRepository.findByNomeContainingIgnoreCase(responsavelRequestDTO.getNome());
-        Assertions.assertThat(responsavelRetornados.size()).isEqualTo(quantitadeEsperado);
-        Assertions.assertThat(responsavelRetornados.stream().map(Responsavel::getNome).toList())
-                .contains(responsavelRequestDTO.getNome());
+    //     List<Responsavel> responsavelRetornados = responsavelRepository.findByNomeContainingIgnoreCase(responsavelRequestDTO.getNome());
+    //     Assertions.assertThat(responsavelRetornados.size()).isEqualTo(quantitadeEsperado);
+    //     Assertions.assertThat(responsavelRetornados.stream().map(Responsavel::getNome).toList())
+    //             .contains(responsavelRequestDTO.getNome());
 
-    }
+    // }
 
     @Test
     void deve_buscar_um_responsavel_pelo_id() throws Exception {

@@ -1,5 +1,7 @@
 package br.com.insted.funcash.controller;
 
+import java.io.IOException;
+
 import javax.naming.NameNotFoundException;
 import javax.validation.Valid;
 
@@ -36,7 +38,7 @@ public class ResponsavelController {
     @Operation(summary = "Cadastrar um novo responsavel")
     @ApiResponse(responseCode = "201")
     @PostMapping(consumes = {"application/json"})
-    public ResponseEntity<ResponsavelResponseDTO> cadastrar(@RequestBody @Valid ResponsavelRequestDTO responsavelRequestDTO) {
+    public ResponseEntity<ResponsavelResponseDTO> cadastrar(@RequestBody @Valid ResponsavelRequestDTO responsavelRequestDTO) throws IOException {
         return ResponseEntity.status(HttpStatus.CREATED).body(responsavelService.cadastrar(responsavelRequestDTO));
     }
 
@@ -47,6 +49,7 @@ public class ResponsavelController {
         return ResponseEntity.ok(responsavelService.buscarPorId(id));
     }
     
+    @Operation(summary ="Deleta um responsavel pelo seu id")
     @DeleteMapping(path = "/{id}")
     public void remover(@PathVariable Long id) {
         responsavelRepository.deleteById(id);

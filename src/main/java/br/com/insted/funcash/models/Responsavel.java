@@ -46,7 +46,6 @@ public class Responsavel {
     @Column(nullable = false)
     private String senha;
     
-    
     @Lob
     private byte[] foto;
 

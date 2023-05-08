@@ -1,6 +1,7 @@
 package br.com.insted.funcash.service;
 
 
+import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class ResponsavelService {
         return responsavelOptional.get();
     }
 
-    public ResponsavelResponseDTO cadastrar(ResponsavelRequestDTO responsavelRequestDTO){
+    public ResponsavelResponseDTO cadastrar(ResponsavelRequestDTO responsavelRequestDTO) throws IOException{
         Responsavel responsavel = responsavelMapper.responsavelRequestparaResponsavel(responsavelRequestDTO);
         responsavelRepository.save(responsavel);
         return responsavelMapper.responsavelParaResponsavelResponseDTO(responsavel);
