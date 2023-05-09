@@ -16,8 +16,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -47,13 +49,14 @@ public class Responsavel {
     private String senha;
     
     @Lob
-    private byte[] foto;
+    @Column(nullable = true, length=16777215)
+    private String foto;
 
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.REMOVE)
     private List<Crianca> criancas;
 
     public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,
-            String senha,byte[] foto ) throws Exception {
+            String senha, String  foto ) throws Exception {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;

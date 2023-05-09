@@ -16,7 +16,7 @@ public class ResponsavelRequestDTOBuilder {
 
     private String senha = "1234567";
 
-    private byte[] foto;
+    private String foto = Image.getBytes();
 
     public ResponsavelRequestDTOBuilder comData(String dataEmString) {
         this.dataDeNascimentoResponsavelString = dataEmString;

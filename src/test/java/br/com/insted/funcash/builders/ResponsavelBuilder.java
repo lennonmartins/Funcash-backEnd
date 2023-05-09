@@ -1,29 +1,18 @@
 package br.com.insted.funcash.builders;
 
 import java.time.LocalDate;
-import java.io.IOException;
+
 import br.com.insted.funcash.models.Genero;
 import br.com.insted.funcash.models.Responsavel;
-import br.com.insted.funcash.utils.ArquivoUtils;
 
 public class ResponsavelBuilder {
     private String nome = "Charmayanne";
-
     private String email = "charmayanne@gmail";
-
     private String cpf = "123456";
-
     private LocalDate dataDeNascimentoResponsavel = LocalDate.of(2009, 07, 19);
-
     private Genero genero = Genero.FEMININO;
-
     private String senha = "1234567";
-
-    private byte[] foto;
-
-    public ResponsavelBuilder()throws IOException {
-        this.foto = ArquivoUtils.abrirArquivo("src\\test\\java\\br\\com\\insted\\funcash\\icons\\Responsavel_Foto.svg");
-    }
+    private String foto = Image.getBytes();
 
     public Responsavel construir() throws Exception {
         return new Responsavel(nome, email, cpf, dataDeNascimentoResponsavel, genero, senha, foto);

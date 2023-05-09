@@ -20,7 +20,7 @@ public class ResponsavelResponseDTO {
     private LocalDate dataDeNascimentoResponsavel;
     private Genero genero;
     private String senha;
-    private byte[] foto;
+    private String foto;
 
     public ResponsavelResponseDTO(Responsavel responsavel){
         this.id = responsavel.getId();
