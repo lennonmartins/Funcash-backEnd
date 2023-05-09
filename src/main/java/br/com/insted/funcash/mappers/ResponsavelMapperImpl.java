@@ -1,5 +1,7 @@
 package br.com.insted.funcash.mappers;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Component;
 
 import br.com.insted.funcash.dto.ResponsavelRequestDTO;
@@ -19,11 +21,13 @@ public class ResponsavelMapperImpl implements ResponsavelMapper {
         responsavel.getCpf(), 
         responsavel.getDataDeNascimentoResponsavel(), 
         responsavel.getGenero(), 
-        responsavel.getSenha());
+        responsavel.getSenha(),
+        responsavel.getFoto()
+        );
     }
 
     @Override
-    public Responsavel responsavelRequestparaResponsavel(ResponsavelRequestDTO responsavelRequestDTO) {
+    public Responsavel responsavelRequestparaResponsavel(ResponsavelRequestDTO responsavelRequestDTO) throws IOException {
         return Responsavel.builder()
                 .nome(responsavelRequestDTO.getNome())
                 .email(responsavelRequestDTO.getEmail())
@@ -31,6 +35,7 @@ public class ResponsavelMapperImpl implements ResponsavelMapper {
                 .dataDeNascimentoResponsavel(DataConvert.obterData(responsavelRequestDTO.getDataDeNascimentoResponsavel()))
                 .genero(responsavelRequestDTO.getGenero())
                 .senha(responsavelRequestDTO.getSenha())
+                .foto(responsavelRequestDTO.getFoto())
                 .build();
     }
 

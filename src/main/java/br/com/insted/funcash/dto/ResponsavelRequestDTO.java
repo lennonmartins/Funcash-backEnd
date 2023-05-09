@@ -1,6 +1,5 @@
 package br.com.insted.funcash.dto;
 
-
 import br.com.insted.funcash.models.Genero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,4 +15,6 @@ public class ResponsavelRequestDTO {
     private String dataDeNascimentoResponsavel;
     private Genero genero;
     private String senha;
+    private String foto;
+
 }

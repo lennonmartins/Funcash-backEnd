@@ -16,12 +16,14 @@ public class ResponsavelRequestDTOBuilder {
 
     private String senha = "1234567";
 
+    private String foto = Image.getBytes();
+
     public ResponsavelRequestDTOBuilder comData(String dataEmString) {
         this.dataDeNascimentoResponsavelString = dataEmString;
         return this;
     }
 
     public ResponsavelRequestDTO construir() {
-        return new ResponsavelRequestDTO(nome, email, cpf, dataDeNascimentoResponsavelString, genero, senha);
+        return new ResponsavelRequestDTO(nome, email, cpf, dataDeNascimentoResponsavelString, genero, senha, foto);
     }
 }
