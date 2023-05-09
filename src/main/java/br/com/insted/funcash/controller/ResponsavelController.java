@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
+
 import br.com.insted.funcash.dto.ResponsavelRequestDTO;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
 import br.com.insted.funcash.repository.ResponsavelRepository;
@@ -47,6 +49,11 @@ public class ResponsavelController {
         return ResponseEntity.ok(responsavelService.buscarPorId(id));
     }
     
+    @Operation(summary = "Buscar pelo id da criança")
+    @GetMapping(path="/crianca/{id}")
+    public ResponseEntity<Collection<ResponsavelResponseDTO>> buscarPelaCrianca(@PathVariable long id){
+        return ResponseEntity.ok(responsavelService.buscarCriancaPeloResponsavel(id));
+    }
     @DeleteMapping(path = "/{id}")
     public void remover(@PathVariable Long id) {
         responsavelRepository.deleteById(id);

@@ -1,10 +1,16 @@
 package br.com.insted.funcash.mappers;
 
+import java.util.Collection;
+import java.util.ArrayList;
+
+
 import org.springframework.stereotype.Component;
 
 import br.com.insted.funcash.dto.ResponsavelRequestDTO;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
+import br.com.insted.funcash.dto.TarefaResponseDTO;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.Tarefa;
 import br.com.insted.funcash.utils.DataConvert;
 
 
@@ -34,6 +40,14 @@ public class ResponsavelMapperImpl implements ResponsavelMapper {
                 .build();
     }
 
-   
+    @Override
+    public Collection<ResponsavelResponseDTO> responsavelParaResponsavelResponsesDtos(Collection<Responsavel> responsavels) {
+       Collection<ResponsavelResponseDTO> responsavelResponseDto = new ArrayList<>();
+
+       for(Responsavel responsavel : responsavels){
+        responsavelResponseDto.add(responsavelParaResponsavelResponseDTO(responsavel));
+       }
+       return responsavelResponseDto;
+    }
     
 }
