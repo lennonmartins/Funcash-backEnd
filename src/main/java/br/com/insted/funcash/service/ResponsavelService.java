@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 import br.com.insted.funcash.dto.ResponsavelRequestDTO;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
 import br.com.insted.funcash.mappers.ResponsavelMapper;
@@ -38,5 +40,8 @@ public class ResponsavelService {
         Responsavel responsavel = responsavelMapper.responsavelRequestparaResponsavel(responsavelRequestDTO);
         responsavelRepository.save(responsavel);
         return responsavelMapper.responsavelParaResponsavelResponseDTO(responsavel);
+    }
+    public Collection<ResponsavelResponseDTO> buscarCriancaPeloResponsavel(Long id){
+        return responsavelMapper.responsavelParaResponsavelResponsesDtos((Collection<Responsavel>) responsavelRepository.findAllByCrianca(id));
     }
 }

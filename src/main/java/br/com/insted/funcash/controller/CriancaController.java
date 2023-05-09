@@ -3,6 +3,7 @@ package br.com.insted.funcash.controller;
 import javax.naming.NameNotFoundException;
 import javax.validation.Valid;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,8 @@ public class CriancaController {
     public ResponseEntity<CriancaResponseDTO> buscarPorId(@PathVariable Long id)  throws NameNotFoundException {
         return ResponseEntity.ok(criancaService.buscarPorId(id));
     }
+
+   
     
     @DeleteMapping(path = "/{id}")
     public void remover(@PathVariable Long id) {
