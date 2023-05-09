@@ -12,12 +12,12 @@ public class TarefaRequestDTO {
     private String nome;
     private Long idDaCrianca;
 
-    public TarefaRequestDTO(String horaLimite, String dataLimite, double valor, String nome, Long idDaCrianca) {
+    public TarefaRequestDTO(String horaLimite, String dataLimite, double valor, String nome) {
         this.horaLimite = horaLimite;
         this.dataLimite = dataLimite;
         this.valor = valor;
         this.nome = nome;
-        this.idDaCrianca = idDaCrianca;
+        // this.idDaCrianca = idDaCrianca;
     }
 
     
