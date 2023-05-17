@@ -44,14 +44,14 @@ public class Tarefa {
     private Crianca crianca;
 
     public Tarefa(LocalDateTime horaLimite,LocalDate dataLimite, double valor, String nome
-    // , Crianca crianca
+    , Crianca crianca
     ) {
         this.horaLimite = horaLimite;
         this.dataLimite = dataLimite;
         this.valor = valor;
         this.nome = nome;
         this.dataDeCriacao = LocalDateTime.now();
-        // this.crianca = crianca;
+        this.crianca = crianca;
 }
 
 }

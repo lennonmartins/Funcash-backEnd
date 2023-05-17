@@ -74,7 +74,7 @@ public class TarefaController {
 
     @Operation(summary = "Buscar pelo id da criança")
     @GetMapping(path="/crianca/{id}")
-    public ResponseEntity<Collection<TarefaResponseDTO>> buscarPelaCrianca(@PathVariable long id){
+    public ResponseEntity<Collection<TarefaResponseDTO>> buscarPeloIdCrianca(@PathVariable long id){
         return ResponseEntity.ok(tarefaService.buscarTarefasPelaCrianca(id));
     }
 }

@@ -23,31 +23,37 @@ public class TarefaMapperImpl implements TarefaMapper {
 
     @Override
     public TarefaResponseDTO tarefaParaTarefaResponseDTO(Tarefa tarefa) {
+        
         return new TarefaResponseDTO(tarefa.getId(),
                 tarefa.getHoraLimite(),
                 tarefa.getDataLimite(),
                 tarefa.getDataDeCriacao(),
                 tarefa.getValor(),
-                tarefa.getNome()
-                // tarefa.getCrianca().getId()
+                tarefa.getNome(),
+                tarefa.getCrianca().getId()
                 );
     }
 
     @Override
     public Tarefa tarefaRequestparaTarefa(TarefaRequestDTO tarefaRequestDTO) {
-        // Optional<Crianca> criancaOptional = criancaRepository.findById(tarefaRequestDTO.getIdDaCrianca());
-        // if(criancaOptional.isEmpty()){
-        //     throw new NoSuchElementException();
-        // }
-        // Crianca crianca = criancaOptional.get();
+        Crianca crianca = verificaSeObjetoEhNulo(tarefaRequestDTO);
         return new Tarefa(
         DataConvert.obterHoraLimiteCompleta(tarefaRequestDTO.getDataLimite(), 
         tarefaRequestDTO.getHoraLimite()),
         DataConvert.obterData(tarefaRequestDTO.getDataLimite()),
         tarefaRequestDTO.getValor(),
         tarefaRequestDTO.getNome()
-        // ,        crianca
+        ,        crianca
         );
+    }
+
+    private Crianca verificaSeObjetoEhNulo(TarefaRequestDTO tarefaRequestDTO) {
+        Optional<Crianca> criancaOptional = criancaRepository.findById(tarefaRequestDTO.getIdDaCrianca());
+        if(criancaOptional.isEmpty()){
+            throw new NoSuchElementException();
+        }
+        Crianca crianca = criancaOptional.get();
+        return crianca;
     }
 
     @Override
