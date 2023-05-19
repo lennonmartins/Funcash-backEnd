@@ -40,10 +40,12 @@ public class Tarefa {
     private String nome;
 
     @ManyToOne
-    @JoinColumn(name="crianca_id")
+    @JoinColumn(name="crianca_id", nullable = true)
     private Crianca crianca;
 
-    public Tarefa(LocalDateTime horaLimite,LocalDate dataLimite, double valor, String nome, Crianca crianca) {
+    public Tarefa(LocalDateTime horaLimite,LocalDate dataLimite, double valor, String nome
+    , Crianca crianca
+    ) {
         this.horaLimite = horaLimite;
         this.dataLimite = dataLimite;
         this.valor = valor;
