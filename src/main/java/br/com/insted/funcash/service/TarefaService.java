@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.insted.funcash.dto.TarefaRequestDTO;
@@ -16,11 +15,14 @@ import br.com.insted.funcash.utils.DataConvert;
 
 @Service
 public class TarefaService {
-    @Autowired
+    
     private TarefaRepository tarefaRepository;
-
-    @Autowired
     private TarefaMapper tarefaMapper;
+
+    public TarefaService (TarefaRepository tarefaRepository, TarefaMapper tarefaMapper){
+        this.tarefaRepository = tarefaRepository;
+        this.tarefaMapper = tarefaMapper;
+    }
 
     public TarefaResponseDTO buscarPorId(Long id){
         return tarefaMapper.tarefaParaTarefaResponseDTO(buscarTarefaPeloId(id));
@@ -53,12 +55,15 @@ public class TarefaService {
 
         tarefaRepository.save(tarefaParaAlterar);
 
-        return tarefaMapper.tarefaParaTarefaResponseDTO(tarefaParaAlterar);
-       
+        return tarefaMapper.tarefaParaTarefaResponseDTO(tarefaParaAlterar); 
     }    
 
     public Collection<TarefaResponseDTO> buscarTarefasPelaCrianca(Long id){
         return tarefaMapper.tarefasParaTarefasResponsesDtos((Collection<Tarefa>) tarefaRepository.findAllByCrianca(id));
+    }
+
+    public void deletar(Long id) {
+        tarefaRepository.deleteById(id);
     }
 
 }

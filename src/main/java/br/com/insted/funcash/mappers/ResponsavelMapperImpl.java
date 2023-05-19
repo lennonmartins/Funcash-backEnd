@@ -1,6 +1,5 @@
 package br.com.insted.funcash.mappers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -8,9 +7,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.insted.funcash.dto.ResponsavelRequestDTO;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
-import br.com.insted.funcash.dto.TarefaResponseDTO;
 import br.com.insted.funcash.models.Responsavel;
-import br.com.insted.funcash.models.Tarefa;
 import br.com.insted.funcash.utils.DataConvert;
 
 

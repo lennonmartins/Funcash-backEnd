@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.TarefaRequestDTO;
 import br.com.insted.funcash.dto.TarefaResponseDTO;
-import br.com.insted.funcash.models.Crianca;
-import br.com.insted.funcash.repository.TarefaRepository;
 import br.com.insted.funcash.service.TarefaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -31,13 +27,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @RequestMapping(path = {"api/v1/tarefas"}, produces ={"application/json"})
 public class TarefaController {
     private final TarefaService tarefaService;
-
+    
     public TarefaController(TarefaService tarefaService){
         this.tarefaService = tarefaService;
     }
-
-    @Autowired
-    private TarefaRepository tarefaRepository;
 
     @Operation(summary = "Cadastrar uma nova tarefa")
     @ApiResponse(responseCode = "201")
@@ -48,7 +41,7 @@ public class TarefaController {
 
     @DeleteMapping(path = "/{id}")
     public void remover(@PathVariable Long id) {
-        tarefaRepository.deleteById(id);
+        tarefaService.deletar(id);
     }
 
     @Operation(summary ="Buscar uma lista das tarefas")
@@ -72,7 +65,7 @@ public class TarefaController {
         return ResponseEntity.ok(tarefaService.alterar(tarefaRequestDTO, id));
     }
 
-    @Operation(summary = "Buscar pelo id da criança")
+    @Operation(summary = "Buscar tarefas pelo id da criança")
     @GetMapping(path="/crianca/{id}")
     public ResponseEntity<Collection<TarefaResponseDTO>> buscarPeloIdCrianca(@PathVariable long id){
         return ResponseEntity.ok(tarefaService.buscarTarefasPelaCrianca(id));
