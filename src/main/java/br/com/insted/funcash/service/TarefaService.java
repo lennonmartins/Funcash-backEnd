@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import br.com.insted.funcash.dto.TarefaRequestDTO;
 import br.com.insted.funcash.dto.TarefaResponseDTO;
 import br.com.insted.funcash.mappers.TarefaMapper;
-import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Tarefa;
 import br.com.insted.funcash.repository.TarefaRepository;
 import br.com.insted.funcash.utils.DataConvert;
