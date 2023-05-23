@@ -19,6 +19,4 @@ public class TarefaRequestDTO {
         this.nome = nome;
         this.idDaCrianca = idDaCrianca;
     }
-
-    
 }

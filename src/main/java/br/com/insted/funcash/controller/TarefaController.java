@@ -51,7 +51,7 @@ public class TarefaController {
         return ResponseEntity.ok(tarefaService.buscarTodas());
     }
 
-    @Operation(summary = "Buscar um tarefa pelo seu id")
+    @Operation(summary = "Buscar uma tarefa pelo seu id")
     @ApiResponse(responseCode = "200")
     @GetMapping(path = "/{id}")
     public ResponseEntity<TarefaResponseDTO> buscarPorId(@PathVariable Long id){
@@ -66,7 +66,7 @@ public class TarefaController {
     }
 
     @Operation(summary = "Buscar tarefas pelo id da criança")
-    @GetMapping(path="/crianca/{id}")
+    @GetMapping(path="/crianca/{id}/tarefas")
     public ResponseEntity<Collection<TarefaResponseDTO>> buscarPeloIdCrianca(@PathVariable long id){
         return ResponseEntity.ok(tarefaService.buscarTarefasPelaCrianca(id));
     }

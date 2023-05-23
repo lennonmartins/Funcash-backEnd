@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.insted.funcash.dto.TarefaRequestDTO;
 import br.com.insted.funcash.dto.TarefaResponseDTO;
@@ -36,6 +37,7 @@ public class TarefaService {
         return tarefaOptional.get();
     }
 
+    @Transactional
     public TarefaResponseDTO cadastrar(TarefaRequestDTO  tarefaRequestDTO) {
         Tarefa tarefa = tarefaMapper.tarefaRequestparaTarefa(tarefaRequestDTO);
         tarefaRepository.save(tarefa);

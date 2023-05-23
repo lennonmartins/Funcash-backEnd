@@ -21,11 +21,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import br.com.insted.funcash.builders.CriancaBuilder;
 import br.com.insted.funcash.builders.TarefaBuilder;
 import br.com.insted.funcash.builders.TarefaRequestDTOBuilder;
 import br.com.insted.funcash.dto.TarefaRequestDTO;
 import br.com.insted.funcash.dto.TarefaResponseDTO;
+import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Tarefa;
+import br.com.insted.funcash.repository.CriancaRepository;
 import br.com.insted.funcash.repository.TarefaRepository;
 import br.com.insted.funcash.utils.JsonUtil;
 
@@ -38,6 +41,9 @@ public class TarefaControllerTest {
 	@Autowired
 	private TarefaRepository tarefaRepository;
 
+	@Autowired
+	private CriancaRepository criancaRepository;
+
 	@BeforeEach
 	@AfterEach
 	public void deleteDados() {
@@ -48,7 +54,11 @@ public class TarefaControllerTest {
 	@Test
 	void deve_incluir_uma_tarefa() throws Exception {
 		int quantidadeEsperada = 1;
-		TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder().construir();
+		Crianca criancaEsperada = new CriancaBuilder().construir();
+		criancaRepository.save(criancaEsperada);
+		TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder()
+				.comCrianca(criancaEsperada.getId())
+				.construir();
 
 		this.mockMvc
 				.perform(post("/api/v1/tarefas")
@@ -76,8 +86,13 @@ public class TarefaControllerTest {
 	}
 
 	private void cadastrardezTarefas() throws Exception {
+		Crianca criancaEsperada = new CriancaBuilder().construir();
+		criancaRepository.save(criancaEsperada);
 		for (int i = 0; i < 10; i++) {
-			tarefaRepository.save(new TarefaBuilder().construir());
+			tarefaRepository.save(
+					new TarefaBuilder()
+							.comCrianca(criancaEsperada)
+							.construir());
 		}
 	}
 
@@ -99,7 +114,9 @@ public class TarefaControllerTest {
 		Tarefa tarefa = new TarefaBuilder().construir();
 		tarefaRepository.save(tarefa);
 		String nomeEsperado = "Limpar caixa do gato";
-		TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder().comNome(nomeEsperado).construir();
+		TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder()
+				.comNome(nomeEsperado)
+				.construir();
 
 		this.mockMvc
 				.perform(put("/api/v1/tarefas/" + tarefa.getId())
@@ -107,8 +124,7 @@ public class TarefaControllerTest {
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
-		
-		Iterable<Tarefa> tarefasEncontradas =  tarefaRepository.findAll();
+		Iterable<Tarefa> tarefasEncontradas = tarefaRepository.findAll();
 		assertThat(tarefasEncontradas).extracting(Tarefa::getNome).containsOnly(nomeEsperado);
 	}
 }

@@ -3,6 +3,7 @@ package br.com.insted.funcash.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,13 +40,12 @@ public class Tarefa {
     @Column(nullable = false, length = 50)
     private String nome;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="crianca_id", nullable = true)
     private Crianca crianca;
 
     public Tarefa(LocalDateTime horaLimite,LocalDate dataLimite, double valor, String nome
-    , Crianca crianca
-    ) {
+    , Crianca crianca) {
         this.horaLimite = horaLimite;
         this.dataLimite = dataLimite;
         this.valor = valor;
