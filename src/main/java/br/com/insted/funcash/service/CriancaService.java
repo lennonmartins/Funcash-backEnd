@@ -1,5 +1,6 @@
 package br.com.insted.funcash.service;
 
+import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -36,5 +37,13 @@ public class CriancaService {
         Crianca crianca = criancaMapper.criancaRequestparaCrianca(criancaRequestDTO);
         criancaRepository.save(crianca);
         return criancaMapper.criancaParaCriancaResponseDTO(crianca);
+    }
+
+    public Collection<CriancaResponseDTO> buscarTodas(){
+        return criancaMapper.criancasParaCriancasResponsesDtos((Collection<Crianca>) criancaRepository.findAll());
+    }
+
+    public Collection<CriancaResponseDTO> buscarCriancasPeloResponsavel(Long id){
+        return criancaMapper.criancasParaCriancasResponsesDtos((Collection<Crianca>) criancaRepository.findAllByResponsavel(id));
     }
 }

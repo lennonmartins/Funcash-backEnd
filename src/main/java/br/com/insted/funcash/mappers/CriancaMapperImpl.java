@@ -1,5 +1,8 @@
 package br.com.insted.funcash.mappers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.stereotype.Component;
 
 import br.com.insted.funcash.dto.CriancaRequestDTO;
@@ -34,5 +37,15 @@ public class CriancaMapperImpl implements CriancaMapper {
                 .apelido(criancaRequestDTO.getApelido())
                 .genero(criancaRequestDTO.getGenero())
                 .build();
+    }
+
+    @Override
+    public Collection<CriancaResponseDTO> criancasParaCriancasResponsesDtos(Collection<Crianca> criancas) {
+        Collection<CriancaResponseDTO> criancasRetornadas = new ArrayList<>();
+
+        for(Crianca crianca: criancas){
+            criancasRetornadas.add(criancaParaCriancaResponseDTO(crianca));
+        }
+        return criancasRetornadas;
     }
 }

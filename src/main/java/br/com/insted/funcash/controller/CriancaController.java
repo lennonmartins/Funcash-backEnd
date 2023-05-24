@@ -1,5 +1,7 @@
 package br.com.insted.funcash.controller;
 
+import java.util.Collection;
+
 import javax.naming.NameNotFoundException;
 import javax.validation.Valid;
 
@@ -50,10 +52,15 @@ public class CriancaController {
         return ResponseEntity.ok(criancaService.buscarPorId(id));
     }
 
-   
-    
     @DeleteMapping(path = "/{id}")
     public void remover(@PathVariable Long id) {
         criancaRepository.deleteById(id);
+    }
+
+    @Operation(summary = "Buscar lista de todas as crianças")
+    @ApiResponse(responseCode = "200", description = "Retorna uma lista de criancas cadastradas")
+    @GetMapping
+    public ResponseEntity<Collection<CriancaResponseDTO>> buscarTodasAsCriancas(){
+        return ResponseEntity.ok(criancaService.buscarTodas());
     }
 }

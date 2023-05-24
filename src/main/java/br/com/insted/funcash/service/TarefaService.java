@@ -67,5 +67,4 @@ public class TarefaService {
     public void deletar(Long id) {
         tarefaRepository.deleteById(id);
     }
-
 }

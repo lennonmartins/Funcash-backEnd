@@ -10,5 +10,5 @@ public interface TarefaMapper {
 
     public TarefaResponseDTO tarefaParaTarefaResponseDTO(Tarefa tarefa);
     public Tarefa tarefaRequestparaTarefa(TarefaRequestDTO tarefaRequestDTO);
-    public Collection<TarefaResponseDTO> tarefasParaTarefasResponsesDtos(Collection<Tarefa> tarefa);
+    public Collection<TarefaResponseDTO> tarefasParaTarefasResponsesDtos(Collection<Tarefa> tarefas);
 }

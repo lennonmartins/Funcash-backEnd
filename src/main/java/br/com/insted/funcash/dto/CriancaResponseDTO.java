@@ -40,8 +40,5 @@ public class CriancaResponseDTO {
         this.nome = crianca.getNome();
         this.apelido = crianca.getApelido();
         this.genero = crianca.getGenero();
-    }
-
-
-   
+    }   
 }
