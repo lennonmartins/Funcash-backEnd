@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Genero;
+import br.com.insted.funcash.models.Responsavel;
 
 public class CriancaBuilder {
 
@@ -14,13 +15,14 @@ public class CriancaBuilder {
     private String apelido = "toinho";
     private LocalDate dataDeNascimento = LocalDate.of(2010, 07, 19);
     private Genero genero = Genero.MASCULINO;
+    private Responsavel responsavel;
 
     public CriancaBuilder() {
 
     }
 
     public Crianca construir() throws Exception {
-        return new Crianca(dataDeNascimento, email, senha, saldo, nome, apelido, genero);
+        return new Crianca(dataDeNascimento, email, senha, saldo, nome, apelido, genero, responsavel);
     }
 
     public CriancaBuilder comEmail(String email) {

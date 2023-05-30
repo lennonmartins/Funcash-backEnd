@@ -66,7 +66,7 @@ public class Crianca {
     private Responsavel responsavel;
 
     public Crianca(LocalDate _dataDeNascimento, @Email String _email, String _senha, double _saldo, String _nome,
-            String _apelido, Genero _genero) throws Exception {
+            String _apelido, Genero _genero, Responsavel _responsavel) throws Exception {
         validaDataDeNAscimento(_dataDeNascimento);
         this.dataDeNascimento = _dataDeNascimento;
         this.email = _email;
@@ -75,6 +75,7 @@ public class Crianca {
         this.nome = _nome;
         this.apelido = _apelido;
         this.genero = _genero;
+        this.responsavel = _responsavel;
     }
 
     private void validaDataDeNAscimento(LocalDate dataDeNascimetno) throws Exception {

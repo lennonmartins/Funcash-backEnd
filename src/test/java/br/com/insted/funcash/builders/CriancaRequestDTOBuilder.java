@@ -11,6 +11,7 @@ public class CriancaRequestDTOBuilder {
     private String apelido = "toinho";
     private String dataDeNascimentoemString = "2023-03-23";
     private Genero genero = Genero.MASCULINO;
+    private Long idDoResponsavel = 1L;
 
     public CriancaRequestDTOBuilder comData(String dataEmString) {
         this.dataDeNascimentoemString = dataEmString;
@@ -18,6 +19,6 @@ public class CriancaRequestDTOBuilder {
     }
     
     public CriancaRequestDTO construir(){
-        return new CriancaRequestDTO(dataDeNascimentoemString, email,senha,saldo, nome, apelido, genero);
+        return new CriancaRequestDTO(dataDeNascimentoemString, email,senha,saldo, nome, apelido, genero, idDoResponsavel);
     }
 }
