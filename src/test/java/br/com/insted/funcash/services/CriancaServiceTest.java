@@ -13,13 +13,17 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.insted.funcash.builders.CriancaBuilder;
 import br.com.insted.funcash.builders.CriancaRequestDTOBuilder;
+import br.com.insted.funcash.builders.ResponsavelBuilder;
 import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.CriancaResponseDTO;
+import br.com.insted.funcash.mappers.CriancaMapper;
 import br.com.insted.funcash.models.Crianca;
+import br.com.insted.funcash.models.Responsavel;
 import br.com.insted.funcash.repository.CriancaRepository;
 import br.com.insted.funcash.repository.ResponsavelRepository;
 import br.com.insted.funcash.service.CriancaService;
@@ -28,14 +32,17 @@ import br.com.insted.funcash.utils.DataConvert;
 @SpringBootTest
 public class CriancaServiceTest {
     
-    @Mock
+    @Autowired
+    ResponsavelRepository responsavelRepository;
+    
+    @Autowired
+    CriancaRepository criancaRepository;
+    
+    @Autowired
     private CriancaService criancaService;
     
-    @Mock
-    ResponsavelRepository responsavelRepository;
-
-    @Mock
-    CriancaRepository criancaRepository;
+    @Autowired
+    CriancaMapper criancaMapper;
 
     @BeforeEach
     @AfterEach
@@ -55,10 +62,12 @@ public class CriancaServiceTest {
     }
 
     @Test
-    void deve_salvar_crianca_com_data_formatada(){
+    void deve_salvar_crianca_com_data_formatada() throws Exception{
         String dataEmString = "2010-07-19";
         LocalDate dataEsperada = LocalDate.of(2010, 07, 19);
-        CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().comData(dataEmString).construir();
+        Responsavel responsavel = new ResponsavelBuilder().construir();
+		responsavelRepository.save(responsavel);
+        CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().comResponsavel(responsavel.getId()).comData(dataEmString).construir();
 
         CriancaResponseDTO criancaResponse = criancaService.cadastrar(criancaRequestDTO);
 
@@ -66,8 +75,8 @@ public class CriancaServiceTest {
     }
 
     @Test
-    void deve_cadastrar_uma_crianca(){
-        CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().construir();
+    void deve_cadastrar_uma_crianca() throws Exception{
+        CriancaRequestDTO criancaRequestDTO = extracted();
 
         CriancaResponseDTO criancaResponseDTO = criancaService.cadastrar(criancaRequestDTO);
 
@@ -75,14 +84,61 @@ public class CriancaServiceTest {
     }
 
     @Test
+    void deve_editar_uma_crianca() throws Exception{
+        Long idEsperado = 1L;
+        String nomeParaSerAlterado = "Luluzinha Penosa";
+        CriancaRequestDTO criancaRequestDTO = extracted();
+        CriancaResponseDTO criancaResponseDTO = criancaService.cadastrar(criancaRequestDTO);
+
+        criancaRequestDTO.setNome(nomeParaSerAlterado);
+
+        criancaResponseDTO = criancaService.alterar(criancaRequestDTO, idEsperado);
+        
+        assertThat(criancaResponseDTO.getNome()).isEqualTo(nomeParaSerAlterado);
+    }
+
+    private CriancaRequestDTO extracted() throws Exception {
+        Responsavel responsavel = new ResponsavelBuilder().construir();
+		responsavelRepository.save(responsavel);
+        CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().comResponsavel(responsavel.getId()).construir();
+        return criancaRequestDTO;
+    }
+
+    @Test
     void deve_buscar_uma_lista_de_crianca_pelo_id_do_responsavel() throws Exception{
         Long idResponsavel = 1L;
         int quantidadeEsperada = 2;
-        Crianca criancaVelha = new CriancaBuilder().construir();
-        Crianca criancaNova = new CriancaBuilder().construir();
-        Collection <Crianca> listaDeCriancas = Arrays.asList(criancaNova,criancaVelha);
+        Crianca filhoMaisVelho = new CriancaBuilder().construir();
+        Crianca filhoMaisNovo = new CriancaBuilder().construir();
+        Collection <Crianca> listaDeCriancas = Arrays.asList(filhoMaisNovo,filhoMaisVelho);
 
+        CriancaResponseDTO filhoMaisNovoResponse = 
+                new CriancaResponseDTO(
+                    idResponsavel, 
+                    filhoMaisNovo.getDataDeNascimento(),
+                    filhoMaisNovo.getEmail(), 
+                    filhoMaisNovo.getSenha(), 
+                    filhoMaisNovo.getSaldo(),
+                    filhoMaisNovo.getNome(),
+                    filhoMaisNovo.getApelido(),
+                    filhoMaisNovo.getGenero());
+
+        CriancaResponseDTO filhoMaisVelhoResponse = 
+                new CriancaResponseDTO(
+                    idResponsavel,
+                    filhoMaisVelho.getDataDeNascimento(),
+                    filhoMaisVelho.getEmail(), 
+                    filhoMaisVelho.getSenha(), 
+                    filhoMaisVelho.getSaldo(),
+                    filhoMaisVelho.getNome(),
+                    filhoMaisVelho.getApelido(),
+                    filhoMaisVelho.getGenero());
+
+        Collection<CriancaResponseDTO> criancasRetornadasDTO = Arrays.asList(filhoMaisNovoResponse,filhoMaisVelhoResponse);
+       
         when(criancaRepository.findAllByResponsavel(idResponsavel)).thenReturn(listaDeCriancas);
+        when(criancaMapper.criancasParaCriancasResponsesDtos(listaDeCriancas)).thenReturn(criancasRetornadasDTO);
+        
         Collection<CriancaResponseDTO> criancasRetornadas = criancaService.buscarCriancasPeloResponsavel(idResponsavel);
         
         assertNotNull(criancasRetornadas);       

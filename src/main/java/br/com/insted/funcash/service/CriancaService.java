@@ -12,6 +12,7 @@ import br.com.insted.funcash.dto.CriancaResponseDTO;
 import br.com.insted.funcash.mappers.CriancaMapper;
 import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.repository.CriancaRepository;
+import br.com.insted.funcash.utils.DataConvert;
 
 @Service
 public class CriancaService {
@@ -45,5 +46,19 @@ public class CriancaService {
 
     public Collection<CriancaResponseDTO> buscarCriancasPeloResponsavel(Long id){
         return criancaMapper.criancasParaCriancasResponsesDtos((Collection<Crianca>) criancaRepository.findAllByResponsavel(id));
+    }
+
+    public CriancaResponseDTO alterar(CriancaRequestDTO criancaRequestDTO, Long id){
+        Crianca criancaParaAlterar = buscarCricaPeloId(id);
+        criancaParaAlterar.setNome(criancaRequestDTO.getNome());
+        criancaParaAlterar.setGenero(criancaRequestDTO.getGenero());
+        criancaParaAlterar.setDataDeNascimento(DataConvert.obterData(criancaRequestDTO.getDataDeNascimento()));
+        criancaParaAlterar.setEmail(criancaRequestDTO.getEmail());
+        criancaParaAlterar.setApelido(criancaRequestDTO.getApelido());
+        criancaParaAlterar.setSenha(criancaRequestDTO.getSenha());
+
+        criancaRepository.save(criancaParaAlterar);
+
+        return criancaMapper.criancaParaCriancaResponseDTO(criancaParaAlterar);  
     }
 }

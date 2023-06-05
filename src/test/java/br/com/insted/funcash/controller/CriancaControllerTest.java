@@ -1,8 +1,10 @@
 package br.com.insted.funcash.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -23,10 +25,13 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import br.com.insted.funcash.builders.CriancaBuilder;
 import br.com.insted.funcash.builders.CriancaRequestDTOBuilder;
+import br.com.insted.funcash.builders.ResponsavelBuilder;
 import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.CriancaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
+import br.com.insted.funcash.models.Responsavel;
 import br.com.insted.funcash.repository.CriancaRepository;
+import br.com.insted.funcash.repository.ResponsavelRepository;
 import br.com.insted.funcash.utils.JsonUtil;
 
 @SpringBootTest
@@ -38,6 +43,9 @@ public class CriancaControllerTest {
 
     @Autowired
     private CriancaRepository criancaRepository;
+
+	@Autowired
+	private ResponsavelRepository responsavelRepository;
     
     @BeforeEach
 	@AfterEach
@@ -49,8 +57,9 @@ public class CriancaControllerTest {
     @Test
 	public void deve_incluir_uma_crianca() throws Exception  {
 		int quantitadeEsperado = 1;
-		
-		CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().construir();
+		Responsavel responsavel = new ResponsavelBuilder().construir();
+		responsavelRepository.save(responsavel);
+		CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().comResponsavel(responsavel.getId()).construir();
 
 		mockMvc.perform(post("/api/v1/criancas")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -90,9 +99,27 @@ public class CriancaControllerTest {
 
 		List<Crianca> criancaRetornados = criancaRepository.findByNomeContainingIgnoreCase(crianca.getNome());
 
-		Assertions.assertThat(criancaRetornados).isEmpty();
+		assertThat(criancaRetornados).isEmpty();
 	}
 
+	@Test
+	void deve_retornar_uma_crinca_atualizada() throws Exception{
+		Crianca crianca = new CriancaBuilder().construir();
+		criancaRepository.save(crianca);
+		String nomeDaCriancaEsperado = "Luiza Teste";
+		CriancaRequestDTO criancaRequestDTO = 
+				new CriancaRequestDTOBuilder()
+						.comNome(nomeDaCriancaEsperado)
+						.construir();
+		
+		this.mockMvc
+				.perform(put("/api/v1/criancas/" + crianca.getId())
+				.content(JsonUtil.toJson(criancaRequestDTO))
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
 
+			Iterable<Crianca> criancasRetornadas = criancaRepository.findAll();
+			assertThat(criancasRetornadas).extracting(Crianca::getNome).containsOnly(nomeDaCriancaEsperado);
+	}
 
 }

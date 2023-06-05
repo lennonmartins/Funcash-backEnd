@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CriancaRequestDTO {
-
+    
     private String dataDeNascimento;
     private String email;
     private String senha;

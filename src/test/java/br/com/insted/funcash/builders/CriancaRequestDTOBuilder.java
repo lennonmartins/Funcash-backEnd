@@ -21,4 +21,14 @@ public class CriancaRequestDTOBuilder {
     public CriancaRequestDTO construir(){
         return new CriancaRequestDTO(dataDeNascimentoemString, email,senha,saldo, nome, apelido, genero, idDoResponsavel);
     }
+
+    public CriancaRequestDTOBuilder comResponsavel(Long idDoResponsavel) {
+        this.idDoResponsavel = idDoResponsavel;
+        return this;
+    }
+
+    public CriancaRequestDTOBuilder comNome(String nome) {
+        this.nome = nome;
+        return this;
+    }
 }

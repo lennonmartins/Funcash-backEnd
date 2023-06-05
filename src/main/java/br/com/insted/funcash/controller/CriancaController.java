@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -69,5 +70,12 @@ public class CriancaController {
     @GetMapping(path = "/{id}/criancas")
     public ResponseEntity<Collection<CriancaResponseDTO>> buscarTodasPeloIddoResponsavel(@PathVariable long id){
         return ResponseEntity.ok(criancaService.buscarCriancasPeloResponsavel(id));
+    }
+
+    @Operation(summary = "Altera os dados de uma crianca cadastarda")
+    @ApiResponse(responseCode = "200")
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<CriancaResponseDTO> alterarDadosDaCrianca(@RequestBody @Valid CriancaRequestDTO criancaRequestDTO, @PathVariable Long id ){
+        return ResponseEntity.ok(criancaService.alterar(criancaRequestDTO, id));
     }
 }
