@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 
+import org.springframework.lang.Nullable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -61,6 +63,7 @@ public class Crianca {
     @OneToMany(mappedBy = "crianca", cascade = CascadeType.REMOVE)
     private List<Desejo> desejos;
 
+    @Nullable
     @ManyToOne
     @JoinColumn(name = "responsavel_id")
     private Responsavel responsavel;

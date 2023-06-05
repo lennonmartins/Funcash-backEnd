@@ -50,11 +50,19 @@ public class CriancaMapperImpl implements CriancaMapper {
     }
 
     private Responsavel verificaSeObjetoEhNulo(CriancaRequestDTO criancaRequestDTO) {
-        Optional<Responsavel> responsavelOptional = responsavelRepository.findById(criancaRequestDTO.getIdDoResponsavel());
-        if(responsavelOptional.isEmpty()){
-            throw new NoSuchElementException();
+        Responsavel responsavel;
+        if (criancaRequestDTO.getIdDoResponsavel() == null) {
+            responsavel = null;
+            return responsavel;
         }
-        Responsavel responsavel = responsavelOptional.get();
+        Optional<Responsavel> responsavelOptional = responsavelRepository
+                .findById(criancaRequestDTO.getIdDoResponsavel());
+        // if(responsavelOptional.isEmpty()){
+        // Responsavel responsavel = null;
+        // return responsavel;
+        // // throw new NoSuchElementException();
+        // }
+        responsavel = responsavelOptional.get();
         return responsavel;
     }
 
@@ -62,7 +70,7 @@ public class CriancaMapperImpl implements CriancaMapper {
     public Collection<CriancaResponseDTO> criancasParaCriancasResponsesDtos(Collection<Crianca> criancas) {
         Collection<CriancaResponseDTO> criancasRetornadas = new ArrayList<>();
 
-        for(Crianca crianca: criancas){
+        for (Crianca crianca : criancas) {
             criancasRetornadas.add(criancaParaCriancaResponseDTO(crianca));
         }
         return criancasRetornadas;
