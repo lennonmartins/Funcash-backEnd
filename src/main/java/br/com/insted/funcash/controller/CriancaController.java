@@ -68,7 +68,7 @@ public class CriancaController {
     @Operation(summary = "Busca uma lista de crianca pelo id do responsavel")
     @ApiResponse(responseCode = "200")
     @GetMapping(path = "/{id}/criancas")
-    public ResponseEntity<Collection<CriancaResponseDTO>> buscarTodasPeloIddoResponsavel(@PathVariable long id){
+    public ResponseEntity<Collection<CriancaResponseDTO>> buscarTodasPeloIdDoResponsavel(@PathVariable long id){
         return ResponseEntity.ok(criancaService.buscarCriancasPeloResponsavel(id));
     }
 
