@@ -11,7 +11,7 @@ import br.com.insted.funcash.builders.ResponsavelBuilder;
 import br.com.insted.funcash.models.Responsavel;
 
 @DataJpaTest
-public class ResponsavelRespository {
+public class ResponsavelRespositoryTest {
 
     @Autowired
     ResponsavelRepository responsavelRepository;
@@ -34,7 +34,7 @@ public class ResponsavelRespository {
         responsavelRepository.save(responsavel);
 
         Responsavel responsavelRetornado = 
-        responsavelRepository.encontrarPorEmailESenha(emailEsperado, senhaEsperada);
+        (responsavelRepository.encontrarPorEmailESenha(emailEsperado, senhaEsperada)).get();
 
         Assertions.assertThat(responsavel.getEmail()).isEqualTo(responsavelRetornado.getEmail());
     }

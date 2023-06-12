@@ -14,6 +14,6 @@ public interface ResponsavelRepository extends CrudRepository<Responsavel, Long>
 
     Responsavel findFirstByIdOrderByIdDesc(Long id);
 
-    @Query("SELECT r FROM Responsavel WHERE r.email = :email AND r.senha = :senha")
-    Responsavel encontrarPorEmailESenha(@Param("email") String email, @Param("senha") String senha);
+    @Query("SELECT r FROM Responsavel r WHERE r.email = :email AND r.senha = :senha")
+    Optional<Responsavel> encontrarPorEmailESenha(@Param("email") String email, @Param("senha") String senha);
 }
