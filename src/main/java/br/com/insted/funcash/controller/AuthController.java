@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.insted.funcash.dto.LoginDTO;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
 import br.com.insted.funcash.service.AuthService;
 
@@ -26,12 +27,4 @@ public class AuthController {
         ResponsavelResponseDTO responseDTO = authService.loginResponsavel(loginRequest.getEmail(), loginRequest.getSenha());
         return ResponseEntity.ok(responseDTO);
     }
-    // @PostMapping(path = {"/entrar"},consumes = { "application/json" })
-    // public ResponseEntity<ResponsavelResponseDTO> autentitcar(@Valid @RequestBody LoginDTO loginRequest ){
-    //     System.out.println("------------------------------------");
-    //     System.out.println("emial: " + loginRequest.getEmail());
-    //     System.out.println("senha: " + loginRequest.getSenha());
-    //     System.out.println("------------------------------------");
-    //    return ResponseEntity.ok(authService.loginResponsavel(loginRequest.getEmail(), loginRequest.getSenha()));
-    // }
 }

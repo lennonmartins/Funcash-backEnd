@@ -51,17 +51,11 @@ public class CriancaMapperImpl implements CriancaMapper {
 
     private Responsavel verificaSeObjetoEhNulo(CriancaRequestDTO criancaRequestDTO) {
         Responsavel responsavel;
-        if (criancaRequestDTO.getIdDoResponsavel() == null) {
-            responsavel = null;
-            return responsavel;
-        }
         Optional<Responsavel> responsavelOptional = responsavelRepository
                 .findById(criancaRequestDTO.getIdDoResponsavel());
-        // if(responsavelOptional.isEmpty()){
-        // Responsavel responsavel = null;
-        // return responsavel;
-        // // throw new NoSuchElementException();
-        // }
+        if (responsavelOptional.isEmpty()) {
+            throw new NoSuchElementException();
+        }
         responsavel = responsavelOptional.get();
         return responsavel;
     }

@@ -1,4 +1,4 @@
-package br.com.insted.funcash.controller;
+package br.com.insted.funcash.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
