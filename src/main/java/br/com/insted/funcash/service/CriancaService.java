@@ -56,6 +56,8 @@ public class CriancaService {
         criancaParaAlterar.setEmail(criancaRequestDTO.getEmail());
         criancaParaAlterar.setApelido(criancaRequestDTO.getApelido());
         criancaParaAlterar.setSenha(criancaRequestDTO.getSenha());
+        criancaParaAlterar.setFoto(criancaRequestDTO.getFoto());
+
 
         criancaRepository.save(criancaParaAlterar);
 
