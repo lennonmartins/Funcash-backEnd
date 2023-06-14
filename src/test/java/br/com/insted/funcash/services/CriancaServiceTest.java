@@ -121,7 +121,8 @@ public class CriancaServiceTest {
                     filhoMaisNovo.getSaldo(),
                     filhoMaisNovo.getNome(),
                     filhoMaisNovo.getApelido(),
-                    filhoMaisNovo.getGenero());
+                    filhoMaisNovo.getGenero(),
+                    filhoMaisNovo.getFoto());
 
         CriancaResponseDTO filhoMaisVelhoResponse = 
                 new CriancaResponseDTO(
@@ -132,7 +133,8 @@ public class CriancaServiceTest {
                     filhoMaisVelho.getSaldo(),
                     filhoMaisVelho.getNome(),
                     filhoMaisVelho.getApelido(),
-                    filhoMaisVelho.getGenero());
+                    filhoMaisVelho.getGenero(),
+                    filhoMaisNovo.getFoto());
 
         Collection<CriancaResponseDTO> criancasRetornadasDTO = Arrays.asList(filhoMaisNovoResponse,filhoMaisVelhoResponse);
        

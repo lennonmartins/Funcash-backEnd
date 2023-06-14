@@ -11,6 +11,7 @@ public class CriancaRequestDTOBuilder {
     private String apelido = "toinho";
     private String dataDeNascimentoemString = "2023-03-23";
     private Genero genero = Genero.MASCULINO;
+    private String foto = Image.getBytes();
     private Long idDoResponsavel = 1L;
 
     public CriancaRequestDTOBuilder comData(String dataEmString) {
@@ -19,7 +20,7 @@ public class CriancaRequestDTOBuilder {
     }
     
     public CriancaRequestDTO construir(){
-        return new CriancaRequestDTO(dataDeNascimentoemString, email,senha,saldo, nome, apelido, genero, idDoResponsavel);
+        return new CriancaRequestDTO(dataDeNascimentoemString, email,senha,saldo, nome, apelido, genero,foto, idDoResponsavel);
     }
 
     public CriancaRequestDTOBuilder comResponsavel(Long idDoResponsavel) {

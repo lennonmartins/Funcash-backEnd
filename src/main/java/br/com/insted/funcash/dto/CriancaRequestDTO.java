@@ -17,5 +17,6 @@ public class CriancaRequestDTO {
     private String nome;
     private String apelido;
     private Genero genero;
+    private String foto;
     private Long idDoResponsavel;
 }

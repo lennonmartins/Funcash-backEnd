@@ -31,6 +31,8 @@ public class CriancaResponseDTO {
 
     private Genero genero;
 
+    private String foto;
+
     public CriancaResponseDTO(Crianca crianca) {
         this.id = crianca.getId();
         this.dataDeNascimento = crianca.getDataDeNascimento();
@@ -40,5 +42,6 @@ public class CriancaResponseDTO {
         this.nome = crianca.getNome();
         this.apelido = crianca.getApelido();
         this.genero = crianca.getGenero();
+        this.foto = crianca.getFoto();
     }   
 }

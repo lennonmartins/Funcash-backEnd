@@ -15,6 +15,7 @@ public class CriancaBuilder {
     private String apelido = "toinho";
     private LocalDate dataDeNascimento = LocalDate.of(2010, 07, 19);
     private Genero genero = Genero.MASCULINO;
+    private String foto = Image.getBytes();
     private Responsavel responsavel;
 
     public CriancaBuilder() {
@@ -22,7 +23,7 @@ public class CriancaBuilder {
     }
 
     public Crianca construir() throws Exception {
-        return new Crianca(dataDeNascimento, email, senha, saldo, nome, apelido, genero, responsavel);
+        return new Crianca(dataDeNascimento, email, senha, saldo, nome, apelido, genero,foto, responsavel);
     }
 
     public CriancaBuilder comEmail(String email) {

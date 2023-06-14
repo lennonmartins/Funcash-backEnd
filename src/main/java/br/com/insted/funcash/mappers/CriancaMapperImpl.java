@@ -31,7 +31,8 @@ public class CriancaMapperImpl implements CriancaMapper {
                 crianca.getSaldo(),
                 crianca.getNome(),
                 crianca.getApelido(),
-                crianca.getGenero());
+                crianca.getGenero(),
+                crianca.getFoto());
     }
 
     @Override
@@ -45,6 +46,7 @@ public class CriancaMapperImpl implements CriancaMapper {
                 .nome(criancaRequestDTO.getNome())
                 .apelido(criancaRequestDTO.getApelido())
                 .genero(criancaRequestDTO.getGenero())
+                .foto(criancaRequestDTO.getFoto())
                 .responsavel(responsavel)
                 .build();
     }

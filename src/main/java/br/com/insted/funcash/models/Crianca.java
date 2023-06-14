@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
@@ -63,13 +64,17 @@ public class Crianca {
     @OneToMany(mappedBy = "crianca", cascade = CascadeType.REMOVE)
     private List<Desejo> desejos;
 
+    @Lob
+    @Column(nullable = true, length=16777215)
+    private String foto;
+
     @Nullable
     @ManyToOne
     @JoinColumn(name = "responsavel_id")
     private Responsavel responsavel;
 
     public Crianca(LocalDate _dataDeNascimento, @Email String _email, String _senha, double _saldo, String _nome,
-            String _apelido, Genero _genero, Responsavel _responsavel) throws Exception {
+            String _apelido, Genero _genero, String _foto, Responsavel _responsavel) throws Exception {
         validaDataDeNAscimento(_dataDeNascimento);
         this.dataDeNascimento = _dataDeNascimento;
         this.email = _email;
@@ -78,6 +83,7 @@ public class Crianca {
         this.nome = _nome;
         this.apelido = _apelido;
         this.genero = _genero;
+        this.foto = _foto;
         this.responsavel = _responsavel;
     }
 
