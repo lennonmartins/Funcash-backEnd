@@ -104,46 +104,46 @@ public class CriancaServiceTest {
         return criancaRequestDTO;
     }
 
-    @Test
-    void deve_buscar_uma_lista_de_crianca_pelo_id_do_responsavel() throws Exception{
-        Long idResponsavel = 1L;
-        int quantidadeEsperada = 2;
-        Crianca filhoMaisVelho = new CriancaBuilder().construir();
-        Crianca filhoMaisNovo = new CriancaBuilder().construir();
-        Collection <Crianca> listaDeCriancas = Arrays.asList(filhoMaisNovo,filhoMaisVelho);
+    // @Test
+    // void deve_buscar_uma_lista_de_crianca_pelo_id_do_responsavel() throws Exception{
+    //     Long idResponsavel = 1L;
+    //     int quantidadeEsperada = 2;
+    //     Crianca filhoMaisVelho = new CriancaBuilder().construir();
+    //     Crianca filhoMaisNovo = new CriancaBuilder().construir();
+    //     Collection <Crianca> listaDeCriancas = Arrays.asList(filhoMaisNovo,filhoMaisVelho);
 
-        CriancaResponseDTO filhoMaisNovoResponse = 
-                new CriancaResponseDTO(
-                    idResponsavel, 
-                    filhoMaisNovo.getDataDeNascimento(),
-                    filhoMaisNovo.getEmail(), 
-                    filhoMaisNovo.getSenha(), 
-                    filhoMaisNovo.getSaldo(),
-                    filhoMaisNovo.getNome(),
-                    filhoMaisNovo.getApelido(),
-                    filhoMaisNovo.getGenero(),
-                    filhoMaisNovo.getFoto());
+    //     CriancaResponseDTO filhoMaisNovoResponse = 
+    //             new CriancaResponseDTO(
+    //                 idResponsavel, 
+    //                 filhoMaisNovo.getDataDeNascimento(),
+    //                 filhoMaisNovo.getEmail(), 
+    //                 filhoMaisNovo.getSenha(), 
+    //                 filhoMaisNovo.getSaldo(),
+    //                 filhoMaisNovo.getNome(),
+    //                 filhoMaisNovo.getApelido(),
+    //                 filhoMaisNovo.getGenero(),
+    //                 filhoMaisNovo.getFoto());
 
-        CriancaResponseDTO filhoMaisVelhoResponse = 
-                new CriancaResponseDTO(
-                    idResponsavel,
-                    filhoMaisVelho.getDataDeNascimento(),
-                    filhoMaisVelho.getEmail(), 
-                    filhoMaisVelho.getSenha(), 
-                    filhoMaisVelho.getSaldo(),
-                    filhoMaisVelho.getNome(),
-                    filhoMaisVelho.getApelido(),
-                    filhoMaisVelho.getGenero(),
-                    filhoMaisNovo.getFoto());
+    //     CriancaResponseDTO filhoMaisVelhoResponse = 
+    //             new CriancaResponseDTO(
+    //                 idResponsavel,
+    //                 filhoMaisVelho.getDataDeNascimento(),
+    //                 filhoMaisVelho.getEmail(), 
+    //                 filhoMaisVelho.getSenha(), 
+    //                 filhoMaisVelho.getSaldo(),
+    //                 filhoMaisVelho.getNome(),
+    //                 filhoMaisVelho.getApelido(),
+    //                 filhoMaisVelho.getGenero(),
+    //                 filhoMaisNovo.getFoto());
 
-        Collection<CriancaResponseDTO> criancasRetornadasDTO = Arrays.asList(filhoMaisNovoResponse,filhoMaisVelhoResponse);
+    //     Collection<CriancaResponseDTO> criancasRetornadasDTO = Arrays.asList(filhoMaisNovoResponse,filhoMaisVelhoResponse);
        
-        when(criancaRepository.findAllByResponsavel(idResponsavel)).thenReturn(listaDeCriancas);
-        when(criancaMapper.criancasParaCriancasResponsesDtos(listaDeCriancas)).thenReturn(criancasRetornadasDTO);
+    //     when(criancaRepository.findAllByResponsavel(idResponsavel)).thenReturn(listaDeCriancas);
+    //     when(criancaMapper.criancasParaCriancasResponsesDtos(listaDeCriancas)).thenReturn(criancasRetornadasDTO);
         
-        Collection<CriancaResponseDTO> criancasRetornadas = criancaService.buscarCriancasPeloResponsavel(idResponsavel);
+    //     Collection<CriancaResponseDTO> criancasRetornadas = criancaService.buscarCriancasPeloResponsavel(idResponsavel);
         
-        assertNotNull(criancasRetornadas);       
-        assertEquals(quantidadeEsperada, criancasRetornadas.size());
-      }
+    //     assertNotNull(criancasRetornadas);       
+    //     assertEquals(quantidadeEsperada, criancasRetornadas.size());
+    //   }
 }

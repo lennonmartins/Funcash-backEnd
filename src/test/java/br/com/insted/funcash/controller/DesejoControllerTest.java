@@ -66,8 +66,7 @@ public class DesejoControllerTest {
 		List<Desejo> desejoRetornados = desejoRepository.findByNomeContainingIgnoreCase(desejoRequestDTO.getNome());
 
 		assertThat(desejoRetornados.size()).isEqualTo(quantidadeEsperada);
-		assertThat(
-			desejoRequestDTO.getNome()).isIn(desejoRetornados.stream().map(Desejo::getNome).toList()
+		assertThat(desejoRequestDTO.getNome()).isIn(desejoRetornados.stream().map(Desejo::getNome).toList()
 		);
 	}
 
