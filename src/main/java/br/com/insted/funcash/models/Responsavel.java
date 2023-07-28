@@ -24,7 +24,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Responsavel {
+public class Responsavel extends Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +34,6 @@ public class Responsavel {
     private String nome;
 
     @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
     private String cpf;
 
     @Column(nullable = false)
@@ -44,9 +41,6 @@ public class Responsavel {
 
     @Column(nullable = false)
     private Genero genero;
-
-    @Column(nullable = false)
-    private String senha;
     
     @Lob
     @Column(nullable = true, length=16777215)
@@ -57,12 +51,11 @@ public class Responsavel {
 
     public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,
             String senha, String  foto ) throws Exception {
+                super(email, senha);
         this.nome = nome;
-        this.email = email;
         this.cpf = cpf;
         this.dataDeNascimentoResponsavel = dataDeNascimentoResponsavel;
         this.genero = genero;
-        this.senha = senha;
         this.foto = foto;
     }
 

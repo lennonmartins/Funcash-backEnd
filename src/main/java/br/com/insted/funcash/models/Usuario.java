@@ -1,13 +1,16 @@
 package br.com.insted.funcash.models;
 
-import javax.persistence.Column;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario {
-    @Column(nullable = false)
     private String email;
-    @Column(nullable = false)
     private String senha;
+
+   
 }
