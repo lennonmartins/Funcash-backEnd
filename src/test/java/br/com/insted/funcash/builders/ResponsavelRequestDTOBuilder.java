@@ -26,4 +26,8 @@ public class ResponsavelRequestDTOBuilder {
     public ResponsavelRequestDTO construir() {
         return new ResponsavelRequestDTO(nome, email, cpf, dataDeNascimentoResponsavelString, genero, senha, foto);
     }
+    public ResponsavelRequestDTOBuilder comNome(String nome) {
+        this.nome = nome;
+        return this;
+    }
 }

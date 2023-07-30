@@ -1,9 +1,11 @@
 package br.com.insted.funcash.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
@@ -93,4 +95,23 @@ public class ResponsavelControllerTest {
 
         Assertions.assertThat(responsavelRetornados).isEmpty();
     }
+    @Test
+	void deve_retornar_uma_responsavel_atualizada() throws Exception{
+		Responsavel responsavel = new ResponsavelBuilder().construir();
+		responsavelRepository.save(responsavel);
+		String nomeDoResponsavelEsperado = "Luiza Teste";
+		ResponsavelRequestDTO responsavelRequestDTO = 
+				new ResponsavelRequestDTOBuilder()
+						.comNome(nomeDoResponsavelEsperado)
+						.construir();
+		
+		this.mockMvc
+				.perform(put("/api/v1/responsavel/" + responsavel.getId())
+				.content(JsonUtil.toJson(responsavelRequestDTO))
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+
+			Iterable<Responsavel> responsavelRetornadas = responsavelRepository.findAll();
+			assertThat(responsavelRetornadas).extracting(Responsavel::getNome).containsOnly(nomeDoResponsavelEsperado);
+	}
 }
