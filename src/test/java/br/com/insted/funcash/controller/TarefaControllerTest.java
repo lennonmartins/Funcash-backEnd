@@ -48,7 +48,6 @@ public class TarefaControllerTest {
 	@AfterEach
 	public void deleteDados() {
 		tarefaRepository.deleteAll();
-
 	}
 
 	@Test

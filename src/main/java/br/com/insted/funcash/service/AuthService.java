@@ -24,6 +24,7 @@ public class AuthService {
         return responsavelMapper.responsavelParaResponsavelResponseDTO(buscarPeloEmailESenha(email, senha));
     }
 
+    //Mudar para Usuario
     private Responsavel buscarPeloEmailESenha(String email, String senha) {
         Optional<Responsavel> responsavelOptional = (responsavelRepository.encontrarPorEmailESenha(email, senha)) ;
         if (responsavelOptional.isEmpty()) {

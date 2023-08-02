@@ -31,11 +31,12 @@ public class ResponsavelRespositoryTest {
                         .comEmail(emailEsperado)
                         .comSenha(senhaEsperada) 
                         .construir();
+
         responsavelRepository.save(responsavel);
 
         Responsavel responsavelRetornado = 
         (responsavelRepository.encontrarPorEmailESenha(emailEsperado, senhaEsperada)).get();
 
-        Assertions.assertThat(responsavel.getEmail()).isEqualTo(responsavelRetornado.getEmail());
+        Assertions.assertThat(responsavel.getUsuario().getEmail()).isEqualTo(responsavelRetornado.getUsuario().getEmail());
     }
 }

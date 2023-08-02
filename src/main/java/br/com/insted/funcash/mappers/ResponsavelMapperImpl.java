@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import br.com.insted.funcash.dto.ResponsavelRequestDTO;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.Usuario;
 import br.com.insted.funcash.utils.DataConvert;
 
 
@@ -18,11 +19,11 @@ public class ResponsavelMapperImpl implements ResponsavelMapper {
     public ResponsavelResponseDTO responsavelParaResponsavelResponseDTO(Responsavel responsavel){
         return new ResponsavelResponseDTO(responsavel.getId(),
         responsavel.getNome(),
-        responsavel.getEmail(), 
+        responsavel.getUsuario().getEmail(), 
         responsavel.getCpf(), 
         responsavel.getDataDeNascimentoResponsavel(), 
         responsavel.getGenero(), 
-        responsavel.getSenha(),
+        responsavel.getUsuario().getSenha(),
         responsavel.getFoto()
         );
     }
@@ -31,11 +32,10 @@ public class ResponsavelMapperImpl implements ResponsavelMapper {
     public Responsavel responsavelRequestparaResponsavel(ResponsavelRequestDTO responsavelRequestDTO) {
         return Responsavel.builder()
                 .nome(responsavelRequestDTO.getNome())
-                .email(responsavelRequestDTO.getEmail())
+                .usuario(new Usuario(responsavelRequestDTO.getEmail(), responsavelRequestDTO.getSenha()))
                 .cpf(responsavelRequestDTO.getCpf())
                 .dataDeNascimentoResponsavel(DataConvert.obterData(responsavelRequestDTO.getDataDeNascimentoResponsavel()))
                 .genero(responsavelRequestDTO.getGenero())
-                .senha(responsavelRequestDTO.getSenha())
                 .foto(responsavelRequestDTO.getFoto())
                 .build();
     }

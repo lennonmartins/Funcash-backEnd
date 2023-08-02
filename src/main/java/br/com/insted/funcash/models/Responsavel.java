@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +25,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Responsavel extends Usuario {
+public class Responsavel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +34,7 @@ public class Responsavel extends Usuario {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String cpf;
 
     @Column(nullable = false)
@@ -41,17 +42,20 @@ public class Responsavel extends Usuario {
 
     @Column(nullable = false)
     private Genero genero;
-    
+
     @Lob
-    @Column(nullable = true, length=16777215)
+    @Column(nullable = true, length = 16777215)
     private String foto;
 
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.REMOVE)
     private List<Crianca> criancas;
 
+    @OneToOne(mappedBy = "responsavel", cascade = CascadeType.REMOVE)
+    private Usuario usuario;
+
     public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,
-            String senha, String  foto ) throws Exception {
-                super(email, senha);
+            String senha, String foto) throws Exception {
+        this.usuario = new Usuario(email, senha);
         this.nome = nome;
         this.cpf = cpf;
         this.dataDeNascimentoResponsavel = dataDeNascimentoResponsavel;
