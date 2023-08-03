@@ -6,12 +6,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
+import br.com.insted.funcash.utils.EntidadeBase;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,12 +22,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Responsavel {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Responsavel extends EntidadeBase {
     @Column(nullable = false)
     private String nome;
 

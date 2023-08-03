@@ -11,7 +11,6 @@ import lombok.Data;
 @MappedSuperclass
 public class EntidadeBase {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 }
