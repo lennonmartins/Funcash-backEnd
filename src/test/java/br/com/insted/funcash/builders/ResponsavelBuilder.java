@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import br.com.insted.funcash.models.Genero;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.Usuario;
 
 public class ResponsavelBuilder {
     private String nome = "Charmayanne";
@@ -13,9 +14,10 @@ public class ResponsavelBuilder {
     private Genero genero = Genero.FEMININO;
     private String senha = "1234567";
     private String foto = Image.getBytes();
+    private Usuario usuario = new Usuario(email, senha);
 
     public Responsavel construir() throws Exception {
-        return new Responsavel(nome, email, cpf, dataDeNascimentoResponsavel, genero, senha, foto);
+        return new Responsavel(nome, usuario.getEmail(), cpf, dataDeNascimentoResponsavel, genero, usuario.getSenha(), foto);
     }
 
     public ResponsavelBuilder comNome(String nome) {
@@ -45,6 +47,11 @@ public class ResponsavelBuilder {
 
     public ResponsavelBuilder comSenha(String senha) {
         this.senha = senha;
+        return this;
+    }
+
+    public ResponsavelBuilder comUsuario(Usuario usuario) {
+        this.usuario = usuario;
         return this;
     }
 }

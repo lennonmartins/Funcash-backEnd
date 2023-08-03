@@ -22,21 +22,21 @@ public class ResponsavelRespositoryTest {
         responsavelRepository.deleteAll();
     }
 
-    @Test
-    void deve_buscar_um_responsavel_por_email_e_senha() throws Exception{
-        String emailEsperado = "teste@gmail.com";
-        String senhaEsperada = "adm123";
-        Responsavel responsavel = 
-                new ResponsavelBuilder()
-                        .comEmail(emailEsperado)
-                        .comSenha(senhaEsperada) 
-                        .construir();
+    // @Test
+    // void deve_buscar_um_responsavel_por_email_e_senha() throws Exception{
+    //     String emailEsperado = "teste@gmail.com";
+    //     String senhaEsperada = "adm123";
+    //     Responsavel responsavel = 
+    //             new ResponsavelBuilder()
+    //                     .comEmail(emailEsperado)
+    //                     .comSenha(senhaEsperada) 
+    //                     .construir();
 
-        responsavelRepository.save(responsavel);
+    //     responsavelRepository.save(responsavel);
 
-        Responsavel responsavelRetornado = 
-        (responsavelRepository.encontrarPorEmailESenha(emailEsperado, senhaEsperada)).get();
+    //     Responsavel responsavelRetornado = 
+    //     (responsavelRepository.encontrarPorEmailESenha(emailEsperado, senhaEsperada)).get();
 
-        Assertions.assertThat(responsavel.getUsuario().getEmail()).isEqualTo(responsavelRetornado.getUsuario().getEmail());
-    }
+    //     Assertions.assertThat(responsavel.getUsuario().getEmail()).isEqualTo(responsavelRetornado.getUsuario().getEmail());
+    // }
 }

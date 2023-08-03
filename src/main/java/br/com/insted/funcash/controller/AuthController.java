@@ -23,9 +23,9 @@ public class AuthController {
     @Autowired
     AuthService authService;
     
-    @PostMapping(path = {"/entrar"})
-    public ResponseEntity<ResponsavelResponseDTO> autenticar(@Valid @RequestBody LoginDTO loginRequest) {
-        ResponsavelResponseDTO responseDTO = authService.loginResponsavel(loginRequest.getEmail(), loginRequest.getSenha());
-        return ResponseEntity.ok(responseDTO);
-    }
+    // @PostMapping(path = {"/entrar"})
+    // public ResponseEntity<ResponsavelResponseDTO> autenticar(@Valid @RequestBody LoginDTO loginRequest) {
+    //     ResponsavelResponseDTO responseDTO = authService.loginResponsavel(loginRequest.getEmail(), loginRequest.getSenha());
+    //     return ResponseEntity.ok(responseDTO);
+    // }
 }

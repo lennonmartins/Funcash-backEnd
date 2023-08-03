@@ -50,12 +50,13 @@ public class Responsavel {
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.REMOVE)
     private List<Crianca> criancas;
 
-    @OneToOne(mappedBy = "responsavel", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "responsavel", cascade = CascadeType.PERSIST)
     private Usuario usuario;
 
     public Responsavel(String nome, String email, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,
             String senha, String foto) throws Exception {
         this.usuario = new Usuario(email, senha);
+        setUsuario(usuario);
         this.nome = nome;
         this.cpf = cpf;
         this.dataDeNascimentoResponsavel = dataDeNascimentoResponsavel;

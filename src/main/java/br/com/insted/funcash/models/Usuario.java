@@ -38,4 +38,8 @@ public class Usuario {
         this.email = email;
         this.senha = senha;
     }
+
+    public void vincularResponsavel(Responsavel responsavel){
+        this.responsavel = responsavel;
+    }
 }
