@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @MappedSuperclass
-public class EntidadeBase {
+public abstract class EntidadeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
