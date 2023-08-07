@@ -32,6 +32,7 @@ import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Responsavel;
 import br.com.insted.funcash.repository.CriancaRepository;
 import br.com.insted.funcash.repository.ResponsavelRepository;
+import br.com.insted.funcash.repository.UsuarioRepository;
 import br.com.insted.funcash.utils.JsonUtil;
 
 @SpringBootTest

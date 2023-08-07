@@ -68,6 +68,7 @@ public class ResponsavelControllerTest {
         Responsavel responsavel = new ResponsavelBuilder().construir();
         responsavelRepository.save(responsavel);
 
+        
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/responsavel/" + responsavel.getId())).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
