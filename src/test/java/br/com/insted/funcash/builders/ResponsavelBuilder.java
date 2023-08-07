@@ -17,7 +17,7 @@ public class ResponsavelBuilder {
     private Usuario usuario = new Usuario(email, senha);
 
     public Responsavel construir() throws Exception {
-        return new Responsavel(nome, usuario.getEmail(), cpf, dataDeNascimentoResponsavel, genero, usuario.getSenha(), foto);
+        return new Responsavel(usuario, nome, cpf, dataDeNascimentoResponsavel, genero, foto);
     }
 
     public ResponsavelBuilder comNome(String nome) {

@@ -12,7 +12,9 @@ import br.com.insted.funcash.dto.ResponsavelRequestDTO;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
 import br.com.insted.funcash.mappers.ResponsavelMapper;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.Usuario;
 import br.com.insted.funcash.repository.ResponsavelRepository;
+import br.com.insted.funcash.repository.UsuarioRepository;
 
 @Service
 public class ResponsavelService {
@@ -21,6 +23,9 @@ public class ResponsavelService {
 
     @Autowired
     private ResponsavelMapper responsavelMapper;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public ResponsavelResponseDTO buscarPorId(Long id){
         return responsavelMapper.responsavelParaResponsavelResponseDTO(buscarResponsavelPeloId(id));
@@ -37,6 +42,8 @@ public class ResponsavelService {
     public ResponsavelResponseDTO cadastrar(ResponsavelRequestDTO responsavelRequestDTO) throws IOException{
         Responsavel responsavel = responsavelMapper.responsavelRequestparaResponsavel(responsavelRequestDTO);
         responsavelRepository.save(responsavel);
+        responsavel.setUsuario(responsavel.getUsuario());
+        usuarioRepository.save(responsavel.getUsuario());
         return responsavelMapper.responsavelParaResponsavelResponseDTO(responsavel);
     }
 }

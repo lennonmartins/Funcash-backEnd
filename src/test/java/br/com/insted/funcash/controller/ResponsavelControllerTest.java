@@ -43,7 +43,6 @@ public class ResponsavelControllerTest {
     @AfterEach
     public void deleteDados() {
         responsavelRepository.deleteAll();
-
     }
 
     @Test
