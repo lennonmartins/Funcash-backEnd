@@ -12,7 +12,6 @@ import br.com.insted.funcash.dto.ResponsavelRequestDTO;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
 import br.com.insted.funcash.mappers.ResponsavelMapper;
 import br.com.insted.funcash.models.Responsavel;
-import br.com.insted.funcash.models.Usuario;
 import br.com.insted.funcash.repository.ResponsavelRepository;
 import br.com.insted.funcash.repository.UsuarioRepository;
 

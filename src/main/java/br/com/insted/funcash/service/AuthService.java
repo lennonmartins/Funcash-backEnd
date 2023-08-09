@@ -30,7 +30,7 @@ public class AuthService {
 
     //Mudar para Usuario
     private Responsavel buscarPeloEmailESenha(String email, String senha) {
-        Optional<Responsavel> responsavelOptional = (usuarioRepository.obterPorEmailESenha(email, senha)) ;
+        Optional<Responsavel> responsavelOptional = (usuarioRepository.obterPorEmailESenha(email, senha));
         if (responsavelOptional.isEmpty()) {
             throw new NoSuchElementException("Usuário Responsável não Encontrado");
         }

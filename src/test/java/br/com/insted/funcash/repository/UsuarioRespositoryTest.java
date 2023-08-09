@@ -1,9 +1,13 @@
 package br.com.insted.funcash.repository;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -19,7 +23,7 @@ public class UsuarioRespositoryTest {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private ResponsavelRepository responsavelRepository;
+    private ResponsavelRepository responsavelRepository = Mockito.mock(ResponsavelRepository.class);
 
     @BeforeEach
     @AfterEach
@@ -38,11 +42,11 @@ public class UsuarioRespositoryTest {
                 .comUsuario(usuario)
                 .construir();
 
-        responsavelRepository.save(responsavel);
-        // when(responsavelRepository.save(any(Responsavel.class))).thenReturn(responsavel);
+        // responsavelRepository.save(responsavel);
+        when(responsavelRepository.save(any(Responsavel.class))).thenReturn(responsavel);
 
-        Usuario responsavelRetornado = (usuarioRepository.obterPorEmailESenha(emailEsperado, senhaEsperada)).get();
+        Responsavel responsavelRetornado = (usuarioRepository.obterPorEmailESenha(emailEsperado, senhaEsperada)).get();
 
-        Assertions.assertThat(responsavel.getUsuario().getEmail()).isEqualTo(responsavelRetornado.getEmail());
+        Assertions.assertThat(responsavel.getUsuario().getEmail()).isEqualTo(responsavelRetornado.getUsuario().getEmail());
     }
 }

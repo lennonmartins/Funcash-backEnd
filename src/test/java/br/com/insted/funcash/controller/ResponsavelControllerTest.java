@@ -67,7 +67,6 @@ public class ResponsavelControllerTest {
     void deve_buscar_um_responsavel_pelo_id() throws Exception {
         Responsavel responsavel = new ResponsavelBuilder().construir();
         responsavelRepository.save(responsavel);
-
         
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/responsavel/" + responsavel.getId())).andReturn();
 
