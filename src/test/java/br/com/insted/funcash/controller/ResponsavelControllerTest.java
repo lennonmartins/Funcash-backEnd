@@ -1,9 +1,11 @@
 package br.com.insted.funcash.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
@@ -26,6 +28,7 @@ import br.com.insted.funcash.builders.ResponsavelRequestDTOBuilder;
 import br.com.insted.funcash.dto.ResponsavelRequestDTO;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.Usuario;
 import br.com.insted.funcash.repository.ResponsavelRepository;
 import br.com.insted.funcash.utils.JsonUtil;
 
@@ -65,7 +68,8 @@ public class ResponsavelControllerTest {
 
     @Test
     void deve_buscar_um_responsavel_pelo_id() throws Exception {
-        Responsavel responsavel = new ResponsavelBuilder().construir();
+        Usuario usuario = new Usuario("teste@gmail.com", "123456");
+        Responsavel responsavel = new ResponsavelBuilder().comUsuario(usuario).construir();
         responsavelRepository.save(responsavel);
         
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/responsavel/" + responsavel.getId())).andReturn();
@@ -92,4 +96,23 @@ public class ResponsavelControllerTest {
 
         Assertions.assertThat(responsavelRetornados).isEmpty();
     }
+    @Test
+	void deve_retornar_uma_responsavel_atualizado() throws Exception{
+		Responsavel responsavel = new ResponsavelBuilder().construir();
+		responsavelRepository.save(responsavel);
+		String nomeDoResponsavelEsperado = "Luiza Teste";
+		ResponsavelRequestDTO responsavelRequestDTO = 
+				new ResponsavelRequestDTOBuilder()
+						.comNome(nomeDoResponsavelEsperado)
+						.construir();
+		
+		this.mockMvc
+				.perform(put("/api/v1/responsavel/" + responsavel.getId())
+				.content(JsonUtil.toJson(responsavelRequestDTO))
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+
+			Iterable<Responsavel> responsavelRetornadas = responsavelRepository.findAll();
+			assertThat(responsavelRetornadas).extracting(Responsavel::getNome).containsOnly(nomeDoResponsavelEsperado);
+	}
 }

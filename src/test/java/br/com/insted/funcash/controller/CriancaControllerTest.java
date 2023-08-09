@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
@@ -32,7 +32,6 @@ import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Responsavel;
 import br.com.insted.funcash.repository.CriancaRepository;
 import br.com.insted.funcash.repository.ResponsavelRepository;
-import br.com.insted.funcash.repository.UsuarioRepository;
 import br.com.insted.funcash.utils.JsonUtil;
 
 @SpringBootTest

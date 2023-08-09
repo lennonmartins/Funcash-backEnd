@@ -12,8 +12,10 @@ import br.com.insted.funcash.dto.ResponsavelRequestDTO;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
 import br.com.insted.funcash.mappers.ResponsavelMapper;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.Usuario;
 import br.com.insted.funcash.repository.ResponsavelRepository;
 import br.com.insted.funcash.repository.UsuarioRepository;
+import br.com.insted.funcash.utils.DataConvert;
 
 @Service
 public class ResponsavelService {
@@ -36,6 +38,22 @@ public class ResponsavelService {
             throw new NoSuchElementException();
         }
         return responsavelOptional.get();
+    }
+
+    public ResponsavelResponseDTO alterarReponsavel(ResponsavelRequestDTO responsavelRequestDTO, Long id){
+        Usuario usuarioParaAlterar = usuarioRepository.findByIdResponsavel(id);
+        usuarioParaAlterar.setEmail(responsavelRequestDTO.getEmail());
+        usuarioParaAlterar.setSenha(responsavelRequestDTO.getSenha());
+        Responsavel responsavelParaAlterar = buscarResponsavelPeloId(id);
+        responsavelParaAlterar.setNome(responsavelRequestDTO.getNome());
+        responsavelParaAlterar.setGenero(responsavelRequestDTO.getGenero());
+        responsavelParaAlterar.setFoto(responsavelRequestDTO.getFoto());
+        responsavelParaAlterar.setUsuario(usuarioParaAlterar);
+        responsavelParaAlterar.setDataDeNascimentoResponsavel(DataConvert.obterData(responsavelRequestDTO.getDataDeNascimentoResponsavel()));
+
+        responsavelRepository.save(responsavelParaAlterar);
+
+        return responsavelMapper.responsavelParaResponsavelResponseDTO(responsavelParaAlterar);
     }
 
     public ResponsavelResponseDTO cadastrar(ResponsavelRequestDTO responsavelRequestDTO) throws IOException{

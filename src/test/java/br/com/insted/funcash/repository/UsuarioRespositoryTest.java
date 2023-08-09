@@ -45,7 +45,7 @@ public class UsuarioRespositoryTest {
         // responsavelRepository.save(responsavel);
         when(responsavelRepository.save(any(Responsavel.class))).thenReturn(responsavel);
 
-        Responsavel responsavelRetornado = (usuarioRepository.obterPorEmailESenha(emailEsperado, senhaEsperada)).get();
+        Responsavel responsavelRetornado = ((usuarioRepository.obterPorEmailESenha(emailEsperado, senhaEsperada)).get()).getResponsavel();
 
         Assertions.assertThat(responsavel.getUsuario().getEmail()).isEqualTo(responsavelRetornado.getUsuario().getEmail());
     }

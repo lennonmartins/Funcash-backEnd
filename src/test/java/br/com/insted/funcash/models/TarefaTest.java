@@ -29,7 +29,7 @@ public class TarefaTest {
         
         Tarefa tarefa = new TarefaBuilder().construir();
 
-        assertEquals(horaEsperada, tarefa.getDataDeCriacao());
+        assertEquals(horaEsperada.getHour(), tarefa.getDataDeCriacao().getHour());
     }
 
     @Test

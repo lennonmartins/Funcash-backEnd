@@ -10,5 +10,4 @@ public interface ResponsavelRepository extends JpaRepository<Responsavel, Long> 
     List<Responsavel> findByNomeContainingIgnoreCase(String nome);
 
     Responsavel findFirstByIdOrderByIdDesc(Long id);
-
 }

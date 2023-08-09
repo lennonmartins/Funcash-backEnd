@@ -53,16 +53,14 @@ public class ResponsavelController {
         return ResponseEntity.ok(responsavelService.buscarPorId(id));
     }
 
-    // @Operation(summary = "Altera os dados de um responsavel cadastrado")
-    // @ApiResponse(responseCode = "200")
-    // @PutMapping(path = "/{id}")
-    // public ResponseEntity<ResponsavelResponseDTO> alterarDadosDoResponsavel(
-    //         @RequestBody @Valid ResponsavelRequestDTO responsavelRequestDTO, @PathVariable Long id) {
-    //     return ResponseEntity.ok(responsavelService.alterarReponsavel(responsavelRequestDTO, id));
-    // }
+    @Operation(summary = "Altera os dados de um responsavel cadastrado")
+    @ApiResponse(responseCode = "200")
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<ResponsavelResponseDTO> alterarDadosDoResponsavel(
+            @RequestBody @Valid ResponsavelRequestDTO responsavelRequestDTO, @PathVariable Long id) {
+        return ResponseEntity.ok(responsavelService.alterarReponsavel(responsavelRequestDTO, id));
+    }
 
-    @Operation(summary ="Deleta um responsável pelo seu id")
-    @ApiResponse(responseCode = "200", description = "Deleta um responsável selecionado" )
     @DeleteMapping(path = "/{id}")
     public void remover(@PathVariable Long id) {
         responsavelRepository.deleteById(id);
