@@ -45,7 +45,8 @@ public class CriancaService {
     }
 
     public Collection<CriancaResponseDTO> buscarCriancasPeloResponsavel(Long id){
-        return criancaMapper.criancasParaCriancasResponsesDtos((Collection<Crianca>) criancaRepository.findAllByResponsavel(id));
+        Collection<Crianca> criancaRetornadas = criancaRepository.findAllByResponsavel(id);
+        return criancaMapper.criancasParaCriancasResponsesDtos(criancaRetornadas);
     }
 
     public CriancaResponseDTO alterar(CriancaRequestDTO criancaRequestDTO, Long id){

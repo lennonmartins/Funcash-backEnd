@@ -2,20 +2,31 @@ package br.com.insted.funcash.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import br.com.insted.funcash.builders.CriancaBuilder;
 import br.com.insted.funcash.builders.CriancaRequestDTOBuilder;
 import br.com.insted.funcash.builders.ResponsavelBuilder;
 import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.CriancaResponseDTO;
 import br.com.insted.funcash.mappers.CriancaMapper;
+import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Responsavel;
 import br.com.insted.funcash.repository.CriancaRepository;
 import br.com.insted.funcash.repository.ResponsavelRepository;
@@ -25,21 +36,22 @@ import br.com.insted.funcash.utils.DataConvert;
 @SpringBootTest
 public class CriancaServiceTest {
     
-    @Autowired
+    @Mock
     ResponsavelRepository responsavelRepository;
     
-    @Autowired
-    CriancaRepository criancaRepository;
+    @Mock
+    CriancaRepository criancaRepository = null;
     
     @Autowired
     private CriancaService criancaService;
     
-    @Autowired
-    CriancaMapper criancaMapper;
+    @Mock
+    CriancaMapper criancaMapper = null;
 
     @BeforeEach
     @AfterEach
     void setUp(){
+        MockitoAnnotations.openMocks(this);
         responsavelRepository.deleteAll();
         criancaRepository.deleteAll();
     }
@@ -59,8 +71,12 @@ public class CriancaServiceTest {
         String dataEmString = "2010-07-19";
         LocalDate dataEsperada = LocalDate.of(2010, 07, 19);
         Responsavel responsavel = new ResponsavelBuilder().construir();
-		responsavelRepository.save(responsavel);
-        CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().comResponsavel(responsavel.getId()).comData(dataEmString).construir();
+        Crianca crianca = new CriancaBuilder().construir();
+        CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().comResponsavel(any(Long.class)).comData(dataEmString).construir();
+
+        when(responsavelRepository.findById(any(Long.class))).thenReturn(Optional.of(responsavel));
+        when(criancaMapper.criancaRequestparaCrianca(criancaRequestDTO)).thenReturn(crianca);
+        when(criancaRepository.save(crianca)).thenReturn(crianca);
 
         CriancaResponseDTO criancaResponse = criancaService.cadastrar(criancaRequestDTO);
 
@@ -97,46 +113,46 @@ public class CriancaServiceTest {
         return criancaRequestDTO;
     }
 
-    // @Test
-    // void deve_buscar_uma_lista_de_crianca_pelo_id_do_responsavel() throws Exception{
-    //     Long idResponsavel = 1L;
-    //     int quantidadeEsperada = 2;
-    //     Crianca filhoMaisVelho = new CriancaBuilder().construir();
-    //     Crianca filhoMaisNovo = new CriancaBuilder().construir();
-    //     Collection <Crianca> listaDeCriancas = Arrays.asList(filhoMaisNovo,filhoMaisVelho);
+    @Test
+    void deve_buscar_uma_lista_de_crianca_pelo_id_do_responsavel() throws Exception{
+        Long idResponsavel = 1L;
+        int quantidadeEsperada = 2;
+        Crianca filhoMaisVelho = new CriancaBuilder().construir();
+        Crianca filhoMaisNovo = new CriancaBuilder().construir();
+        Collection <Crianca> listaDeCriancas = Arrays.asList(filhoMaisNovo,filhoMaisVelho);
 
-    //     CriancaResponseDTO filhoMaisNovoResponse = 
-    //             new CriancaResponseDTO(
-    //                 idResponsavel, 
-    //                 filhoMaisNovo.getDataDeNascimento(),
-    //                 filhoMaisNovo.getEmail(), 
-    //                 filhoMaisNovo.getSenha(), 
-    //                 filhoMaisNovo.getSaldo(),
-    //                 filhoMaisNovo.getNome(),
-    //                 filhoMaisNovo.getApelido(),
-    //                 filhoMaisNovo.getGenero(),
-    //                 filhoMaisNovo.getFoto());
+        CriancaResponseDTO filhoMaisNovoResponse = 
+                new CriancaResponseDTO(
+                    2L, 
+                    filhoMaisNovo.getDataDeNascimento(),
+                    filhoMaisNovo.getEmail(), 
+                    filhoMaisNovo.getSenha(), 
+                    filhoMaisNovo.getSaldo(),
+                    filhoMaisNovo.getNome(),
+                    filhoMaisNovo.getApelido(),
+                    filhoMaisNovo.getGenero(),
+                    filhoMaisNovo.getFoto());
 
-    //     CriancaResponseDTO filhoMaisVelhoResponse = 
-    //             new CriancaResponseDTO(
-    //                 idResponsavel,
-    //                 filhoMaisVelho.getDataDeNascimento(),
-    //                 filhoMaisVelho.getEmail(), 
-    //                 filhoMaisVelho.getSenha(), 
-    //                 filhoMaisVelho.getSaldo(),
-    //                 filhoMaisVelho.getNome(),
-    //                 filhoMaisVelho.getApelido(),
-    //                 filhoMaisVelho.getGenero(),
-    //                 filhoMaisNovo.getFoto());
+        CriancaResponseDTO filhoMaisVelhoResponse = 
+                new CriancaResponseDTO(
+                    3L,
+                    filhoMaisVelho.getDataDeNascimento(),
+                    filhoMaisVelho.getEmail(), 
+                    filhoMaisVelho.getSenha(), 
+                    filhoMaisVelho.getSaldo(),
+                    filhoMaisVelho.getNome(),
+                    filhoMaisVelho.getApelido(),
+                    filhoMaisVelho.getGenero(),
+                    filhoMaisNovo.getFoto());
 
-    //     Collection<CriancaResponseDTO> criancasRetornadasDTO = Arrays.asList(filhoMaisNovoResponse,filhoMaisVelhoResponse);
+        Collection<CriancaResponseDTO> criancasRetornadasDTO = Arrays.asList(filhoMaisNovoResponse,filhoMaisVelhoResponse);
        
-    //     when(criancaRepository.findAllByResponsavel(idResponsavel)).thenReturn(listaDeCriancas);
-    //     when(criancaMapper.criancasParaCriancasResponsesDtos(listaDeCriancas)).thenReturn(criancasRetornadasDTO);
+        when(criancaRepository.findAllByResponsavel(idResponsavel)).thenReturn(listaDeCriancas);
+        when(criancaMapper.criancasParaCriancasResponsesDtos(listaDeCriancas)).thenReturn(criancasRetornadasDTO);
         
-    //     Collection<CriancaResponseDTO> criancasRetornadas = criancaService.buscarCriancasPeloResponsavel(idResponsavel);
+        Collection<CriancaResponseDTO> criancasRetornadas = criancaService.buscarCriancasPeloResponsavel(idResponsavel);
         
-    //     assertNotNull(criancasRetornadas);       
-    //     assertEquals(quantidadeEsperada, criancasRetornadas.size());
-    //   }
+        assertNotNull(criancasRetornadas);       
+        assertEquals(quantidadeEsperada, criancasRetornadas.size());
+      }
 }
