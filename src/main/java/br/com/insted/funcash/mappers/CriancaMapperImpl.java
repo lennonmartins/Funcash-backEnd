@@ -51,7 +51,7 @@ public class CriancaMapperImpl implements CriancaMapper {
                 .build();
     }
 
-    private Responsavel verificaSeObjetoEhNulo(CriancaRequestDTO criancaRequestDTO) {
+    public Responsavel verificaSeObjetoEhNulo(CriancaRequestDTO criancaRequestDTO) {
         Responsavel responsavel;
         Optional<Responsavel> responsavelOptional = responsavelRepository
                 .findById(criancaRequestDTO.getIdDoResponsavel());

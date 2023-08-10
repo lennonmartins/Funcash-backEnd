@@ -3,7 +3,7 @@ package br.com.insted.funcash.services;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -37,16 +36,16 @@ import br.com.insted.funcash.utils.DataConvert;
 public class CriancaServiceTest {
     
     @Mock
-    ResponsavelRepository responsavelRepository;
+    ResponsavelRepository responsavelRepository = mock(ResponsavelRepository.class); ;
     
     @Mock
-    CriancaRepository criancaRepository = null;
+    CriancaRepository criancaRepository= mock(CriancaRepository.class); 
     
     @Autowired
     private CriancaService criancaService;
     
     @Mock
-    CriancaMapper criancaMapper = null;
+    CriancaMapper criancaMapper = mock(CriancaMapper.class);
 
     @BeforeEach
     @AfterEach
@@ -72,9 +71,13 @@ public class CriancaServiceTest {
         LocalDate dataEsperada = LocalDate.of(2010, 07, 19);
         Responsavel responsavel = new ResponsavelBuilder().construir();
         Crianca crianca = new CriancaBuilder().construir();
-        CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().comResponsavel(any(Long.class)).comData(dataEmString).construir();
+        CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder()
+            .comResponsavel(1L)
+            .comData(dataEmString)
+            .construir();
 
-        when(responsavelRepository.findById(any(Long.class))).thenReturn(Optional.of(responsavel));
+        when(responsavelRepository
+        .findById(criancaRequestDTO.getIdDoResponsavel())).thenReturn(Optional.of(responsavel));
         when(criancaMapper.criancaRequestparaCrianca(criancaRequestDTO)).thenReturn(crianca);
         when(criancaRepository.save(crianca)).thenReturn(crianca);
 
