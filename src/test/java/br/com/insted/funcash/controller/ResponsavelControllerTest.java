@@ -28,6 +28,7 @@ import br.com.insted.funcash.builders.ResponsavelRequestDTOBuilder;
 import br.com.insted.funcash.dto.ResponsavelRequestDTO;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.Usuario;
 import br.com.insted.funcash.repository.ResponsavelRepository;
 import br.com.insted.funcash.utils.JsonUtil;
 
@@ -45,7 +46,6 @@ public class ResponsavelControllerTest {
     @AfterEach
     public void deleteDados() {
         responsavelRepository.deleteAll();
-
     }
 
     @Test
@@ -68,9 +68,10 @@ public class ResponsavelControllerTest {
 
     @Test
     void deve_buscar_um_responsavel_pelo_id() throws Exception {
-        Responsavel responsavel = new ResponsavelBuilder().construir();
+        Usuario usuario = new Usuario("teste@gmail.com", "123456");
+        Responsavel responsavel = new ResponsavelBuilder().comUsuario(usuario).construir();
         responsavelRepository.save(responsavel);
-
+        
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/responsavel/" + responsavel.getId())).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
@@ -96,7 +97,7 @@ public class ResponsavelControllerTest {
         Assertions.assertThat(responsavelRetornados).isEmpty();
     }
     @Test
-	void deve_retornar_uma_responsavel_atualizada() throws Exception{
+	void deve_retornar_uma_responsavel_atualizado() throws Exception{
 		Responsavel responsavel = new ResponsavelBuilder().construir();
 		responsavelRepository.save(responsavel);
 		String nomeDoResponsavelEsperado = "Luiza Teste";

@@ -9,13 +9,18 @@ import org.springframework.stereotype.Service;
 import br.com.insted.funcash.dto.ResponsavelResponseDTO;
 import br.com.insted.funcash.mappers.ResponsavelMapper;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.Usuario;
 import br.com.insted.funcash.repository.ResponsavelRepository;
+import br.com.insted.funcash.repository.UsuarioRepository;
 
 @Service
 public class AuthService {
 
     @Autowired
     ResponsavelRepository responsavelRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     ResponsavelMapper responsavelMapper;
@@ -25,11 +30,11 @@ public class AuthService {
     }
 
     private Responsavel buscarPeloEmailESenha(String email, String senha) {
-        Optional<Responsavel> responsavelOptional = (responsavelRepository.encontrarPorEmailESenha(email, senha)) ;
-        if (responsavelOptional.isEmpty()) {
+        Usuario usuarioObtido =  usuarioRepository.obterPorEmailESenha(email, senha).get();
+        Optional<Responsavel> responsavelRetornado = responsavelRepository.findById(usuarioObtido.getResponsavel().getId());
+        if (responsavelRetornado.isEmpty()) {
             throw new NoSuchElementException("Usuário Responsável não Encontrado");
         }
-        return responsavelOptional.get();
+        return responsavelRetornado.get();
     }
-
 }

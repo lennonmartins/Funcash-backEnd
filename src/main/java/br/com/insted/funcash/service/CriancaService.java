@@ -23,10 +23,10 @@ public class CriancaService {
     private CriancaMapper criancaMapper;
 
     public CriancaResponseDTO buscarPorId(Long id){
-        return criancaMapper.criancaParaCriancaResponseDTO(buscarCricaPeloId(id));
+        return criancaMapper.criancaParaCriancaResponseDTO(buscarCriancaPeloId(id));
     }
 
-    private Crianca buscarCricaPeloId(Long id) {
+    private Crianca buscarCriancaPeloId(Long id) {
         Optional<Crianca> criancaOptional = criancaRepository.findById(id);
         if(criancaOptional.isEmpty()){
             throw new NoSuchElementException();
@@ -49,7 +49,7 @@ public class CriancaService {
     }
 
     public CriancaResponseDTO alterar(CriancaRequestDTO criancaRequestDTO, Long id){
-        Crianca criancaParaAlterar = buscarCricaPeloId(id);
+        Crianca criancaParaAlterar = buscarCriancaPeloId(id);
         criancaParaAlterar.setNome(criancaRequestDTO.getNome());
         criancaParaAlterar.setGenero(criancaRequestDTO.getGenero());
         criancaParaAlterar.setDataDeNascimento(DataConvert.obterData(criancaRequestDTO.getDataDeNascimento()));

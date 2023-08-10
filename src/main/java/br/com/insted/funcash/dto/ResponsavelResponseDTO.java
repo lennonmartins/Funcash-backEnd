@@ -25,11 +25,11 @@ public class ResponsavelResponseDTO {
     public ResponsavelResponseDTO(Responsavel responsavel){
         this.id = responsavel.getId();
         this.nome = responsavel.getNome();
-        this.email = responsavel.getEmail();
+        this.email = responsavel.getUsuario().getEmail();
         this.cpf = responsavel.getCpf();
         this.dataDeNascimentoResponsavel = responsavel.getDataDeNascimentoResponsavel();
         this.genero = responsavel.getGenero();
-        this.senha = responsavel.getSenha();
+        this.senha = responsavel.getUsuario().getSenha();
         this.foto = responsavel.getFoto();
     }
 }
