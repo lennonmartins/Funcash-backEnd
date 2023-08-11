@@ -3,6 +3,7 @@ package br.com.insted.funcash.services;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -14,6 +15,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +38,16 @@ import br.com.insted.funcash.utils.DataConvert;
 public class CriancaServiceTest {
     
     @Mock
-    ResponsavelRepository responsavelRepository = mock(ResponsavelRepository.class); ;
+    ResponsavelRepository responsavelRepository;
     
     @Mock
-    CriancaRepository criancaRepository= mock(CriancaRepository.class); 
+    CriancaRepository criancaRepository; 
     
-    @Autowired
+    @InjectMocks
     private CriancaService criancaService;
     
     @Mock
-    CriancaMapper criancaMapper = mock(CriancaMapper.class);
+    CriancaMapper criancaMapper;
 
     @BeforeEach
     @AfterEach
@@ -75,14 +77,15 @@ public class CriancaServiceTest {
             .comResponsavel(1L)
             .comData(dataEmString)
             .construir();
+        CriancaResponseDTO criancaResponseDTO = CriancaResponseDTO.builder().dataDeNascimento(dataEsperada).build();
 
         when(responsavelRepository
         .findById(criancaRequestDTO.getIdDoResponsavel())).thenReturn(Optional.of(responsavel));
         when(criancaMapper.criancaRequestparaCrianca(criancaRequestDTO)).thenReturn(crianca);
-        when(criancaRepository.save(crianca)).thenReturn(crianca);
-
+        when(criancaRepository.save(any(Crianca.class))).thenReturn(crianca);
+        when(criancaMapper.criancaParaCriancaResponseDTO(crianca)).thenReturn(criancaResponseDTO);
+        
         CriancaResponseDTO criancaResponse = criancaService.cadastrar(criancaRequestDTO);
-
         assertThat(criancaResponse.getDataDeNascimento()).isEqualTo(dataEsperada);
     }
 
