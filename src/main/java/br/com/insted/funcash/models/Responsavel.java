@@ -6,11 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
-import br.com.insted.funcash.utils.EntidadeBase;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,8 +31,8 @@ public class Responsavel extends Pessoa {
     // @OneToOne(mappedBy = "responsavel", cascade = CascadeType.ALL)
     // private Usuario usuario;
 
-    public Responsavel(String nome, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero, String foto) throws Exception {
-       super(nome, dataDeNascimentoResponsavel, genero, usuario, foto)
+    public Responsavel(Usuario usuario,String nome, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero, String foto) throws Exception {
+       super(nome, dataDeNascimentoResponsavel, genero, usuario, foto);
         this.cpf = cpf;
     }
 

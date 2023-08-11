@@ -10,7 +10,9 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
 import br.com.insted.funcash.utils.EntidadeBase;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public abstract class Pessoa extends EntidadeBase {
     
     @Column(nullable = false, length = 100)
