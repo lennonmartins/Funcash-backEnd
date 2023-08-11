@@ -25,7 +25,7 @@ public abstract class Pessoa extends EntidadeBase {
     @Column(nullable = false)
     public Genero genero;
     
-    @OneToOne(mappedBy = "responsavel", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
     @Column(nullable = false)
     public Usuario usuario; 
     

@@ -42,7 +42,4 @@ public class Crianca extends Pessoa {
         this.apelido = apelido;
         this.responsavel = responsavel;
     }
-
-    //Teste 123
-
 }

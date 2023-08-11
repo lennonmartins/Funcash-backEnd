@@ -17,13 +17,16 @@ public class CriancaBuilder {
     private Genero genero = Genero.MASCULINO;
     private String foto = Image.getBytes();
     private Responsavel responsavel;
+    
 
     public CriancaBuilder() {
 
     }
 
     public Crianca construir() throws Exception {
-        return new Crianca(dataDeNascimento, email, senha, saldo, nome, apelido, genero,foto, responsavel);
+        
+        return  new Crianca( dataDeNascimento,  usuario ,  saldo,  nome,
+         apelido,  genero,  foto,  responsavel);
     }
 
     public CriancaBuilder comEmail(String email) {

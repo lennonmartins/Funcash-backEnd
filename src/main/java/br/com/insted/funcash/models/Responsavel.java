@@ -31,7 +31,7 @@ public class Responsavel extends Pessoa {
     // @OneToOne(mappedBy = "responsavel", cascade = CascadeType.ALL)
     // private Usuario usuario;
 
-    public Responsavel(Usuario usuario,String nome, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero, String foto) throws Exception {
+    public Responsavel(Usuario usuario, String nome, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero, String foto) throws Exception {
        super(nome, dataDeNascimentoResponsavel, genero, usuario, foto);
         this.cpf = cpf;
     }
