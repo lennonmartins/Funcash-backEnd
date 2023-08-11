@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Email
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -32,14 +34,14 @@ public class Usuario {
     @NotNull
     @OneToOne
     @JoinColumn(name = "responsavel_id")
-    private Responsavel responsavel;
+    private Pessoa pessoa;
 
     public Usuario(String email, String senha){
         this.email = email;
         this.senha = senha;
     }
 
-    public void vincularResponsavel(Responsavel responsavel){
-        this.responsavel = responsavel;
+    public void vincularPessoa(Pessoa pessoa){
+        this.pessoa = pessoa;
     }
 }

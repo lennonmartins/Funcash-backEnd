@@ -23,39 +23,24 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Responsavel extends EntidadeBase {
-    @Column(nullable = false)
-    private String nome;
+public class Responsavel extends Pessoa {
 
     @Column(nullable = false, unique = true)
     private String cpf;
 
-    @Column(nullable = false)
-    private LocalDate dataDeNascimentoResponsavel;
-
-    @Column(nullable = false)
-    private Genero genero;
-
-    @Lob
-    @Column(nullable = true, length = 16777215)
-    private String foto;
-
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.REMOVE)
     private List<Crianca> criancas;
 
-    @OneToOne(mappedBy = "responsavel", cascade = CascadeType.ALL)
-    private Usuario usuario;
+    // @OneToOne(mappedBy = "responsavel", cascade = CascadeType.ALL)
+    // private Usuario usuario;
 
-    public Responsavel(Usuario usuario, String nome, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero, String foto) throws Exception {
-        this.nome = nome;
+    public Responsavel(String nome, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero, String foto) throws Exception {
+       super(nome, dataDeNascimentoResponsavel, genero, usuario, foto)
         this.cpf = cpf;
-        this.dataDeNascimentoResponsavel = dataDeNascimentoResponsavel;
-        this.genero = genero;
-        this.foto = foto;
     }
 
-    public void setUsuario(Usuario usuario){
-        this.usuario = usuario;
-        usuario.vincularResponsavel(this);
-    }
+    // public void setUsuario(Usuario usuario){
+    //     this.usuario = usuario;
+    //     usuario.vincularResponsavel(this);
+    // }
 }
