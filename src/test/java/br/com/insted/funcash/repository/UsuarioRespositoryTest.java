@@ -42,8 +42,8 @@ public class UsuarioRespositoryTest {
                 .comUsuario(usuario)
                 .construir();
 
-        // responsavelRepository.save(responsavel);
-        when(responsavelRepository.save(any(Responsavel.class))).thenReturn(responsavel);
+        responsavelRepository.save(responsavel);
+        //when(responsavelRepository.save(any(Responsavel.class))).thenReturn(responsavel);
 
         Responsavel responsavelRetornado = ((usuarioRepository.obterPorEmailESenha(emailEsperado, senhaEsperada)).get()).getResponsavel();
 

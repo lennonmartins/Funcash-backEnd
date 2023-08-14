@@ -52,6 +52,7 @@ public class Responsavel extends EntidadeBase {
         this.dataDeNascimentoResponsavel = dataDeNascimentoResponsavel;
         this.genero = genero;
         this.foto = foto;
+        setUsuario(usuario);
     }
 
     public void setUsuario(Usuario usuario){
