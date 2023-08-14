@@ -12,6 +12,7 @@ import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.dto.CriancaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.Usuario;
 import br.com.insted.funcash.repository.ResponsavelRepository;
 import br.com.insted.funcash.utils.DataConvert;
 
@@ -26,8 +27,8 @@ public class CriancaMapperImpl implements CriancaMapper {
         return new CriancaResponseDTO(
                 crianca.getId(),
                 crianca.getDataDeNascimento(),
-                crianca.getEmail(),
-                crianca.getSenha(),
+                crianca.getUsuario().getEmail(),
+                crianca.getUsuario().getSenha(),
                 crianca.getSaldo(),
                 crianca.getNome(),
                 crianca.getApelido(),
@@ -36,19 +37,17 @@ public class CriancaMapperImpl implements CriancaMapper {
     }
 
     @Override
-    public Crianca criancaRequestparaCrianca(CriancaRequestDTO criancaRequestDTO) {
+    public Crianca criancaRequestparaCrianca(CriancaRequestDTO criancaRequestDTO) throws Exception {
         Responsavel responsavel = verificaSeObjetoEhNulo(criancaRequestDTO);
-        return Crianca.builder()
-                .dataDeNascimento(DataConvert.obterData(criancaRequestDTO.getDataDeNascimento()))
-                .email(criancaRequestDTO.getEmail())
-                .senha(criancaRequestDTO.getSenha())
-                .saldo(criancaRequestDTO.getSaldo())
-                .nome(criancaRequestDTO.getNome())
-                .apelido(criancaRequestDTO.getApelido())
-                .genero(criancaRequestDTO.getGenero())
-                .foto(criancaRequestDTO.getFoto())
-                .responsavel(responsavel)
-                .build();
+        return new Crianca(
+                (DataConvert.obterData(criancaRequestDTO.getDataDeNascimento())),
+                new Usuario(criancaRequestDTO.getEmail(),criancaRequestDTO.getSenha()),
+                criancaRequestDTO.getSaldo(),
+                criancaRequestDTO.getNome(),
+                criancaRequestDTO.getApelido(),
+                criancaRequestDTO.getGenero(),
+                criancaRequestDTO.getFoto(),
+                responsavel);
     }
 
     private Responsavel verificaSeObjetoEhNulo(CriancaRequestDTO criancaRequestDTO) {

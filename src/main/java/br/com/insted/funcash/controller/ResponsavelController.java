@@ -1,7 +1,5 @@
 package br.com.insted.funcash.controller;
 
-import java.io.IOException;
-
 import javax.naming.NameNotFoundException;
 import javax.validation.Valid;
 
@@ -42,7 +40,7 @@ public class ResponsavelController {
     @ApiResponse(responseCode = "201")
     @PostMapping(consumes = { "application/json" })
     public ResponseEntity<ResponsavelResponseDTO> cadastrar(
-            @RequestBody @Valid ResponsavelRequestDTO responsavelRequestDTO) throws IOException {
+            @RequestBody @Valid ResponsavelRequestDTO responsavelRequestDTO) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(responsavelService.cadastrar(responsavelRequestDTO));
     }
 

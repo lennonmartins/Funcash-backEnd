@@ -33,7 +33,7 @@ public class Usuario {
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "responsavel_id")
+    @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 
     public Usuario(String email, String senha){

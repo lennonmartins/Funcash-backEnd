@@ -12,10 +12,16 @@ import javax.persistence.OneToMany;
 
 import org.springframework.lang.Nullable;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Crianca extends Pessoa {
 
     @Column(nullable = false, length = 15)

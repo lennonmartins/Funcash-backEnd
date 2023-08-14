@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Genero;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.Usuario;
 
 public class CriancaBuilder {
 
@@ -17,11 +18,9 @@ public class CriancaBuilder {
     private Genero genero = Genero.MASCULINO;
     private String foto = Image.getBytes();
     private Responsavel responsavel;
-    
+    private Usuario usuario = new Usuario(email, senha);
 
-    public CriancaBuilder() {
-
-    }
+    public CriancaBuilder() {}
 
     public Crianca construir() throws Exception {
         

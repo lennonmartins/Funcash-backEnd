@@ -31,7 +31,7 @@ public class AuthService {
 
     private Responsavel buscarPeloEmailESenha(String email, String senha) {
         Usuario usuarioObtido =  usuarioRepository.obterPorEmailESenha(email, senha).get();
-        Optional<Responsavel> responsavelRetornado = responsavelRepository.findById(usuarioObtido.getResponsavel().getId());
+        Optional<Responsavel> responsavelRetornado = responsavelRepository.findById(usuarioObtido.getId());
         if (responsavelRetornado.isEmpty()) {
             throw new NoSuchElementException("Usuário Responsável não Encontrado");
         }

@@ -8,6 +8,6 @@ import br.com.insted.funcash.models.Crianca;
 
 public interface CriancaMapper {
     public CriancaResponseDTO criancaParaCriancaResponseDTO(Crianca crianca);  
-    public Crianca criancaRequestparaCrianca(CriancaRequestDTO criancaRequestDTO);
+    public Crianca criancaRequestparaCrianca(CriancaRequestDTO criancaRequestDTO) throws Exception;
     public Collection<CriancaResponseDTO> criancasParaCriancasResponsesDtos(Collection<Crianca> criancas);
 }

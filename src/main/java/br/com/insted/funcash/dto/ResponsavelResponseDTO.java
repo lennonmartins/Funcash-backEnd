@@ -27,7 +27,7 @@ public class ResponsavelResponseDTO {
         this.nome = responsavel.getNome();
         this.email = responsavel.getUsuario().getEmail();
         this.cpf = responsavel.getCpf();
-        this.dataDeNascimentoResponsavel = responsavel.getDataDeNascimentoResponsavel();
+        this.dataDeNascimentoResponsavel = responsavel.getDataDeNascimento();
         this.genero = responsavel.getGenero();
         this.senha = responsavel.getUsuario().getSenha();
         this.foto = responsavel.getFoto();

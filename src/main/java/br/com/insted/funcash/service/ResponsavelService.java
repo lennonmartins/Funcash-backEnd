@@ -1,7 +1,4 @@
 package br.com.insted.funcash.service;
-
-
-import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -48,15 +45,15 @@ public class ResponsavelService {
         responsavelParaAlterar.setNome(responsavelRequestDTO.getNome());
         responsavelParaAlterar.setGenero(responsavelRequestDTO.getGenero());
         responsavelParaAlterar.setFoto(responsavelRequestDTO.getFoto());
+        responsavelParaAlterar.setDataDeNascimento(DataConvert.obterData(responsavelRequestDTO.getDataDeNascimentoResponsavel()));
         responsavelParaAlterar.setUsuario(usuarioParaAlterar);
-        responsavelParaAlterar.setDataDeNascimentoResponsavel(DataConvert.obterData(responsavelRequestDTO.getDataDeNascimentoResponsavel()));
 
         responsavelRepository.save(responsavelParaAlterar);
 
         return responsavelMapper.responsavelParaResponsavelResponseDTO(responsavelParaAlterar);
     }
 
-    public ResponsavelResponseDTO cadastrar(ResponsavelRequestDTO responsavelRequestDTO) throws IOException{
+    public ResponsavelResponseDTO cadastrar(ResponsavelRequestDTO responsavelRequestDTO) throws Exception{
         Responsavel responsavel = responsavelMapper.responsavelRequestparaResponsavel(responsavelRequestDTO);
         responsavelRepository.save(responsavel);
         responsavel.setUsuario(responsavel.getUsuario());

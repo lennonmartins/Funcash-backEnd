@@ -36,8 +36,8 @@ public class CriancaResponseDTO {
     public CriancaResponseDTO(Crianca crianca) {
         this.id = crianca.getId();
         this.dataDeNascimento = crianca.getDataDeNascimento();
-        this.email = crianca.getEmail();
-        this.senha = crianca.getSenha();
+        this.email = crianca.getUsuario().getEmail();
+        this.senha = crianca.getUsuario().getSenha();
         this.saldo = crianca.getSaldo();
         this.nome = crianca.getNome();
         this.apelido = crianca.getApelido();

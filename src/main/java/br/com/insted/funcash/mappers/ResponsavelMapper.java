@@ -8,6 +8,6 @@ import br.com.insted.funcash.models.Responsavel;
 
 public interface ResponsavelMapper {
     public ResponsavelResponseDTO responsavelParaResponsavelResponseDTO(Responsavel responsavel);
-    public Responsavel responsavelRequestparaResponsavel(ResponsavelRequestDTO responsavelRequestDTO);
+    public Responsavel responsavelRequestparaResponsavel(ResponsavelRequestDTO responsavelRequestDTO) throws Exception;
     public Collection<ResponsavelResponseDTO> responsavelParaResponsavelResponsesDtos(Collection<Responsavel> responsavel);
 }
