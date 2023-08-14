@@ -36,30 +36,31 @@ import br.com.insted.funcash.utils.DataConvert;
 
 @SpringBootTest
 public class CriancaServiceTest {
-    
+
     @Mock
     ResponsavelRepository responsavelRepository;
-    
+
     @Mock
-    CriancaRepository criancaRepository; 
-    
+    CriancaRepository criancaRepository;
+
     @InjectMocks
     private CriancaService criancaService;
-    
+
     @Mock
     CriancaMapper criancaMapper;
 
     @BeforeEach
     @AfterEach
-    void setUp(){
+    void setUp() {
         MockitoAnnotations.openMocks(this);
         responsavelRepository.deleteAll();
         criancaRepository.deleteAll();
     }
+
     @Test
-    void deve_converte_data_em_string_para_timestamp(){
+    void deve_converte_data_em_string_para_timestamp() {
         String dataEmString = "2010-07-19";
-        
+
         LocalDate dataEsperada = LocalDate.of(2010, 07, 19);
 
         LocalDate dataAtual = DataConvert.obterData(dataEmString);
@@ -68,97 +69,107 @@ public class CriancaServiceTest {
     }
 
     @Test
-    void deve_salvar_crianca_com_data_formatada() throws Exception{
+    void deve_salvar_crianca_com_data_formatada() throws Exception {
         String dataEmString = "2010-07-19";
         LocalDate dataEsperada = LocalDate.of(2010, 07, 19);
-        Responsavel responsavel = new ResponsavelBuilder().construir();
         Crianca crianca = new CriancaBuilder().construir();
         CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder()
-            .comResponsavel(1L)
-            .comData(dataEmString)
-            .construir();
+                .comData(dataEmString)
+                .construir();
         CriancaResponseDTO criancaResponseDTO = CriancaResponseDTO.builder().dataDeNascimento(dataEsperada).build();
 
-        when(responsavelRepository
-        .findById(criancaRequestDTO.getIdDoResponsavel())).thenReturn(Optional.of(responsavel));
         when(criancaMapper.criancaRequestparaCrianca(criancaRequestDTO)).thenReturn(crianca);
         when(criancaRepository.save(any(Crianca.class))).thenReturn(crianca);
         when(criancaMapper.criancaParaCriancaResponseDTO(crianca)).thenReturn(criancaResponseDTO);
-        
+
         CriancaResponseDTO criancaResponse = criancaService.cadastrar(criancaRequestDTO);
         assertThat(criancaResponse.getDataDeNascimento()).isEqualTo(dataEsperada);
     }
 
     @Test
-    void deve_cadastrar_uma_crianca() throws Exception{
+    void deve_cadastrar_uma_crianca() throws Exception {
+        long idEsperado = 1L;
         CriancaRequestDTO criancaRequestDTO = extracted();
+        Crianca crianca = new CriancaBuilder().construir();
+        CriancaResponseDTO criancaResponseDTO = CriancaResponseDTO.builder().id(idEsperado).email(crianca.getEmail()).build();
+       
+        when(criancaMapper.criancaRequestparaCrianca(criancaRequestDTO)).thenReturn(crianca);
+        when(criancaRepository.save(any(Crianca.class))).thenReturn(crianca);
+        when(criancaMapper.criancaParaCriancaResponseDTO(crianca)).thenReturn(criancaResponseDTO);
 
-        CriancaResponseDTO criancaResponseDTO = criancaService.cadastrar(criancaRequestDTO);
+        CriancaResponseDTO criancaRetornadaDto = criancaService.cadastrar(criancaRequestDTO);
 
-        assertThat(criancaResponseDTO.getId()).isNotNull();
+        assertThat(criancaRetornadaDto.getId()).isNotNull();
+        assertThat(criancaRetornadaDto.getEmail()).isNotNull();
     }
 
     @Test
-    void deve_editar_uma_crianca() throws Exception{
+    void deve_editar_uma_crianca() throws Exception {
         Long idEsperado = 1L;
         String nomeParaSerAlterado = "Luluzinha Penosa";
         CriancaRequestDTO criancaRequestDTO = extracted();
-        CriancaResponseDTO criancaResponseDTO = criancaService.cadastrar(criancaRequestDTO);
+        Crianca crianca = new CriancaBuilder().construir();
+        CriancaResponseDTO criancaResponseDTO = CriancaResponseDTO.builder().nome(nomeParaSerAlterado).build();
 
         criancaRequestDTO.setNome(nomeParaSerAlterado);
 
+        when(criancaRepository.findById(idEsperado)).thenReturn(Optional.of(crianca));
+        when(criancaMapper.criancaRequestparaCrianca(criancaRequestDTO)).thenReturn(crianca);
+        when(criancaRepository.save(any(Crianca.class))).thenReturn(crianca);
+        when(criancaMapper.criancaParaCriancaResponseDTO(crianca)).thenReturn(criancaResponseDTO);
+
         criancaResponseDTO = criancaService.alterar(criancaRequestDTO, idEsperado);
-        
+
         assertThat(criancaResponseDTO.getNome()).isEqualTo(nomeParaSerAlterado);
     }
 
     private CriancaRequestDTO extracted() throws Exception {
         Responsavel responsavel = new ResponsavelBuilder().construir();
-		responsavelRepository.save(responsavel);
-        CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().comResponsavel(responsavel.getId()).construir();
+        when(responsavelRepository.save(responsavel)).thenReturn(responsavel);
+        CriancaRequestDTO criancaRequestDTO = new CriancaRequestDTOBuilder().comResponsavel(responsavel.getId())
+                .construir();
         return criancaRequestDTO;
     }
 
     @Test
-    void deve_buscar_uma_lista_de_crianca_pelo_id_do_responsavel() throws Exception{
+    void deve_buscar_uma_lista_de_crianca_pelo_id_do_responsavel() throws Exception {
         Long idResponsavel = 1L;
         int quantidadeEsperada = 2;
         Crianca filhoMaisVelho = new CriancaBuilder().construir();
         Crianca filhoMaisNovo = new CriancaBuilder().construir();
-        Collection <Crianca> listaDeCriancas = Arrays.asList(filhoMaisNovo,filhoMaisVelho);
+        Collection<Crianca> listaDeCriancas = Arrays.asList(filhoMaisNovo, filhoMaisVelho);
 
-        CriancaResponseDTO filhoMaisNovoResponse = 
-                new CriancaResponseDTO(
-                    2L, 
-                    filhoMaisNovo.getDataDeNascimento(),
-                    filhoMaisNovo.getEmail(), 
-                    filhoMaisNovo.getSenha(), 
-                    filhoMaisNovo.getSaldo(),
-                    filhoMaisNovo.getNome(),
-                    filhoMaisNovo.getApelido(),
-                    filhoMaisNovo.getGenero(),
-                    filhoMaisNovo.getFoto());
+        CriancaResponseDTO filhoMaisNovoResponse = new CriancaResponseDTO(
+                2L,
+                filhoMaisNovo.getDataDeNascimento(),
+                filhoMaisNovo.getEmail(),
+                filhoMaisNovo.getSenha(),
+                filhoMaisNovo.getSaldo(),
+                filhoMaisNovo.getNome(),
+                filhoMaisNovo.getApelido(),
+                filhoMaisNovo.getGenero(),
+                filhoMaisNovo.getFoto());
 
-        CriancaResponseDTO filhoMaisVelhoResponse = 
-                new CriancaResponseDTO(
-                    3L,
-                    filhoMaisVelho.getDataDeNascimento(),
-                    filhoMaisVelho.getEmail(), 
-                    filhoMaisVelho.getSenha(), 
-                    filhoMaisVelho.getSaldo(),
-                    filhoMaisVelho.getNome(),
-                    filhoMaisVelho.getApelido(),
-                    filhoMaisVelho.getGenero(),
-                    filhoMaisNovo.getFoto());
+        CriancaResponseDTO filhoMaisVelhoResponse = new CriancaResponseDTO(
+                3L,
+                filhoMaisVelho.getDataDeNascimento(),
+                filhoMaisVelho.getEmail(),
+                filhoMaisVelho.getSenha(),
+                filhoMaisVelho.getSaldo(),
+                filhoMaisVelho.getNome(),
+                filhoMaisVelho.getApelido(),
+                filhoMaisVelho.getGenero(),
+                filhoMaisNovo.getFoto());
 
-        Collection<CriancaResponseDTO> criancasRetornadasDTO = Arrays.asList(filhoMaisNovoResponse,filhoMaisVelhoResponse);
-       
+        Collection<CriancaResponseDTO> criancasRetornadasDTO = Arrays.asList(filhoMaisNovoResponse,
+                filhoMaisVelhoResponse);
+
         when(criancaRepository.findAllByResponsavel(idResponsavel)).thenReturn(listaDeCriancas);
         when(criancaMapper.criancasParaCriancasResponsesDtos(listaDeCriancas)).thenReturn(criancasRetornadasDTO);
-        
+
         Collection<CriancaResponseDTO> criancasRetornadas = criancaService.buscarCriancasPeloResponsavel(idResponsavel);
-        
-        assertNotNull(criancasRetornadas);       
+
+        assertNotNull(criancasRetornadas);
         assertEquals(quantidadeEsperada, criancasRetornadas.size());
-      }
+    }
 }
