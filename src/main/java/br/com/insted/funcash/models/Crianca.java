@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.lang.Nullable;
 
@@ -30,6 +31,9 @@ public class Crianca extends Pessoa {
     @Column(nullable = true, length = 50)
     private String apelido;
 
+    @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
+    private Usuario usuario; 
+
     @OneToMany(mappedBy = "crianca", cascade = CascadeType.REMOVE)
     private List<Tarefa> tarefas;
 
@@ -43,9 +47,15 @@ public class Crianca extends Pessoa {
 
     public Crianca(LocalDate dataDeNascimento, Usuario usuario , double saldo, String nome,
             String apelido, Genero genero, String foto, Responsavel responsavel) throws Exception {
-            super(nome, dataDeNascimento, genero, usuario, foto);
+            super(nome, dataDeNascimento, genero, foto);
         this.saldo = saldo;
         this.apelido = apelido;
         this.responsavel = responsavel;
+        setUsuario(usuario);
+    }
+
+    public void setUsuario(Usuario usuario){
+        this.usuario = usuario;
+        usuario.vincularCrianca(this);
     }
 }

@@ -19,7 +19,11 @@
 		<mssql-jdbc.version>9.4.1.jre8</mssql-jdbc.version>
 	</properties>
 	<dependencies>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -99,7 +103,6 @@
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -125,10 +128,11 @@
 					<sonar.host.url>http://localhost:9000</sonar.host.url>
 					<sonar.projectKey>funcash</sonar.projectKey>
 					<sonar.projectName>funcash</sonar.projectName>
-					<!-- Outras propriedades de configuração -->
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>${project.artifactId}</finalName>
 	</build>
 
+<packaging>war</packaging>
 </project>

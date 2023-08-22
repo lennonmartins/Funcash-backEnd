@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Usuario {
+public class Usuario<T> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,15 +33,24 @@ public class Usuario {
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "pessoa_id")
-    private Pessoa pessoa;
+    @JoinColumn(name = "responsavel_id")
+    private Responsavel responsavel;
+
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "responsavel_id")
+    private Crianca crianca;
 
     public Usuario(String email, String senha){
         this.email = email;
         this.senha = senha;
     }
+    
+    public void vincularResponsavel(Responsavel responsavel){
+        this.responsavel = responsavel;
+    }
 
-    public void vincularPessoa(Pessoa pessoa){
-        this.pessoa = pessoa;
+    public void vincularCrianca(Crianca crianca){
+        this.crianca = crianca;
     }
 }

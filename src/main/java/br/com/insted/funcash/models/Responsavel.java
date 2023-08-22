@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,16 +29,17 @@ public class Responsavel extends Pessoa {
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.REMOVE)
     private List<Crianca> criancas;
 
-    // @OneToOne(mappedBy = "responsavel", cascade = CascadeType.ALL)
-    // private Usuario usuario;
+    @OneToOne(mappedBy = "responsavel", cascade = CascadeType.ALL)
+    private Usuario usuario;
 
     public Responsavel(Usuario usuario, String nome, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero, String foto) throws Exception {
-       super(nome, dataDeNascimentoResponsavel, genero, usuario, foto);
+       super(nome, dataDeNascimentoResponsavel, genero, foto);
         this.cpf = cpf;
+        setUsuario(usuario);
     }
 
-    // public void setUsuario(Usuario usuario){
-    //     this.usuario = usuario;
-    //     usuario.vincularResponsavel(this);
-    // }
+    public void setUsuario(Usuario usuario){
+        this.usuario = usuario;
+        usuario.vincularResponsavel(this);
+    }
 }
