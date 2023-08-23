@@ -31,7 +31,7 @@ public class Crianca extends Pessoa {
     @Column(nullable = true, length = 50)
     private String apelido;
 
-    @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "crianca", cascade = CascadeType.ALL)
     private Usuario usuario; 
 
     @OneToMany(mappedBy = "crianca", cascade = CascadeType.REMOVE)
@@ -56,6 +56,6 @@ public class Crianca extends Pessoa {
 
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
-        usuario.vincularCrianca(this);
+        usuario.vincularEntidade(this);
     }
 }

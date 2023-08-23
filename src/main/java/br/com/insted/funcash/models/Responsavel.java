@@ -40,6 +40,6 @@ public class Responsavel extends Pessoa {
 
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
-        usuario.vincularResponsavel(this);
+        usuario.vincularEntidade(this);
     }
 }
