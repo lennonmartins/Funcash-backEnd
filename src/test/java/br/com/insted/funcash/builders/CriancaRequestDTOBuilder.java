@@ -3,6 +3,7 @@ package br.com.insted.funcash.builders;
 import br.com.insted.funcash.dto.CriancaRequestDTO;
 import br.com.insted.funcash.models.Genero;
 
+
 public class CriancaRequestDTOBuilder {
     private String nome = "Pluto";
     private String email = "pluto@gmail";
@@ -30,6 +31,16 @@ public class CriancaRequestDTOBuilder {
 
     public CriancaRequestDTOBuilder comNome(String nome) {
         this.nome = nome;
+        return this;
+    }
+
+    public CriancaRequestDTOBuilder comEmail(String email){
+        this.email = email;
+        return this;
+    }
+
+    public CriancaRequestDTOBuilder comId(long id) {
+        this.idDoResponsavel = id;
         return this;
     }
 }

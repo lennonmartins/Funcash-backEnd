@@ -56,6 +56,6 @@ public class Crianca extends Pessoa {
 
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
-        usuario.vincularEntidade(this);
+        usuario.vincularCrianca(this);
     }
 }

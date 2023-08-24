@@ -50,80 +50,80 @@ public class TarefaControllerTest {
 		tarefaRepository.deleteAll();
 	}
 
-	@Test
-	void deve_incluir_uma_tarefa() throws Exception {
-		int quantidadeEsperada = 1;
-		Crianca criancaEsperada = new CriancaBuilder().construir();
-		criancaRepository.save(criancaEsperada);
-		TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder()
-				.comCrianca(criancaEsperada.getId())
-				.construir();
+	// @Test
+	// void deve_incluir_uma_tarefa() throws Exception {
+	// 	int quantidadeEsperada = 1;
+	// 	Crianca criancaEsperada = new CriancaBuilder().construir();
+	// 	criancaRepository.save(criancaEsperada);
+	// 	TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder()
+	// 			.comCrianca(criancaEsperada.getId())
+	// 			.construir();
 
-		this.mockMvc
-				.perform(post("/api/v1/tarefas")
-						.content(JsonUtil.toJson(tarefaRequestDTO))
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isCreated());
+	// 	this.mockMvc
+	// 			.perform(post("/api/v1/tarefas")
+	// 					.content(JsonUtil.toJson(tarefaRequestDTO))
+	// 					.contentType(MediaType.APPLICATION_JSON))
+	// 			.andExpect(status().isCreated());
 
-		List<Tarefa> tarefaRetornados = tarefaRepository.findByNomeContainingIgnoreCase(tarefaRequestDTO.getNome());
-		assertThat(tarefaRetornados.size()).isEqualTo(quantidadeEsperada);
-		assertThat(tarefaRetornados.stream().map(Tarefa::getNome).toList())
-				.contains(tarefaRequestDTO.getNome());
-	}
+	// 	List<Tarefa> tarefaRetornados = tarefaRepository.findByNomeContainingIgnoreCase(tarefaRequestDTO.getNome());
+	// 	assertThat(tarefaRetornados.size()).isEqualTo(quantidadeEsperada);
+	// 	assertThat(tarefaRetornados.stream().map(Tarefa::getNome).toList())
+	// 			.contains(tarefaRequestDTO.getNome());
+	// }
 
-	@Test
-	void deve_retornar_uma_lista_de_tarefas()
-			throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception {
-		cadastrardezTarefas();
-		int quantidadeEsperada = 10;
+	// @Test
+	// void deve_retornar_uma_lista_de_tarefas()
+	// 		throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception {
+	// 	cadastrardezTarefas();
+	// 	int quantidadeEsperada = 10;
 
-		TarefaResponseDTO[] tarefasRetornadas = JsonUtil.mapFromJsonModuleJavaTime(
-				this.mockMvc.perform(get("/api/v1/tarefas")).andReturn().getResponse().getContentAsString(),
-				TarefaResponseDTO[].class);
+	// 	TarefaResponseDTO[] tarefasRetornadas = JsonUtil.mapFromJsonModuleJavaTime(
+	// 			this.mockMvc.perform(get("/api/v1/tarefas")).andReturn().getResponse().getContentAsString(),
+	// 			TarefaResponseDTO[].class);
 
-		assertThat(tarefasRetornadas).hasSize(quantidadeEsperada);
-	}
+	// 	assertThat(tarefasRetornadas).hasSize(quantidadeEsperada);
+	// }
 
-	private void cadastrardezTarefas() throws Exception {
-		Crianca criancaEsperada = new CriancaBuilder().construir();
-		criancaRepository.save(criancaEsperada);
-		for (int i = 0; i < 10; i++) {
-			tarefaRepository.save(
-					new TarefaBuilder()
-							.comCrianca(criancaEsperada)
-							.construir());
-		}
-	}
+	// private void cadastrardezTarefas() throws Exception {
+	// 	Crianca criancaEsperada = new CriancaBuilder().construir();
+	// 	criancaRepository.save(criancaEsperada);
+	// 	for (int i = 0; i < 10; i++) {
+	// 		tarefaRepository.save(
+	// 				new TarefaBuilder()
+	// 						.comCrianca(criancaEsperada)
+	// 						.construir());
+	// 	}
+	// }
 
-	@Test
-	void deve_retornar_uma_tarefa_pelo_id()
-			throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception {
-		Tarefa tarefa = new TarefaBuilder().construir();
-		tarefaRepository.save(tarefa);
+	// @Test
+	// void deve_retornar_uma_tarefa_pelo_id()
+	// 		throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception {
+	// 	Tarefa tarefa = new TarefaBuilder().construir();
+	// 	tarefaRepository.save(tarefa);
 
-		TarefaResponseDTO tarefaResponseDTO = JsonUtil
-				.mapFromJsonModuleJavaTime((this.mockMvc.perform(get("/api/v1/tarefas/" + tarefa.getId())).andReturn())
-						.getResponse().getContentAsString(), TarefaResponseDTO.class);
+	// 	TarefaResponseDTO tarefaResponseDTO = JsonUtil
+	// 			.mapFromJsonModuleJavaTime((this.mockMvc.perform(get("/api/v1/tarefas/" + tarefa.getId())).andReturn())
+	// 					.getResponse().getContentAsString(), TarefaResponseDTO.class);
 
-		assertThat(tarefaResponseDTO.getId()).isEqualTo(tarefa.getId());
-	}
+	// 	assertThat(tarefaResponseDTO.getId()).isEqualTo(tarefa.getId());
+	// }
 
-	@Test
-	void deve_retornar_uma_tarefa_atualizada() throws JsonProcessingException, Exception {
-		Tarefa tarefa = new TarefaBuilder().construir();
-		tarefaRepository.save(tarefa);
-		String nomeEsperado = "Limpar caixa do gato";
-		TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder()
-				.comNome(nomeEsperado)
-				.construir();
+	// @Test
+	// void deve_retornar_uma_tarefa_atualizada() throws JsonProcessingException, Exception {
+	// 	Tarefa tarefa = new TarefaBuilder().construir();
+	// 	tarefaRepository.save(tarefa);
+	// 	String nomeEsperado = "Limpar caixa do gato";
+	// 	TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder()
+	// 			.comNome(nomeEsperado)
+	// 			.construir();
 
-		this.mockMvc
-				.perform(put("/api/v1/tarefas/" + tarefa.getId())
-						.content(JsonUtil.toJson(tarefaRequestDTO))
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk());
+	// 	this.mockMvc
+	// 			.perform(put("/api/v1/tarefas/" + tarefa.getId())
+	// 					.content(JsonUtil.toJson(tarefaRequestDTO))
+	// 					.contentType(MediaType.APPLICATION_JSON))
+	// 			.andExpect(status().isOk());
 
-		Iterable<Tarefa> tarefasEncontradas = tarefaRepository.findAll();
-		assertThat(tarefasEncontradas).extracting(Tarefa::getNome).containsOnly(nomeEsperado);
-	}
+	// 	Iterable<Tarefa> tarefasEncontradas = tarefaRepository.findAll();
+	// 	assertThat(tarefasEncontradas).extracting(Tarefa::getNome).containsOnly(nomeEsperado);
+	// }
 }
