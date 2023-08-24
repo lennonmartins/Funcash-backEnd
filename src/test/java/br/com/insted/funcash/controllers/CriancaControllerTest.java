@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.List;
 
+import br.com.insted.funcash.repositories.UsuarioRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,12 +46,15 @@ public class CriancaControllerTest {
     private CriancaRepository criancaRepository;
 
 	@Autowired
+	private UsuarioRepository usuarioRepository;
+	@Autowired
 	private ResponsavelRepository responsavelRepository;
     
     @BeforeEach
 	@AfterEach
 	public void deleteDados() {
 		criancaRepository.deleteAll();
+		usuarioRepository.deleteAll();
 	};
 
     @Test
@@ -71,57 +75,56 @@ public class CriancaControllerTest {
 
 	}
 
-	// @Test
-	// void deve_buscar_uma_crianca_pelo_id() throws Exception {
-	// 	Crianca crianca = new CriancaBuilder().construir();
-	// 	criancaRepository.save(crianca);
+	 @Test
+	 void deve_buscar_uma_crianca_pelo_id() throws Exception {
+	 	Crianca crianca = new CriancaBuilder().construir();
+	 	criancaRepository.save(crianca);
 		
-	// 	MvcResult mvcResult = mockMvc.perform(get("/api/v1/criancas/" + crianca.getId())).andReturn();
+	 	MvcResult mvcResult = mockMvc.perform(get("/api/v1/criancas/" + crianca.getId())).andReturn();
 
-	// 	int status = mvcResult.getResponse().getStatus();
-	// 	assertEquals(HttpStatus.OK.value(), status);
+	 	int status = mvcResult.getResponse().getStatus();
+	 	assertEquals(HttpStatus.OK.value(), status);
 
-	// 	String content = mvcResult.getResponse().getContentAsString();
-	// 	CriancaResponseDTO criancaDTO = JsonUtil.mapFromJsonModuleJavaTime(content, CriancaResponseDTO.class);
+	 	String content = mvcResult.getResponse().getContentAsString();
+	 	CriancaResponseDTO criancaDTO = JsonUtil.mapFromJsonModuleJavaTime(content, CriancaResponseDTO.class);
 
-	// 	Assertions.assertThat(crianca.getId()).isEqualTo(criancaDTO.getId());
-	// }	
+	 	Assertions.assertThat(crianca.getId()).isEqualTo(criancaDTO.getId());
+	 }
 
-    // @Test
-	// public void deve_remover_uma_crianca_pelo_id() throws Exception {
-	// 	Crianca crianca = new CriancaBuilder().construir();
-	// 	criancaRepository.saveAll(Arrays.asList(crianca));
+     @Test
+	 public void deve_remover_uma_crianca_pelo_id() throws Exception {
+	 	Crianca crianca = new CriancaBuilder().construir();
+	 	criancaRepository.saveAll(Arrays.asList(crianca));
 
-	// 	this.mockMvc
-	// 			.perform(delete("/api/v1/criancas/" + crianca.getId()))
-	// 			.andExpect(status().isOk());
+	 	this.mockMvc
+	 			.perform(delete("/api/v1/criancas/" + crianca.getId()))
+	 			.andExpect(status().isOk());
 
-	// 	List<Crianca> criancaRetornados = criancaRepository.findByNomeContainingIgnoreCase(crianca.getNome());
+	 	List<Crianca> criancaRetornados = criancaRepository.findByNomeContainingIgnoreCase(crianca.getNome());
 
-	// 	assertThat(criancaRetornados).isEmpty();
-	// }
+	 	assertThat(criancaRetornados).isEmpty();
+	 }
 
-	// @Test
-	// void deve_retornar_uma_crinca_atualizada() throws Exception{
-	// 	Crianca crianca = new CriancaBuilder().construir();
-	// 	criancaRepository.save(crianca);
-	// 	String nomeDaCriancaEsperado = "Luiza Teste";
-	// 	String emailEsperado = "teste@gmail.com";
-	// 	CriancaRequestDTO criancaRequestDTO = 
-	// 			new CriancaRequestDTOBuilder()
-	// 					.comId(3L)
-	// 					.comNome(nomeDaCriancaEsperado)
-	// 					.comEmail(emailEsperado)
-	// 					.construir();
-		
-	// 	this.mockMvc
-	// 			.perform(put("/api/v1/criancas/" + crianca.getId())
-	// 			.content(JsonUtil.toJson(criancaRequestDTO))
-	// 			.contentType(MediaType.APPLICATION_JSON))
-	// 			.andExpect(status().isOk());
-
-	// 		Iterable<Crianca> criancasRetornadas = criancaRepository.findAll();
-	// 		assertThat(criancasRetornadas).extracting(Crianca::getNome).containsOnly(nomeDaCriancaEsperado);
-	// }
-
+//	 @Test
+//	 void deve_retornar_uma_crinca_atualizada() throws Exception{
+//	 	Crianca crianca = new CriancaBuilder().construir();
+//	 	criancaRepository.save(crianca);
+//	 	String nomeDaCriancaEsperado = "Luiza Teste";
+//	 	String emailEsperado = "teste@gmail.com";
+//	 	CriancaRequestDTO criancaRequestDTO =
+//	 			new CriancaRequestDTOBuilder()
+//	 					.comId(3L)
+//	 					.comNome(nomeDaCriancaEsperado)
+//	 					.comEmail(emailEsperado)
+//	 					.construir();
+//
+//	 	this.mockMvc
+//	 			.perform(put("/api/v1/criancas/" + crianca.getId())
+//	 			.content(JsonUtil.toJson(criancaRequestDTO))
+//	 			.contentType(MediaType.APPLICATION_JSON))
+//	 			.andExpect(status().isOk());
+//
+//	 		Crianca criancasRetornadas = criancaRepository.findById(crianca.getId()).get();
+//	 		assertThat(criancasRetornadas).extracting(Crianca::getNome).isEqualTo(nomeDaCriancaEsperado);
+//	 }
 }

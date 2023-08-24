@@ -11,8 +11,6 @@ import br.com.insted.funcash.models.Crianca;
 public interface CriancaRepository extends CrudRepository<Crianca, Long> {
     List<Crianca> findByNomeContainingIgnoreCase(String nome);
     
-    Crianca findFirstByIdOrderByIdDesc(Long id);
-    
     @Query("SELECT c FROM Crianca c JOIN c.responsavel r WHERE r.id = :idDoResponsavel")
     Collection<Crianca> findAllByResponsavel(Long idDoResponsavel);
 }

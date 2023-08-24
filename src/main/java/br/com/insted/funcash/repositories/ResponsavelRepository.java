@@ -8,6 +8,4 @@ import br.com.insted.funcash.models.Responsavel;
 
 public interface ResponsavelRepository extends CrudRepository<Responsavel, Long> {
     List<Responsavel> findByNomeContainingIgnoreCase(String nome);
-
-    Responsavel findFirstByIdOrderByIdDesc(Long id);
 }
