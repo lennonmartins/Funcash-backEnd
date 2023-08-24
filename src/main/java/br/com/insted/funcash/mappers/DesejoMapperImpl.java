@@ -5,8 +5,8 @@ import java.util.Collection;
 
 import org.springframework.stereotype.Component;
 
-import br.com.insted.funcash.dto.DesejoRequestDTO;
-import br.com.insted.funcash.dto.DesejoResponseDTO;
+import br.com.insted.funcash.dtos.DesejoRequestDTO;
+import br.com.insted.funcash.dtos.DesejoResponseDTO;
 import br.com.insted.funcash.models.Desejo;
 
 @Component

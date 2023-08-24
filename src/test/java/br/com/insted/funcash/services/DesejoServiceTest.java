@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import br.com.insted.funcash.dto.DesejoRequestDTO;
-import br.com.insted.funcash.dto.DesejoResponseDTO;
-import br.com.insted.funcash.service.DesejoService;
+import br.com.insted.funcash.dtos.DesejoRequestDTO;
+import br.com.insted.funcash.dtos.DesejoResponseDTO;
+import br.com.insted.funcash.services.DesejoService;
 
 @SpringBootTest
 public class DesejoServiceTest {

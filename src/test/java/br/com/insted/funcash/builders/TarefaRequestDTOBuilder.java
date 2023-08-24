@@ -1,6 +1,6 @@
 package br.com.insted.funcash.builders;
 
-import br.com.insted.funcash.dto.TarefaRequestDTO;
+import br.com.insted.funcash.dtos.TarefaRequestDTO;
 
 public class TarefaRequestDTOBuilder {
     String horaEmString = "19:30:00";

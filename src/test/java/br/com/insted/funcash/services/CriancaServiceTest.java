@@ -24,14 +24,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import br.com.insted.funcash.builders.CriancaBuilder;
 import br.com.insted.funcash.builders.CriancaRequestDTOBuilder;
 import br.com.insted.funcash.builders.ResponsavelBuilder;
-import br.com.insted.funcash.dto.CriancaRequestDTO;
-import br.com.insted.funcash.dto.CriancaResponseDTO;
+import br.com.insted.funcash.dtos.CriancaRequestDTO;
+import br.com.insted.funcash.dtos.CriancaResponseDTO;
 import br.com.insted.funcash.mappers.CriancaMapper;
 import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Responsavel;
-import br.com.insted.funcash.repository.CriancaRepository;
-import br.com.insted.funcash.repository.ResponsavelRepository;
-import br.com.insted.funcash.service.CriancaService;
+import br.com.insted.funcash.repositories.CriancaRepository;
+import br.com.insted.funcash.repositories.ResponsavelRepository;
+import br.com.insted.funcash.services.CriancaService;
 import br.com.insted.funcash.utils.DataConvert;
 
 @SpringBootTest

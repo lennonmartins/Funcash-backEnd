@@ -2,8 +2,8 @@ package br.com.insted.funcash.mappers;
 
 import java.util.Collection;
 
-import br.com.insted.funcash.dto.CriancaRequestDTO;
-import br.com.insted.funcash.dto.CriancaResponseDTO;
+import br.com.insted.funcash.dtos.CriancaRequestDTO;
+import br.com.insted.funcash.dtos.CriancaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
 
 public interface CriancaMapper {

@@ -5,8 +5,8 @@ import java.util.Collection;
 
 import org.springframework.stereotype.Component;
 
-import br.com.insted.funcash.dto.ResponsavelRequestDTO;
-import br.com.insted.funcash.dto.ResponsavelResponseDTO;
+import br.com.insted.funcash.dtos.ResponsavelRequestDTO;
+import br.com.insted.funcash.dtos.ResponsavelResponseDTO;
 import br.com.insted.funcash.models.Responsavel;
 import br.com.insted.funcash.models.Usuario;
 import br.com.insted.funcash.utils.DataConvert;

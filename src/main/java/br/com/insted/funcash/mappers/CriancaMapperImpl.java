@@ -8,12 +8,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.insted.funcash.dto.CriancaRequestDTO;
-import br.com.insted.funcash.dto.CriancaResponseDTO;
+import br.com.insted.funcash.dtos.CriancaRequestDTO;
+import br.com.insted.funcash.dtos.CriancaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Responsavel;
 import br.com.insted.funcash.models.Usuario;
-import br.com.insted.funcash.repository.ResponsavelRepository;
+import br.com.insted.funcash.repositories.ResponsavelRepository;
 import br.com.insted.funcash.utils.DataConvert;
 
 @Component

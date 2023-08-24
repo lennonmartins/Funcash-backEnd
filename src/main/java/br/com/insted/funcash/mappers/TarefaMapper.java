@@ -2,8 +2,8 @@ package br.com.insted.funcash.mappers;
 
 import java.util.Collection;
 
-import br.com.insted.funcash.dto.TarefaRequestDTO;
-import br.com.insted.funcash.dto.TarefaResponseDTO;
+import br.com.insted.funcash.dtos.TarefaRequestDTO;
+import br.com.insted.funcash.dtos.TarefaResponseDTO;
 import br.com.insted.funcash.models.Tarefa;
 
 public interface TarefaMapper {

@@ -1,6 +1,6 @@
 package br.com.insted.funcash.builders;
 
-import br.com.insted.funcash.dto.CriancaRequestDTO;
+import br.com.insted.funcash.dtos.CriancaRequestDTO;
 import br.com.insted.funcash.models.Genero;
 
 

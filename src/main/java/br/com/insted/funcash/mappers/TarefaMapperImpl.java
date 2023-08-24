@@ -8,11 +8,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.insted.funcash.dto.TarefaRequestDTO;
-import br.com.insted.funcash.dto.TarefaResponseDTO;
+import br.com.insted.funcash.dtos.TarefaRequestDTO;
+import br.com.insted.funcash.dtos.TarefaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Tarefa;
-import br.com.insted.funcash.repository.CriancaRepository;
+import br.com.insted.funcash.repositories.CriancaRepository;
 import br.com.insted.funcash.utils.DataConvert;
 
 @Component

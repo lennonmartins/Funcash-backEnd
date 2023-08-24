@@ -14,12 +14,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.insted.funcash.builders.CriancaBuilder;
 import br.com.insted.funcash.builders.TarefaRequestDTOBuilder;
-import br.com.insted.funcash.dto.TarefaRequestDTO;
-import br.com.insted.funcash.dto.TarefaResponseDTO;
+import br.com.insted.funcash.dtos.TarefaRequestDTO;
+import br.com.insted.funcash.dtos.TarefaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
-import br.com.insted.funcash.repository.CriancaRepository;
-import br.com.insted.funcash.repository.TarefaRepository;
-import br.com.insted.funcash.service.TarefaService;
+import br.com.insted.funcash.repositories.CriancaRepository;
+import br.com.insted.funcash.repositories.TarefaRepository;
+import br.com.insted.funcash.services.TarefaService;
 
 @SpringBootTest
 public class TarefaServiceTest {

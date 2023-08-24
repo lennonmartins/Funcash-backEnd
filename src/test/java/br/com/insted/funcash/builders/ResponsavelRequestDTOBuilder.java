@@ -1,6 +1,6 @@
 package br.com.insted.funcash.builders;
 
-import br.com.insted.funcash.dto.ResponsavelRequestDTO;
+import br.com.insted.funcash.dtos.ResponsavelRequestDTO;
 import br.com.insted.funcash.models.Genero;
 
 public class ResponsavelRequestDTOBuilder {
