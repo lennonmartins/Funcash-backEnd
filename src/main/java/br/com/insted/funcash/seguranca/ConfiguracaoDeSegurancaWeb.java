@@ -21,27 +21,29 @@ public class ConfiguracaoDeSegurancaWeb {
 
     @Autowired
     FiltroDeSeguranca filtroDeSeguranca;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                            .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                            .antMatchers(HttpMethod.POST, "/api/v1/autenticacao/entrar").permitAll()
-                            .antMatchers(HttpMethod.POST, "/api/**/responsavel**").permitAll()
-                            .anyRequest().authenticated())   
-                            .addFilterBefore(filtroDeSeguranca, UsernamePasswordAuthenticationFilter.class)
+                        .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .antMatchers(HttpMethod.POST, "/api/v1/autenticacao/entrar").permitAll()
+                        .antMatchers(HttpMethod.POST, "/api/**/responsavel**").permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(filtroDeSeguranca, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
