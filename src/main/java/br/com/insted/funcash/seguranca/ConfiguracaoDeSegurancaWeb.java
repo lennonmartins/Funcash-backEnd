@@ -31,6 +31,7 @@ public class ConfiguracaoDeSegurancaWeb {
                         .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .antMatchers(HttpMethod.POST, "/api/v1/autenticacao/entrar").permitAll()
                         .antMatchers(HttpMethod.POST, "/api/**/responsavel**").permitAll()
+                        .antMatchers(HttpMethod.POST, "/api/**/tarefas").hasRole("RESPONSAVEL")
                         .anyRequest().authenticated())
                 .addFilterBefore(filtroDeSeguranca, UsernamePasswordAuthenticationFilter.class)
                 .build();

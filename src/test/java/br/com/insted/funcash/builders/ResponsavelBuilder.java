@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import br.com.insted.funcash.models.Genero;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.user.UserRole;
 import br.com.insted.funcash.models.user.Usuario;
 
 public class ResponsavelBuilder {
@@ -14,7 +15,8 @@ public class ResponsavelBuilder {
     private Genero genero = Genero.FEMININO;
     private String senha = "1234567";
     private String foto = Image.getBytes();
-    private Usuario usuario = new Usuario(email, senha);
+    private  UserRole role = UserRole.RESPONSAVEL;
+    private Usuario usuario = new Usuario(email, senha, role);
 
     public Responsavel construir() throws Exception {
         return new Responsavel(usuario, nome, cpf, dataDeNascimentoResponsavel, genero, foto);

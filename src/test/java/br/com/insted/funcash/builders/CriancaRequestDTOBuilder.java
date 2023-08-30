@@ -2,6 +2,7 @@ package br.com.insted.funcash.builders;
 
 import br.com.insted.funcash.dtos.CriancaRequestDTO;
 import br.com.insted.funcash.models.Genero;
+import br.com.insted.funcash.models.user.UserRole;
 
 
 public class CriancaRequestDTOBuilder {
@@ -14,6 +15,7 @@ public class CriancaRequestDTOBuilder {
     private Genero genero = Genero.MASCULINO;
     private String foto = Image.getBytes();
     private Long idDoResponsavel = 1L;
+    private UserRole role = UserRole.CRIANCA;
 
     public CriancaRequestDTOBuilder comData(String dataEmString) {
         this.dataDeNascimentoemString = dataEmString;
@@ -21,7 +23,7 @@ public class CriancaRequestDTOBuilder {
     }
     
     public CriancaRequestDTO construir(){
-        return new CriancaRequestDTO(dataDeNascimentoemString, email,senha,saldo, nome, apelido, genero,foto, idDoResponsavel);
+        return new CriancaRequestDTO(dataDeNascimentoemString, email,senha,saldo, nome, apelido, genero,foto, idDoResponsavel, role);
     }
 
     public CriancaRequestDTOBuilder comResponsavel(Long idDoResponsavel) {

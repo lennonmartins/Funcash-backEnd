@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import br.com.insted.funcash.builders.ResponsavelBuilder;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.user.UserRole;
 import br.com.insted.funcash.models.user.Usuario;
 
 @DataJpaTest
@@ -35,7 +36,8 @@ public class UsuarioRespositoryTest {
     void deve_retornar_um_usuario_ao_passar_email_e_senha() throws Exception {
         String emailEsperado = "teste@gmail.com";
         String senhaEsperada = "adm123";
-        Usuario usuario = new Usuario(emailEsperado, senhaEsperada);
+        UserRole role = UserRole.RESPONSAVEL;
+        Usuario usuario = new Usuario(emailEsperado, senhaEsperada, role);
 
         Responsavel responsavel = new ResponsavelBuilder()
                 .comUsuario(usuario)

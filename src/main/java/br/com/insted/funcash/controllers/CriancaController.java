@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +43,7 @@ public class CriancaController {
     @Operation(summary = "Cadastrar uma nova crianca")
     @ApiResponse(responseCode = "201")
     @PostMapping(consumes = {"application/json"})
+    @PreAuthorize("hasRole('RESPONSAVEL')")
     public ResponseEntity<CriancaResponseDTO> cadastrarCrianca(@RequestBody @Valid CriancaRequestDTO criancaRequestDTO) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(criancaService.cadastrar(criancaRequestDTO));
     }
@@ -53,6 +55,7 @@ public class CriancaController {
         return ResponseEntity.ok(criancaService.buscarPorId(id));
     }
 
+    @PreAuthorize("hasRole('RESPONSAVEL')")
     @DeleteMapping(path = "/{id}")
     public void remover(@PathVariable Long id) {
         criancaRepository.deleteById(id);

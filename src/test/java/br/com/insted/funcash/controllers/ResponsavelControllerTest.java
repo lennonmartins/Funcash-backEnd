@@ -28,6 +28,7 @@ import br.com.insted.funcash.builders.ResponsavelRequestDTOBuilder;
 import br.com.insted.funcash.dtos.ResponsavelRequestDTO;
 import br.com.insted.funcash.dtos.ResponsavelResponseDTO;
 import br.com.insted.funcash.models.Responsavel;
+import br.com.insted.funcash.models.user.UserRole;
 import br.com.insted.funcash.models.user.Usuario;
 import br.com.insted.funcash.repositories.ResponsavelRepository;
 import br.com.insted.funcash.utils.JsonUtil;
@@ -68,7 +69,8 @@ public class ResponsavelControllerTest {
 
     @Test
     void deve_buscar_um_responsavel_pelo_id() throws Exception {
-        Usuario usuario = new Usuario("teste@gmail.com", "123456");
+        UserRole role = UserRole.RESPONSAVEL;
+        Usuario usuario = new Usuario("teste@gmail.com", "123456", role);
         Responsavel responsavel = new ResponsavelBuilder().comUsuario(usuario).construir();
         responsavelRepository.save(responsavel);
         

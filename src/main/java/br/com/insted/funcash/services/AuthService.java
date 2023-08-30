@@ -31,9 +31,7 @@ public class AuthService {
         var userDetails = (Usuario) auth.getPrincipal();
         // Usuario usuarioObtido = usuarioRepository.obterPorEmail(email).get();
 
-        var idDaPessoa = userDetails.getResponsavel().getId() != null
-                ? userDetails.getResponsavel().getId()
-                : userDetails.getCrianca().getId();
+        var idDaPessoa = obterIdDaPessoaValida(userDetails);
 
         var usuarioResponse = new UsuarioResponseDto(userDetails.getId(),
                 idDaPessoa,
@@ -42,4 +40,13 @@ public class AuthService {
 
         return usuarioResponse;
     }
+
+    private Long obterIdDaPessoaValida(Usuario userDetails) {
+        if(userDetails.getCrianca().getId().equals(null))
+             return userDetails.getResponsavel().getId();
+        else{
+           return userDetails.getCrianca().getId();
+        }
+    }
+
 }

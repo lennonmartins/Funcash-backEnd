@@ -16,7 +16,7 @@ import br.com.insted.funcash.models.user.Usuario;
 
 @Service
 public class TokenService {
-    @Value("${api.security.token.secret}")
+    @Value("${funcash.security.token.secret}")
     private String segredo;
 
     private final String issuer = "funscash-api";
