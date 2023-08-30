@@ -11,7 +11,7 @@ import br.com.insted.funcash.dtos.CriancaRequestDTO;
 import br.com.insted.funcash.dtos.CriancaResponseDTO;
 import br.com.insted.funcash.mappers.CriancaMapper;
 import br.com.insted.funcash.models.Crianca;
-import br.com.insted.funcash.models.Usuario;
+import br.com.insted.funcash.models.user.Usuario;
 import br.com.insted.funcash.repositories.CriancaRepository;
 import br.com.insted.funcash.utils.DataConvert;
 
@@ -55,7 +55,7 @@ public class CriancaService {
         criancaParaAlterar.setNome(criancaRequestDTO.getNome());
         criancaParaAlterar.setGenero(criancaRequestDTO.getGenero());
         criancaParaAlterar.setDataDeNascimento(DataConvert.obterData(criancaRequestDTO.getDataDeNascimento()));
-        criancaParaAlterar.setUsuario(new Usuario(criancaRequestDTO.getEmail(),criancaRequestDTO.getSenha()));
+        criancaParaAlterar.setUsuario(new Usuario(criancaRequestDTO.getEmail(),criancaRequestDTO.getSenha(), criancaRequestDTO.getRole()));
         criancaParaAlterar.setApelido(criancaRequestDTO.getApelido());
         criancaParaAlterar.setFoto(criancaRequestDTO.getFoto());
         

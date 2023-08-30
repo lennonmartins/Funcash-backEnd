@@ -1,7 +1,6 @@
 package br.com.insted.funcash.repositories;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -14,9 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import br.com.insted.funcash.builders.ResponsavelBuilder;
 import br.com.insted.funcash.models.Responsavel;
-import br.com.insted.funcash.models.Usuario;
-import br.com.insted.funcash.repositories.ResponsavelRepository;
-import br.com.insted.funcash.repositories.UsuarioRepository;
+import br.com.insted.funcash.models.user.Usuario;
 
 @DataJpaTest
 public class UsuarioRespositoryTest {

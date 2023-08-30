@@ -9,7 +9,7 @@ import br.com.insted.funcash.dtos.ResponsavelRequestDTO;
 import br.com.insted.funcash.dtos.ResponsavelResponseDTO;
 import br.com.insted.funcash.mappers.ResponsavelMapper;
 import br.com.insted.funcash.models.Responsavel;
-import br.com.insted.funcash.models.Usuario;
+import br.com.insted.funcash.models.user.Usuario;
 import br.com.insted.funcash.repositories.ResponsavelRepository;
 import br.com.insted.funcash.repositories.UsuarioRepository;
 import br.com.insted.funcash.utils.DataConvert;
