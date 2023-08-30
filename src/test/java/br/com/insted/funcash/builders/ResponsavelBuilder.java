@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import br.com.insted.funcash.models.Genero;
 import br.com.insted.funcash.models.Responsavel;
-import br.com.insted.funcash.models.Usuario;
+import br.com.insted.funcash.models.user.Usuario;
 
 public class ResponsavelBuilder {
     private String nome = "Charmayanne";

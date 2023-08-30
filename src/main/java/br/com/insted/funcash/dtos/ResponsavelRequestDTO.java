@@ -1,6 +1,7 @@
 package br.com.insted.funcash.dtos;
 
 import br.com.insted.funcash.models.Genero;
+import br.com.insted.funcash.models.user.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,5 @@ public class ResponsavelRequestDTO {
     private Genero genero;
     private String senha;
     private String foto;
-
+    private UserRole role;
 }

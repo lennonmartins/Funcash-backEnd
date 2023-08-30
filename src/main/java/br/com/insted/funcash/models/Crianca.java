@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import br.com.insted.funcash.models.user.Usuario;
 import org.springframework.lang.Nullable;
 
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class Crianca extends Pessoa {
     private String apelido;
 
     @OneToOne(mappedBy = "crianca", cascade = CascadeType.ALL)
-    private Usuario usuario; 
+    private Usuario usuario;
 
     @OneToMany(mappedBy = "crianca", cascade = CascadeType.REMOVE)
     private List<Tarefa> tarefas;
