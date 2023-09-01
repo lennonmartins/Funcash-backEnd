@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ConfiguracaoDeSegurancaWeb {
 
     @Autowired
@@ -31,7 +33,6 @@ public class ConfiguracaoDeSegurancaWeb {
                         .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .antMatchers(HttpMethod.POST, "/api/v1/autenticacao/entrar").permitAll()
                         .antMatchers(HttpMethod.POST, "/api/**/responsavel**").permitAll()
-                        .antMatchers(HttpMethod.POST, "/api/**/tarefas").hasRole("RESPONSAVEL")
                         .anyRequest().authenticated())
                 .addFilterBefore(filtroDeSeguranca, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -41,8 +41,8 @@ public class TarefaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.cadastrar(tarefaRequestDTO));
     }
 
-    @PreAuthorize("hasRole('RESPONSAVEL')")
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize("hasRole('RESPONSAVEL')")
     public void remover(@PathVariable Long id) {
         tarefaService.deletar(id);
     }
