@@ -20,7 +20,7 @@ public class TarefaTest {
 
         Tarefa tarefa = new TarefaBuilder().comNome(nomeEsperado).construir();
 
-       assertEquals(nomeEsperado, tarefa.getNome());
+       assertEquals(nomeEsperado, tarefa.getTitulo());
     }
 
     @Test

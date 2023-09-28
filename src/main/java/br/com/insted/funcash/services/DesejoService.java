@@ -46,7 +46,7 @@ public class DesejoService {
 
   public DesejoResponseDTO alterar(DesejoRequestDTO desejoRequestDTO, long id) {
     Desejo desejoParaAlterar = buscarDesejoPeloId(id);
-    desejoParaAlterar.setNome(desejoRequestDTO.getNome());
+    desejoParaAlterar.setTitulo(desejoRequestDTO.getNome());
     desejoParaAlterar.setDescricao(desejoRequestDTO.getDescricao());
     desejoParaAlterar.setValor(desejoRequestDTO.getValor());
 

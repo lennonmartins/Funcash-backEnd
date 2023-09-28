@@ -7,14 +7,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.insted.funcash.dtos.UsuarioResponseDto;
 import br.com.insted.funcash.models.user.Usuario;
-import br.com.insted.funcash.repositories.UsuarioRepository;
 import br.com.insted.funcash.seguranca.TokenService;
 
 @Service
 public class AuthService {
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
 
     @Autowired
     AuthenticationManager authenticationManager;

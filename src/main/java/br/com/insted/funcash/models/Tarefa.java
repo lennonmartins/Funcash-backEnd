@@ -32,18 +32,21 @@ public class Tarefa extends EntidadeBase {
     private double valor;
 
     @Column(nullable = false, length = 50)
-    private String nome;
+    private String titulo;
+
+    @Column(nullable = true, length = 250)
+    private String descricao;
 
     @ManyToOne(cascade=CascadeType.PERSIST)
-    @JoinColumn(name="crianca_id", nullable = true)
+    @JoinColumn(name="id_crianca", nullable = true)
     private Crianca crianca;
 
-    public Tarefa(LocalDateTime horaLimite,LocalDate dataLimite, double valor, String nome
+    public Tarefa(LocalDateTime horaLimite,LocalDate dataLimite, double valor, String titulo
     , Crianca crianca) {
         this.horaLimite = horaLimite;
         this.dataLimite = dataLimite;
         this.valor = valor;
-        this.nome = nome;
+        this.titulo = titulo;
         this.dataDeCriacao = LocalDateTime.now();
         this.crianca = crianca;
 }

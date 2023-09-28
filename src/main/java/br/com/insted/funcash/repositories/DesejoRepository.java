@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 import br.com.insted.funcash.models.Desejo;
 
 public interface DesejoRepository extends CrudRepository<Desejo, Long> {
-    List<Desejo>findByNomeContainingIgnoreCase(String nome);
+    List<Desejo>findByTituloContainingIgnoreCase(String titulo);
 }

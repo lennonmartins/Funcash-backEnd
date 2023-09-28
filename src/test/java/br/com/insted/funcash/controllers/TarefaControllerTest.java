@@ -65,9 +65,9 @@ public class TarefaControllerTest {
 	 					.contentType(MediaType.APPLICATION_JSON))
 	 			.andExpect(status().isCreated());
 
-	 	List<Tarefa> tarefaRetornados = tarefaRepository.findByNomeContainingIgnoreCase(tarefaRequestDTO.getNome());
+	 	List<Tarefa> tarefaRetornados = tarefaRepository.findByTituloContainingIgnoreCase(tarefaRequestDTO.getNome());
 	 	assertThat(tarefaRetornados.size()).isEqualTo(quantidadeEsperada);
-	 	assertThat(tarefaRetornados.stream().map(Tarefa::getNome).toList())
+	 	assertThat(tarefaRetornados.stream().map(Tarefa::getTitulo).toList())
 	 			.contains(tarefaRequestDTO.getNome());
 	 }
 
@@ -124,6 +124,6 @@ public class TarefaControllerTest {
 	 			.andExpect(status().isOk());
 
 	 	Iterable<Tarefa> tarefasEncontradas = tarefaRepository.findAll();
-	 	assertThat(tarefasEncontradas).extracting(Tarefa::getNome).containsOnly(nomeEsperado);
+	 	assertThat(tarefasEncontradas).extracting(Tarefa::getTitulo).containsOnly(nomeEsperado);
 	 }
 }

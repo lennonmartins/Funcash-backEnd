@@ -29,7 +29,7 @@ public class TarefaMapperImpl implements TarefaMapper {
                 tarefa.getDataLimite(),
                 tarefa.getDataDeCriacao(),
                 tarefa.getValor(),
-                tarefa.getNome(),
+                tarefa.getTitulo(),
                 tarefa.getCrianca().getId()
                 );
     }

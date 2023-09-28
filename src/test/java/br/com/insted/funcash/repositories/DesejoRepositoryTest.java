@@ -8,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import br.com.insted.funcash.builders.DesejoBuilder;
 import br.com.insted.funcash.models.Desejo;
-import br.com.insted.funcash.repositories.DesejoRepository;
 
 @DataJpaTest
 public class DesejoRepositoryTest {
@@ -29,5 +28,4 @@ public class DesejoRepositoryTest {
 
         Assertions.assertThat(desejo.getId()).isNotNull();
     }
-    
 }

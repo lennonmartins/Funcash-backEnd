@@ -63,10 +63,10 @@ public class DesejoControllerTest {
 		.content(JsonUtil.toJson(desejoRequestDTO)))
 		.andExpect(status().isCreated());
 
-		List<Desejo> desejoRetornados = desejoRepository.findByNomeContainingIgnoreCase(desejoRequestDTO.getNome());
+		List<Desejo> desejoRetornados = desejoRepository.findByTituloContainingIgnoreCase(desejoRequestDTO.getNome());
 
 		assertThat(desejoRetornados.size()).isEqualTo(quantidadeEsperada);
-		assertThat(desejoRequestDTO.getNome()).isIn(desejoRetornados.stream().map(Desejo::getNome).toList()
+		assertThat(desejoRequestDTO.getNome()).isIn(desejoRetornados.stream().map(Desejo::getTitulo).toList()
 		);
 	}
 
@@ -79,7 +79,7 @@ public class DesejoControllerTest {
 				.perform(delete("/api/v1/desejos/" + desejo.getId()))
 				.andExpect(status().isOk());
 
-		List<Desejo> desejoRetornados = desejoRepository.findByNomeContainingIgnoreCase(desejo.getNome());
+		List<Desejo> desejoRetornados = desejoRepository.findByTituloContainingIgnoreCase(desejo.getTitulo());
 
 		assertThat(desejoRetornados).isEmpty();
 	};
@@ -133,7 +133,7 @@ public class DesejoControllerTest {
 		this.mockMvc.perform(put("/api/v1/desejos/" + desejo.getId()).content(JsonUtil.toJson(desejoRequestDTO)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
 		Iterable<Desejo> desejosEncontrados = desejoRepository.findAll();
-		assertThat(desejosEncontrados).extracting(Desejo::getNome).containsOnly(nomeEsperado);
+		assertThat(desejosEncontrados).extracting(Desejo::getTitulo).containsOnly(nomeEsperado);
 		
 	}
 }

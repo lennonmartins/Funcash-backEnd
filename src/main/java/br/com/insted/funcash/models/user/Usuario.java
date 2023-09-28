@@ -41,12 +41,12 @@ public class Usuario implements UserDetails {
 
    @NotNull
    @OneToOne
-   @JoinColumn(name = "responsavel_id")
+   @JoinColumn(name = "id_responsavel")
    private Responsavel responsavel;
 
    @NotNull
    @OneToOne
-   @JoinColumn(name = "crianca_id")
+   @JoinColumn(name = "id_crianca")
    private Crianca crianca;
 
    @NotNull

@@ -1,5 +1,7 @@
 package br.com.insted.funcash.models;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Desejo extends EntidadeBase {
     @Column(nullable = false, length = 200)
-    private String nome;
+    private String titulo;
 
     @Column(length = 500, nullable = true)
     private String descricao;
@@ -27,15 +29,19 @@ public class Desejo extends EntidadeBase {
     @Column(nullable = false)
     private double valor;
 
+    @Column(nullable = false)
+    private LocalDateTime dataDeCriacao;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "crianca_id")
+    @JoinColumn(name = "id_crianca")
     private Crianca crianca;
 
-    public Desejo(String _nome, String _descricao, double _valor) throws Exception {
-        validaNome(_nome);
-        this.nome = _nome;
-        this.descricao = _descricao;
-        this.valor = _valor;
+    public Desejo(String titulo, String descricao, double valor) throws Exception {
+        validaNome(titulo);
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.dataDeCriacao = LocalDateTime.now();
     }
 
     private void validaNome(String nome) throws Exception {

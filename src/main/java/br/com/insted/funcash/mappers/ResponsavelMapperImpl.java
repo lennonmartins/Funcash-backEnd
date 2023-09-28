@@ -1,8 +1,5 @@
 package br.com.insted.funcash.mappers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 

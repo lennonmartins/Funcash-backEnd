@@ -43,7 +43,7 @@ public class Crianca extends Pessoa {
 
     @Nullable
     @ManyToOne
-    @JoinColumn(name = "responsavel_id")
+    @JoinColumn(name = "id_responsavel")
     private Responsavel responsavel;
 
     public Crianca(LocalDate dataDeNascimento, Usuario usuario , double saldo, String nome,

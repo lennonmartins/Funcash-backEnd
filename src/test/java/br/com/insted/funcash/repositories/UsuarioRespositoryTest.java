@@ -1,7 +1,5 @@
 package br.com.insted.funcash.repositories;
 
-import static org.mockito.ArgumentMatchers.any;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

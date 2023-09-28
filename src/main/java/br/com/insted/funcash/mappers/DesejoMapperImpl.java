@@ -16,7 +16,7 @@ public class DesejoMapperImpl implements DesejoMapper {
     public DesejoResponseDTO desejoParaDesejoResponseDTO(Desejo desejo){
         return new DesejoResponseDTO(
             desejo.getId(),
-            desejo.getNome(),
+            desejo.getTitulo(),
             desejo.getDescricao(),
             desejo.getValor()
         );
@@ -25,7 +25,7 @@ public class DesejoMapperImpl implements DesejoMapper {
     @Override
     public Desejo desejoRequestDTOParaDesejo(DesejoRequestDTO desejoRequestDTO){
         return Desejo.builder()
-        .nome(desejoRequestDTO.getNome())
+        .titulo(desejoRequestDTO.getNome())
         .descricao(desejoRequestDTO.getDescricao())
         .valor(desejoRequestDTO.getValor())
         .build();

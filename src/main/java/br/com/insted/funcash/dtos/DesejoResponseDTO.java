@@ -18,7 +18,7 @@ public class DesejoResponseDTO {
 
     public DesejoResponseDTO(Desejo desejo){
         this.id = desejo.getId();
-        this.nome = desejo.getNome();
+        this.nome = desejo.getTitulo();
         this.descricao = desejo.getDescricao();
         this.valor = desejo.getValor();
     }

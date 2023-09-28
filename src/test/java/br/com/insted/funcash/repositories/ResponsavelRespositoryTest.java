@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import br.com.insted.funcash.repositories.ResponsavelRepository;
-
 @DataJpaTest
 public class ResponsavelRespositoryTest {
 

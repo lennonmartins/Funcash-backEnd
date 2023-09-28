@@ -52,7 +52,7 @@ public class TarefaService {
         Tarefa tarefaParaAlterar = buscarTarefaPeloId(id);
         tarefaParaAlterar.setDataLimite(DataConvert.obterData(tarefaRequestDto.getDataLimite()));
         tarefaParaAlterar.setHoraLimite(DataConvert.obterHoraLimiteCompleta(tarefaRequestDto.getDataLimite(), tarefaRequestDto.getHoraLimite()));
-        tarefaParaAlterar.setNome(tarefaRequestDto.getNome());
+        tarefaParaAlterar.setTitulo(tarefaRequestDto.getNome());
         tarefaParaAlterar.setValor(tarefaRequestDto.getValor());
 
         tarefaRepository.save(tarefaParaAlterar);

@@ -21,7 +21,7 @@ public class DesejoTest {
 
         Desejo desejo = new DesejoBuilder().comNome(nome).comDescricao(descricao).comValor(valor).construir();
 
-        assertEquals(nome, desejo.getNome());
+        assertEquals(nome, desejo.getTitulo());
         assertEquals(descricao, desejo.getDescricao());
         assertEquals(valor, desejo.getValor());
 
