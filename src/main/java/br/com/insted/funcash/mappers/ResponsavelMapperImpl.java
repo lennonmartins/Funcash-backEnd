@@ -38,16 +38,4 @@ public class ResponsavelMapperImpl implements ResponsavelMapper {
                 responsavelRequestDTO.getGenero(),
                 responsavelRequestDTO.getFoto());
     }
-
-    @Override
-    public Collection<ResponsavelResponseDTO> responsavelParaResponsavelResponsesDtos(
-            Collection<Responsavel> responsavels) {
-        Collection<ResponsavelResponseDTO> responsavelResponseDto = new ArrayList<>();
-
-        for (Responsavel responsavel : responsavels) {
-            responsavelResponseDto.add(responsavelParaResponsavelResponseDTO(responsavel));
-        }
-        return responsavelResponseDto;
-    }
-
 }

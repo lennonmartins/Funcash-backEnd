@@ -29,7 +29,6 @@ public class AuthService {
 
         var token = tokenService.gerarToken((Usuario) auth.getPrincipal());
         var userDetails = (Usuario) auth.getPrincipal();
-        // Usuario usuarioObtido = usuarioRepository.obterPorEmail(email).get();
 
         var idDaPessoa = obterIdDaPessoaValida(userDetails);
 
@@ -42,7 +41,7 @@ public class AuthService {
     }
 
     private Long obterIdDaPessoaValida(Usuario userDetails) {
-        if(userDetails.getCrianca().getId().equals(null))
+        if(userDetails.getCrianca() == null)
              return userDetails.getResponsavel().getId();
         else{
            return userDetails.getCrianca().getId();

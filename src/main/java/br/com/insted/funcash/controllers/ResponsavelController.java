@@ -48,6 +48,7 @@ public class ResponsavelController {
     @Operation(summary = "Buscar um responsavel pelo seu id")
     @ApiResponse(responseCode = "200", description = "Retorna a responsavel solicitada")
     @GetMapping(path = "/{id}")
+    @PreAuthorize("hasRole('RESPONSAVEL')")
     public ResponseEntity<ResponsavelResponseDTO> buscarPorId(@PathVariable Long id) throws NameNotFoundException {
         return ResponseEntity.ok(responsavelService.buscarPorId(id));
     }

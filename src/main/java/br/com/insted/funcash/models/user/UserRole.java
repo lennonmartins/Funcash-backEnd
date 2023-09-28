@@ -4,7 +4,7 @@ public enum UserRole {
     RESPONSAVEL("responsavel"),
     CRIANCA ("crianca");
 
-    private String role;
+    private final String role;
 
     UserRole(String role){
         this.role = role;

@@ -60,7 +60,8 @@ public class CriancaController {
     public void remover(@PathVariable Long id) {
         criancaRepository.deleteById(id);
     }
-
+    
+    @PreAuthorize("hasRole('RESPONSAVEL')")
     @Operation(summary = "Buscar lista de todas as crianças")
     @ApiResponse(responseCode = "200", description = "Retorna uma lista de criancas cadastradas")
     @GetMapping
