@@ -8,6 +8,6 @@ import br.com.insted.funcash.models.Desejo;
 
 public interface DesejoMapper {
     public DesejoResponseDTO desejoParaDesejoResponseDTO(Desejo desejo);
-    public Desejo desejoRequestDTOParaDesejo(DesejoRequestDTO desejoRequestDTO);
+    public Desejo desejoRequestDTOParaDesejo(DesejoRequestDTO desejoRequestDTO) throws Exception;
     public Collection<DesejoResponseDTO> desejoParaDesejosResponsesDtos(Collection<Desejo> desejo);
 }

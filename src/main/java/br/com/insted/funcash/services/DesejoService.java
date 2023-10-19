@@ -34,7 +34,7 @@ public class DesejoService {
     return desejoOptional.get();
   }
 
-  public DesejoResponseDTO cadastrar(DesejoRequestDTO desejoRequestDTO) {
+  public DesejoResponseDTO cadastrar(DesejoRequestDTO desejoRequestDTO) throws Exception  {
     Desejo desejo = desejoMapper.desejoRequestDTOParaDesejo(desejoRequestDTO);
     desejoRepository.save(desejo);
     return desejoMapper.desejoParaDesejoResponseDTO(desejo);

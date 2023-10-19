@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -18,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.insted.funcash.builders.CriancaBuilder;
@@ -31,7 +29,6 @@ import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Responsavel;
 import br.com.insted.funcash.repositories.CriancaRepository;
 import br.com.insted.funcash.repositories.ResponsavelRepository;
-import br.com.insted.funcash.services.CriancaService;
 import br.com.insted.funcash.utils.DataConvert;
 
 @SpringBootTest

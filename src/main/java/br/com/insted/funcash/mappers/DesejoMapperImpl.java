@@ -2,16 +2,24 @@ package br.com.insted.funcash.mappers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.insted.funcash.dtos.DesejoRequestDTO;
 import br.com.insted.funcash.dtos.DesejoResponseDTO;
+import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Desejo;
+import br.com.insted.funcash.repositories.CriancaRepository;
 
 @Component
 public class DesejoMapperImpl implements DesejoMapper {
     
+    @Autowired
+    private CriancaRepository criancaRepository;
+
     @Override
     public DesejoResponseDTO desejoParaDesejoResponseDTO(Desejo desejo){
         return new DesejoResponseDTO(
@@ -23,12 +31,12 @@ public class DesejoMapperImpl implements DesejoMapper {
     }
 
     @Override
-    public Desejo desejoRequestDTOParaDesejo(DesejoRequestDTO desejoRequestDTO){
-        return Desejo.builder()
-        .titulo(desejoRequestDTO.getNome())
-        .descricao(desejoRequestDTO.getDescricao())
-        .valor(desejoRequestDTO.getValor())
-        .build();
+    public Desejo desejoRequestDTOParaDesejo(DesejoRequestDTO desejoRequestDTO) throws Exception {
+        Crianca crianca = verificaSeObjetoEhNulo(desejoRequestDTO);
+        return new Desejo(desejoRequestDTO.getNome(), 
+        desejoRequestDTO.getDescricao(), 
+        desejoRequestDTO.getValor(), 
+        crianca);
     }
 
     @Override
@@ -39,5 +47,14 @@ public class DesejoMapperImpl implements DesejoMapper {
                 desejoResponseDTOs.add(desejoParaDesejoResponseDTO(desejo));
             }
         return desejoResponseDTOs;
+    }
+
+    private Crianca verificaSeObjetoEhNulo(DesejoRequestDTO desejoRequestDTO) {
+        Optional<Crianca> criancaOptional = criancaRepository.findById(desejoRequestDTO.getIdDaCrianca());
+        if(criancaOptional.isEmpty()){
+            throw new NoSuchElementException();
+        }
+        Crianca crianca = criancaOptional.get();
+        return crianca;
     }
 }

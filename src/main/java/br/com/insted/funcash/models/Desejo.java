@@ -9,16 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import br.com.insted.funcash.utils.EntidadeBase;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Builder
 public class Desejo extends EntidadeBase {
     @Column(nullable = false, length = 200)
     private String titulo;
@@ -36,12 +32,13 @@ public class Desejo extends EntidadeBase {
     @JoinColumn(name = "id_crianca")
     private Crianca crianca;
 
-    public Desejo(String titulo, String descricao, double valor) throws Exception {
+    public Desejo(String titulo, String descricao, double valor, Crianca crianca) throws Exception {
         validaNome(titulo);
+        this.dataDeCriacao = LocalDateTime.now();
         this.titulo = titulo;
         this.descricao = descricao;
         this.valor = valor;
-        this.dataDeCriacao = LocalDateTime.now();
+        this.crianca = crianca;
     }
 
     private void validaNome(String nome) throws Exception {

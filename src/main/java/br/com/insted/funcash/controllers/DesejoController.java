@@ -40,7 +40,7 @@ public class DesejoController {
 
     @ApiResponse(responseCode = "201")
     @PostMapping(consumes = { "application/json" })
-    public ResponseEntity<DesejoResponseDTO> cadastrarDesejo(@RequestBody @Valid DesejoRequestDTO desejoRequestDTO) {
+    public ResponseEntity<DesejoResponseDTO> cadastrarDesejo(@RequestBody @Valid DesejoRequestDTO desejoRequestDTO) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(desejoService.cadastrar(desejoRequestDTO));
     }
 

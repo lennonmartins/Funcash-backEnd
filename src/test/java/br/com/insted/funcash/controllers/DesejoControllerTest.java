@@ -26,10 +26,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import br.com.insted.funcash.builders.CriancaBuilder;
 import br.com.insted.funcash.builders.DesejoBuilder;
 import br.com.insted.funcash.dtos.DesejoRequestDTO;
 import br.com.insted.funcash.dtos.DesejoResponseDTO;
+import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Desejo;
+import br.com.insted.funcash.repositories.CriancaRepository;
 import br.com.insted.funcash.repositories.DesejoRepository;
 import br.com.insted.funcash.utils.JsonUtil;
 
@@ -44,6 +47,9 @@ public class DesejoControllerTest {
     @Autowired
     private DesejoRepository desejoRepository;
 
+	@Autowired
+	private CriancaRepository criancaRepository;
+
     @BeforeEach
     @AfterEach
     public void deleteDados(){
@@ -56,7 +62,9 @@ public class DesejoControllerTest {
 		String nome = "Video Game";
 		String descricao = "PlayStation 1";
 		double valor = 30;
-		DesejoRequestDTO desejoRequestDTO = new DesejoRequestDTO(nome, descricao, valor);
+		Crianca criancaEsperada = new CriancaBuilder().construir();
+	 	criancaRepository.save(criancaEsperada);
+		DesejoRequestDTO desejoRequestDTO = new DesejoRequestDTO(nome, descricao, valor, criancaEsperada.getId());
 
 		mockMvc.perform(post("/api/v1/desejos")
 		.contentType(MediaType.APPLICATION_JSON)
@@ -126,7 +134,9 @@ public class DesejoControllerTest {
 		String nome = "Video Game";
 		String descricao = "PlayStation 1";
 		double valor = 30;
-		DesejoRequestDTO desejoRequestDTO = new DesejoRequestDTO(nome, descricao, valor);
+		Crianca criancaEsperada = new CriancaBuilder().construir();
+	 	criancaRepository.save(criancaEsperada);
+		DesejoRequestDTO desejoRequestDTO = new DesejoRequestDTO(nome, descricao, valor, criancaEsperada.getId());
 		String nomeEsperado = "Copo da Stanley";
 		desejoRequestDTO.setNome(nomeEsperado);
 
