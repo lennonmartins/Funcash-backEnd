@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.insted.funcash.repositories.UsuarioRepository;
@@ -35,6 +37,7 @@ public class FiltroDeSeguranca extends OncePerRequestFilter {
             UserDetails usuario = usuarioRepository.findByEmail(email);
 
             var autenticacao = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+            autenticacao.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(autenticacao);
         }
         filterChain.doFilter(request, response);
@@ -42,9 +45,10 @@ public class FiltroDeSeguranca extends OncePerRequestFilter {
 
     private String recuperarToken(HttpServletRequest request) {
         var headerDeAutenticacao = request.getHeader("Authorization");
-        if (headerDeAutenticacao == null)
-            return null;
-        return headerDeAutenticacao.replace("Bearer ", "");
+        if (StringUtils.hasText(headerDeAutenticacao) && headerDeAutenticacao.startsWith("Bearer ")) {
+            return headerDeAutenticacao.substring(7, headerDeAutenticacao.length());
+          }
+          return null;
     }
 
 }

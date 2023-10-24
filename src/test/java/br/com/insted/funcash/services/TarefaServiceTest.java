@@ -19,7 +19,6 @@ import br.com.insted.funcash.dtos.TarefaResponseDTO;
 import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.repositories.CriancaRepository;
 import br.com.insted.funcash.repositories.TarefaRepository;
-import br.com.insted.funcash.services.TarefaService;
 
 @SpringBootTest
 public class TarefaServiceTest {
