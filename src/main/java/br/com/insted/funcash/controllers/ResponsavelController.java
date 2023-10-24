@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://127.0.0.1:5173/", maxAge = 3600, allowCredentials = "true")
 @RequestMapping(path = { "/api/v1/responsavel" }, produces = { "application/json" })
 public class ResponsavelController {
     private final ResponsavelService responsavelService;
@@ -48,7 +48,7 @@ public class ResponsavelController {
     @Operation(summary = "Buscar um responsavel pelo seu id")
     @ApiResponse(responseCode = "200", description = "Retorna a responsavel solicitada")
     @GetMapping(path = "/{id}")
-    //@PreAuthorize("hasRole('RESPONSAVEL')")
+    @PreAuthorize("hasRole('RESPONSAVEL')")
     public ResponseEntity<ResponsavelResponseDTO> buscarPorId(@PathVariable Long id) throws NameNotFoundException {
         return ResponseEntity.ok(responsavelService.buscarPorId(id));
     }

@@ -30,7 +30,8 @@ public class FiltroDeSeguranca extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        var token = this.recuperarToken(request);
+
+                var token = this.recuperarToken(request);
 
         if (token != null) {
             var email = tokenService.validarToken(token);
@@ -44,11 +45,11 @@ public class FiltroDeSeguranca extends OncePerRequestFilter {
     }
 
     private String recuperarToken(HttpServletRequest request) {
+
         var headerDeAutenticacao = request.getHeader("Authorization");
-        if (StringUtils.hasText(headerDeAutenticacao) && headerDeAutenticacao.startsWith("Bearer ")) {
-            return headerDeAutenticacao.substring(7, headerDeAutenticacao.length());
-          }
-          return null;
+        if (headerDeAutenticacao.equals("Bearer null"))
+            return null;
+        return headerDeAutenticacao.replace("Bearer ", "");
     }
 
 }
