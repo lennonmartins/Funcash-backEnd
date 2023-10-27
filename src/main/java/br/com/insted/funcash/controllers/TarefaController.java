@@ -50,7 +50,7 @@ public class TarefaController {
     @Operation(summary ="Buscar uma lista das tarefas")
     @ApiResponse(responseCode = "200", description = "Lista de tarefas cadastradas")
     @GetMapping
-    public ResponseEntity<Collection<TarefaResponseDTO>> buscarTodos(){
+    public ResponseEntity<Collection<TarefaResponseDTO>> buscarTodas(){
         return ResponseEntity.ok(tarefaService.buscarTodas());
     }
 
