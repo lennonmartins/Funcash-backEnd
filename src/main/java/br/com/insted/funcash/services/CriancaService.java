@@ -36,7 +36,7 @@ public class CriancaService {
         
         criancaOptional = criancaRepository.findByIdDoUsuario(id);
            
-        return criancaOptional.orElseThrow(NoSuchElementException::new));
+        return criancaOptional.orElseThrow(NoSuchElementException::new);
     }
 
     public CriancaResponseDTO cadastrar(CriancaRequestDTO criancaRequestDTO) throws Exception{
