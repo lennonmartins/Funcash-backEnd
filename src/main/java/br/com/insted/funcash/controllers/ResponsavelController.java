@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5173/", maxAge = 3600, allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:5173/", maxAge = 3600, allowCredentials = "true")
 @RequestMapping(path = { "/api/v1/responsavel" }, produces = { "application/json" })
 public class ResponsavelController {
     private final ResponsavelService responsavelService;

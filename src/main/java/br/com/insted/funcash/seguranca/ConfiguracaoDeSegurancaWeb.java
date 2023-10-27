@@ -26,14 +26,14 @@ public class ConfiguracaoDeSegurancaWeb {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .csrf().disable()
-                .cors()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .antMatchers("/api/v1/autenticacao/entrar").permitAll()
                         .antMatchers(HttpMethod.POST, "/api/**/responsavel**").permitAll()
                         .anyRequest().authenticated())
+                .cors().and()
+                .csrf().disable()
                 .addFilterBefore(filtroDeSeguranca, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
