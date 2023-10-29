@@ -29,12 +29,6 @@ public class CriancaService {
 
     private Crianca buscarCriancaPeloId(Long id) {
         Optional<Crianca> criancaOptional = criancaRepository.findById(id);
-        
-        // if(!criancaOptional.isEmpty()){
-        //     return criancaOptional.get();
-        // }
-        
-        // criancaOptional = criancaRepository.findByIdDoUsuario(id);
            
         return criancaOptional.orElseThrow(NoSuchElementException::new);
     }
