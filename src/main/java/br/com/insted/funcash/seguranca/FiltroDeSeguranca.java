@@ -13,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.insted.funcash.repositories.UsuarioRepository;
@@ -47,7 +46,7 @@ public class FiltroDeSeguranca extends OncePerRequestFilter {
     private String recuperarToken(HttpServletRequest request) {
 
         var headerDeAutenticacao = request.getHeader("Authorization");
-        if (headerDeAutenticacao.equals("Bearer null"))
+        if ( headerDeAutenticacao == null || headerDeAutenticacao.equals("Bearer null"))
             return null;
         return headerDeAutenticacao.replace("Bearer ", "");
     }

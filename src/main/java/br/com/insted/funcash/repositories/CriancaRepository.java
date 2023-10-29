@@ -14,7 +14,4 @@ public interface CriancaRepository extends CrudRepository<Crianca, Long> {
 
     @Query("SELECT c FROM Crianca c JOIN c.responsavel r WHERE r.id = :idDoResponsavel")
     Collection<Crianca> findAllByResponsavel(Long idDoResponsavel);
-
-    @Query("SELECT c FROM Crianca c WHERE c.id =(SELECT u.crianca From Usuario u WHERE u.id = :idDaCrianca )")
-    Optional<Crianca> findByIdDoUsuario(Long idDaCrianca);
 }
