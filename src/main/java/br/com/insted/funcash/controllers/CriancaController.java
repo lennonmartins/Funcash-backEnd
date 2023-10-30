@@ -28,7 +28,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173/", maxAge = 3600, allowCredentials = "true")
 @RequestMapping(path = {"/api/v1/criancas"}, produces = {"application/json"})
 public class CriancaController {
     private final CriancaService criancaService;

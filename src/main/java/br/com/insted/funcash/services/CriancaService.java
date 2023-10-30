@@ -29,10 +29,8 @@ public class CriancaService {
 
     private Crianca buscarCriancaPeloId(Long id) {
         Optional<Crianca> criancaOptional = criancaRepository.findById(id);
-        if(criancaOptional.isEmpty()){
-            throw new NoSuchElementException();
-        }
-        return criancaOptional.get();
+           
+        return criancaOptional.orElseThrow(NoSuchElementException::new);
     }
 
     public CriancaResponseDTO cadastrar(CriancaRequestDTO criancaRequestDTO) throws Exception{
