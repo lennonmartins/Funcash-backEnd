@@ -13,10 +13,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -26,6 +28,7 @@ import br.com.insted.funcash.builders.TarefaBuilder;
 import br.com.insted.funcash.builders.TarefaRequestDTOBuilder;
 import br.com.insted.funcash.dtos.TarefaRequestDTO;
 import br.com.insted.funcash.dtos.TarefaResponseDTO;
+import br.com.insted.funcash.dtos.TarefaResponsePaginadasDTO;
 import br.com.insted.funcash.models.Crianca;
 import br.com.insted.funcash.models.Tarefa;
 import br.com.insted.funcash.repositories.CriancaRepository;
@@ -34,6 +37,7 @@ import br.com.insted.funcash.utils.JsonUtil;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureTestDatabase
 public class TarefaControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
@@ -44,13 +48,15 @@ public class TarefaControllerTest {
 	@Autowired
 	private CriancaRepository criancaRepository;
 
+	private static int statusOk = 200;
+
 	@BeforeEach
 	@AfterEach
-	public void deleteDados() {
+	public void deletarDados() {
 		tarefaRepository.deleteAll();
 	}
 
-	 @Test
+	@Test
 	 void deve_incluir_uma_tarefa() throws Exception {
 	 	int quantidadeEsperada = 1;
 	 	Crianca criancaEsperada = new CriancaBuilder().construir();
@@ -71,29 +77,29 @@ public class TarefaControllerTest {
 	 			.contains(tarefaRequestDTO.getNome());
 	 }
 
-//	 @Test
-//	 void deve_retornar_uma_lista_de_tarefas()
-//	 		throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception {
-//	 	cadastrardezTarefas();
-//	 	int quantidadeEsperada = 10;
-//
-//	 	TarefaResponseDTO[] tarefasRetornadas = JsonUtil.mapFromJsonModuleJavaTime(
-//	 			this.mockMvc.perform(get("/api/v1/tarefas")).andReturn().getResponse().getContentAsString(),
-//	 			TarefaResponseDTO[].class);
-//
-//	 	assertThat(tarefasRetornadas).hasSize(quantidadeEsperada);
-//	 }
-//
-//	 private void cadastrardezTarefas() throws Exception {
-//	 	Crianca criancaEsperada = new CriancaBuilder().construir();
-//	 	criancaRepository.save(criancaEsperada);
-//	 	for (int i = 0; i < 10; i++) {
-//	 		tarefaRepository.save(
-//	 				new TarefaBuilder()
-//	 						.comCrianca(criancaEsperada)
-//	 						.construir());
-//	 	}
-//	 }
+	 @Test
+	 void deve_retornar_uma_lista_de_tarefas()
+	 		throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, Exception {
+	 	cadastrardezTarefas();
+	 	int quantidadeEsperada = 10;
+
+	 	TarefaResponseDTO[] tarefasRetornadas = JsonUtil.mapFromJsonModuleJavaTime(
+	 			this.mockMvc.perform(get("/api/v1/tarefas")).andReturn().getResponse().getContentAsString(),
+	 			TarefaResponseDTO[].class);
+
+	 	assertThat(tarefasRetornadas).hasSize(quantidadeEsperada);
+	 }
+
+	 private void cadastrardezTarefas() throws Exception {
+	 	Crianca criancaEsperada = new CriancaBuilder().construir();
+	 	criancaRepository.save(criancaEsperada);
+	 	for (int i = 0; i < 10; i++) {
+	 		tarefaRepository.save(
+	 				new TarefaBuilder()
+	 						.comCrianca(criancaEsperada)
+	 						.construir());
+	 	}
+	 }
 
 	 @Test
 	 void deve_retornar_uma_tarefa_pelo_id()
@@ -125,5 +131,19 @@ public class TarefaControllerTest {
 
 	 	Iterable<Tarefa> tarefasEncontradas = tarefaRepository.findAll();
 	 	assertThat(tarefasEncontradas).extracting(Tarefa::getTitulo).containsOnly(nomeEsperado);
+	 }
+
+	 @Test
+	 void deve_retornar_tarefas_paginadas() throws Exception{
+		cadastrardezTarefas();
+		int quantidadePorPagina = 4;
+		int totalPaginasEsperadas = 3;
+
+		MvcResult mvcResult = mockMvc.perform(get("/api/v1/tarefas?pagina=0&tamanho="+ quantidadePorPagina +"&campoOrdenacao=dataLimite&direcao=ASC")).andReturn();
+
+		int status  = mvcResult.getResponse().getStatus();
+		assertThat(status).isEqualTo(statusOk);
+		TarefaResponsePaginadasDTO paginaDto = JsonUtil.mapFromJsonModuleJavaTime(mvcResult.getResponse().getContentAsString(), TarefaResponsePaginadasDTO.class);
+		assertThat(paginaDto.getTotalDePaginas()).isEqualTo(totalPaginasEsperadas);
 	 }
 }

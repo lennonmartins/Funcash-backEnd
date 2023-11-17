@@ -30,6 +30,7 @@ public class ConfiguracaoDeSegurancaWeb {
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .antMatchers("/api/v1/autenticacao/entrar").permitAll()
+                        .antMatchers("/api/v1/responsavel").permitAll()
                         .antMatchers(HttpMethod.POST, "/api/**/responsavel**").permitAll()
                         .anyRequest().authenticated())
                 .cors().and()

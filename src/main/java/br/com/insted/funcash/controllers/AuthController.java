@@ -2,6 +2,7 @@ package br.com.insted.funcash.controllers;
 
 import javax.validation.Valid;
 
+import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,7 +24,7 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping(path = { "/entrar" })
-    public ResponseEntity<UsuarioResponseDto> autenticar(@Valid @RequestBody LoginDTO loginRequest) {
+    public ResponseEntity<UsuarioResponseDto> autenticar(@Valid @RequestBody LoginDTO loginRequest) throws EmailException {
         UsuarioResponseDto responseDTO = authService.login(loginRequest.getEmail(), loginRequest.getSenha());
         return ResponseEntity.ok(responseDTO);
     }
