@@ -39,19 +39,6 @@ public class AuthService {
                 userDetails.getRole(),
                 token);
 
-        if (usuarioResponse != null) {
-            org.apache.commons.mail.Email objetoEmail = new SimpleEmail();
-            objetoEmail.setHostName("smtp.gmail.com");
-            objetoEmail.getSmtpPort();
-            objetoEmail.setAuthenticator(new DefaultAuthenticator( "funcash.edu@gmail.com", "funcash123"));
-            objetoEmail.setSSLOnConnect(true);
-            //objetoEmail.setStartTLSRequired(true);
-            objetoEmail.setFrom("no-reply@funcash.com");
-            objetoEmail.addTo("lennonmcarlos@gmail.com");
-            objetoEmail.setSubject("Teste");
-            objetoEmail.setMsg("Entrei?");
-            objetoEmail.send();
-        }
         return usuarioResponse;
     }
 
