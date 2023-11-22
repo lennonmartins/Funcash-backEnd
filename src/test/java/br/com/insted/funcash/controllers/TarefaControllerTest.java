@@ -142,7 +142,9 @@ public class TarefaControllerTest {
 		MvcResult mvcResult = mockMvc.perform(get("/api/v1/tarefas?pagina=0&tamanho="+ quantidadePorPagina +"&campoOrdenacao=dataLimite&direcao=ASC")).andReturn();
 
 		int status  = mvcResult.getResponse().getStatus();
+
 		assertThat(status).isEqualTo(statusOk);
+
 		TarefaResponsePaginadasDTO paginaDto = JsonUtil.mapFromJsonModuleJavaTime(mvcResult.getResponse().getContentAsString(), TarefaResponsePaginadasDTO.class);
 		assertThat(paginaDto.getTotalDePaginas()).isEqualTo(totalPaginasEsperadas);
 	 }

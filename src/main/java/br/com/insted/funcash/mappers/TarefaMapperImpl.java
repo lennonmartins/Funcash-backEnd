@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import br.com.insted.funcash.dtos.TarefaResponsePageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -64,5 +65,10 @@ public class TarefaMapperImpl implements TarefaMapper {
         tarefasResponsesDtos.add(tarefaParaTarefaResponseDTO(tarefa));
        }
        return tarefasResponsesDtos;
+    }
+
+    @Override
+    public TarefaResponsePageDTO tarefasParaTarefasResponsesPaginadoEOrdenado(Collection<Tarefa> tarefas, int totalDePaginas) {
+        return new TarefaResponsePageDTO(this.tarefasParaTarefasResponsesDtos(tarefas), totalDePaginas);
     }
 }

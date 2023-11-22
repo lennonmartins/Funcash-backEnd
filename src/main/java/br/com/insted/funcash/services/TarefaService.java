@@ -4,6 +4,11 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import br.com.insted.funcash.dtos.TarefaResponsePageDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,4 +72,27 @@ public class TarefaService {
     public void deletar(Long id) {
         tarefaRepository.deleteById(id);
     }
+
+    public TarefaResponsePageDTO buscarPeloTitulo(int pagina, int quantidade, String fatorOrdenacao, String direcao, String titulo) {
+        Pageable pageable = criarPaginaOrdenada(pagina, quantidade,fatorOrdenacao,direcao);
+        return mapearResposta(titulo, pageable);
+    }
+
+    private TarefaResponsePageDTO mapearResposta(String titulo, Pageable pageable) {
+        Page<Tarefa> tarefas;
+        if(titulo != null && !titulo.isEmpty()){
+            tarefas = tarefaRepository.findByTituloContaining(titulo, pageable);
+        }else{
+            tarefas =  tarefaRepository.findAll(pageable);
+        }
+        return tarefaMapper.tarefasParaTarefasResponsesPaginadoEOrdenado(tarefas.getContent(), tarefas.getTotalPages());
+    }
+
+    private Pageable criarPaginaOrdenada(int pagina, int quantidade, String fatorOrdenacao, String direcao) {
+        if(direcao.equals("ASC"))
+            return PageRequest.of(pagina, quantidade, Sort.by(fatorOrdenacao).ascending());
+        else
+            return  PageRequest.of(pagina, quantidade, Sort.by(fatorOrdenacao).descending());
+    }
+
 }

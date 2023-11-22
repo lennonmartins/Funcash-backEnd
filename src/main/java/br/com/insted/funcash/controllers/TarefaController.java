@@ -4,18 +4,11 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import br.com.insted.funcash.dtos.TarefaResponsePageDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.insted.funcash.dtos.TarefaRequestDTO;
 import br.com.insted.funcash.dtos.TarefaResponseDTO;
@@ -41,6 +34,7 @@ public class TarefaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.cadastrar(tarefaRequestDTO));
     }
 
+    @Operation(summary = "Deleta uma tarefa")
     @DeleteMapping(path = "/{id}")
     @PreAuthorize("hasRole('RESPONSAVEL')")
     public void remover(@PathVariable Long id) {
@@ -73,6 +67,19 @@ public class TarefaController {
     @GetMapping(path="/crianca/{id}/tarefas")
     public ResponseEntity<Collection<TarefaResponseDTO>> buscarPeloIdCrianca(@PathVariable long id){
         return ResponseEntity.ok(tarefaService.buscarTarefasPelaCrianca(id));
+    }
+
+    @Operation(summary = "Retorna uma lista de tarefas ordenadas e filtradas baseada nos parametros da busca")
+    @ApiResponse(responseCode = "200", description = "Lista de tarefas encontradas e ordenadas")
+    @GetMapping
+    public ResponseEntity<TarefaResponsePageDTO> buscarPeloTitulo(
+            @RequestParam(required = false, name = "pagina", defaultValue = "0") int pagina,
+            @RequestParam(required = false, name = "quantidade", defaultValue = "10") int quantidade,
+            @RequestParam(required = false, name = "fatorOrdenacao", defaultValue = "horaLimite") String fatorOrdenacao,
+            @RequestParam(required = false, name = "direcao", defaultValue = "ASC") String direcao,
+            @RequestParam(required = false, name = "titulo") String titulo
+    ){
+        return ResponseEntity.ok(tarefaService.buscarPeloTitulo(pagina, quantidade, fatorOrdenacao,direcao,titulo));
     }
 }
 
