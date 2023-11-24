@@ -42,12 +42,13 @@ public class Tarefa extends EntidadeBase {
     private Crianca crianca;
 
     public Tarefa(LocalDateTime horaLimite,LocalDate dataLimite, double valor, String titulo
-    , Crianca crianca) {
+    , Crianca crianca, String descricao) {
         this.horaLimite = horaLimite;
         this.dataLimite = dataLimite;
         this.valor = valor;
         this.titulo = titulo;
         this.dataDeCriacao = LocalDateTime.now();
+        this.descricao = descricao;
         this.crianca = crianca;
 }
 

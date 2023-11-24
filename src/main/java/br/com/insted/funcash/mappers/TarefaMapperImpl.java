@@ -30,6 +30,7 @@ public class TarefaMapperImpl implements TarefaMapper {
                 tarefa.getDataDeCriacao(),
                 tarefa.getValor(),
                 tarefa.getTitulo(),
+                tarefa.getDescricao(),
                 tarefa.getCrianca().getId()
                 );
     }
@@ -42,8 +43,9 @@ public class TarefaMapperImpl implements TarefaMapper {
         tarefaRequestDTO.getHoraLimite()),
         DataConvert.obterData(tarefaRequestDTO.getDataLimite()),
         tarefaRequestDTO.getValor(),
-        tarefaRequestDTO.getNome()
-        ,        crianca
+        tarefaRequestDTO.getNome(),   
+        crianca,
+        tarefaRequestDTO.getDescricao()
         );
     }
 
