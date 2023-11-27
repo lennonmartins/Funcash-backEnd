@@ -44,8 +44,8 @@ public class TarefaMapperImpl implements TarefaMapper {
         DataConvert.obterData(tarefaRequestDTO.getDataLimite()),
         tarefaRequestDTO.getValor(),
         tarefaRequestDTO.getNome(),   
-        crianca,
-        tarefaRequestDTO.getDescricao()
+        tarefaRequestDTO.getDescricao(),
+        crianca
         );
     }
 

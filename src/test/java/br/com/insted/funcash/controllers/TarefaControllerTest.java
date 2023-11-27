@@ -120,7 +120,7 @@ public class TarefaControllerTest {
 	 	tarefaRepository.save(tarefa);
 	 	String nomeEsperado = "Limpar caixa do gato";
 	 	TarefaRequestDTO tarefaRequestDTO = new TarefaRequestDTOBuilder()
-	 			.comNome(nomeEsperado)
+	 			.comTitulo(nomeEsperado)
 	 			.construir();
 
 	 	this.mockMvc

@@ -6,11 +6,12 @@ public class TarefaRequestDTOBuilder {
     String horaEmString = "19:30:00";
     String dataLimiteEmString = "2023-03-23";
     double valor = 10.50;
-    String nome = "Tirar o lixo";
+    String titulo = "Tirar o lixo";
+    private String descricao =  "lorem impsun test etst";
     long idDaCrianca = 1L;
 
     public TarefaRequestDTO construir() {
-        return new TarefaRequestDTO(horaEmString, dataLimiteEmString, valor, nome, idDaCrianca);
+        return new TarefaRequestDTO(horaEmString, dataLimiteEmString, valor, titulo,descricao,idDaCrianca );
     }
 
     public TarefaRequestDTOBuilder comDataLimite(String dataLimiteEmString) {
@@ -23,8 +24,8 @@ public class TarefaRequestDTOBuilder {
         return this;
     }
 
-    public TarefaRequestDTOBuilder comNome(String nome) {
-        this.nome = nome;
+    public TarefaRequestDTOBuilder comTitulo(String titulo) {
+        this.titulo = titulo;
         return this;
     }
 

@@ -18,7 +18,7 @@ public class TarefaTest {
     void deve_criar_uma_tarefa() throws Exception{
         String nomeEsperado = "tirar lixo";
 
-        Tarefa tarefa = new TarefaBuilder().comNome(nomeEsperado).construir();
+        Tarefa tarefa = new TarefaBuilder().comTitulo(nomeEsperado).construir();
 
        assertEquals(nomeEsperado, tarefa.getTitulo());
     }

@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Tarefa extends EntidadeBase {  
+public class Tarefa extends EntidadeBase {
     @Column(nullable = false)
     private LocalDateTime horaLimite;
 
@@ -37,12 +37,12 @@ public class Tarefa extends EntidadeBase {
     @Column(nullable = true, length = 250)
     private String descricao;
 
-    @ManyToOne(cascade=CascadeType.PERSIST)
-    @JoinColumn(name="id_crianca", nullable = true)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_crianca", nullable = true)
     private Crianca crianca;
 
-    public Tarefa(LocalDateTime horaLimite,LocalDate dataLimite, double valor, String titulo
-    , Crianca crianca, String descricao) {
+    public Tarefa(LocalDateTime horaLimite, LocalDate dataLimite, double valor, String titulo, String descricao,
+            Crianca crianca) {
         this.horaLimite = horaLimite;
         this.dataLimite = dataLimite;
         this.valor = valor;
@@ -50,6 +50,6 @@ public class Tarefa extends EntidadeBase {
         this.dataDeCriacao = LocalDateTime.now();
         this.descricao = descricao;
         this.crianca = crianca;
-}
+    }
 
 }

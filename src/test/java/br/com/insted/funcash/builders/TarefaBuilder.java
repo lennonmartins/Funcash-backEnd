@@ -12,7 +12,8 @@ public class TarefaBuilder {
     private LocalDate dataLimite = LocalDate.of(2023, 04, 05);
     private LocalDateTime horaLimiteCompleta = LocalDateTime.of(dataLimite, horaLimite);
     private double moeda = 30;
-    private String nome = "Tirar lixo";
+    private String titulo = "Tirar lixo";
+    private String descricao =  "lorem impsun test etst";
     private Crianca crianca;
 
     public TarefaBuilder() {
@@ -21,11 +22,11 @@ public class TarefaBuilder {
 
     public Tarefa construir() throws Exception {
         crianca = new CriancaBuilder().construir();
-        return new Tarefa(horaLimiteCompleta, dataLimite, moeda, nome, crianca);
+        return new Tarefa(horaLimiteCompleta, dataLimite, moeda, titulo, descricao,crianca);
     }
 
-    public TarefaBuilder comNome(String nome) {
-        this.nome = nome;
+    public TarefaBuilder comTitulo(String titulo) {
+        this.titulo = titulo;
         return this;
     }
 
