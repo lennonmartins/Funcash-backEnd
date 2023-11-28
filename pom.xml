@@ -25,8 +25,6 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-	
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
@@ -128,46 +126,7 @@
 	</dependencies>
 
 	<build>
-			<plugins>
-			<plugin>
-       			<groupId>org.apache.tomcat.maven</groupId>
-        			<artifactId>tomcat7-maven-plugin</artifactId>
-        			<version>2.2</version>
-				<configuration>
-      			<!-- http port needed in the sandbox is 8000 -->
-      				<port>8000</port>
-    			</configuration>
-      		</plugin>
-
-			<plugin>
-  				<groupId>com.microsoft.azure</groupId>
-  				<artifactId>azure-webapp-maven-plugin</artifactId>
-  				<version>2.2.0</version>
-				<configuration> 
-					<schemaVersion>v2</schemaVersion>  
-					<subscriptionId>a4c9c1d0-2b78-4888-8c1d-5b8eeadd4826</subscriptionId>  
-					<resourceGroup>Lennon</resourceGroup>  
-					<appName>funcash-api</appName>  
-					<pricingTier>F1</pricingTier>  
-					<region>eastus</region>  
-					<runtime> 
-					<os>Linux</os>  
-					<javaVersion>Java 8</javaVersion>  
-					<webContainer>Tomcat 8.5</webContainer> 
-					</runtime>  
-					<deployment> 
-					<resources> 
-						<resource> 
-						<directory>${project.basedir}/target</directory>  
-						<includes> 
-							<include>*.war</include> 
-						</includes> 
-						</resource> 
-					</resources> 
-					</deployment> 
-				</configuration>
-			</plugin>
-
+		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
