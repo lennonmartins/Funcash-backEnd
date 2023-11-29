@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -41,6 +43,10 @@ public class Tarefa extends EntidadeBase {
     @JoinColumn(name = "id_crianca", nullable = true)
     private Crianca crianca;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StatusDaTarefa statusDaTarefa;
+
     public Tarefa(LocalDateTime horaLimite, LocalDate dataLimite, double valor, String titulo, String descricao,
             Crianca crianca) {
         this.horaLimite = horaLimite;
@@ -50,6 +56,6 @@ public class Tarefa extends EntidadeBase {
         this.dataDeCriacao = LocalDateTime.now();
         this.descricao = descricao;
         this.crianca = crianca;
+        this.statusDaTarefa = statusDaTarefa.A_FAZER;
     }
-
 }

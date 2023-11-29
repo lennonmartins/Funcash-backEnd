@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,5 +68,14 @@ public class TarefaService {
 
     public void deletar(Long id) {
         tarefaRepository.deleteById(id);
+    }
+
+    public void alterarStatusTarefa(@Valid TarefaRequestDTO tarefaRequestDTO, Long idTarefa) {
+        var tarefaARealizar = buscarTarefaPeloId(idTarefa);
+        var criancaDaTarefa = tarefaARealizar.getCrianca();
+        
+        var tarefaRealizada = criancaDaTarefa.realizarTarefa(tarefaARealizar, tarefaRequestDTO.getStatus());
+
+        tarefaRepository.save(tarefaRealizada);
     }
 }

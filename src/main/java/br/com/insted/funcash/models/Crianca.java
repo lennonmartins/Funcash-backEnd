@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.asm.Advice.Return;
 
 @Data
 @Entity
@@ -58,5 +59,10 @@ public class Crianca extends Pessoa {
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
         usuario.vincularCrianca(this);
+    }
+
+    public Tarefa realizarTarefa(Tarefa tarefaParaAlterar, StatusDaTarefa status) {
+        tarefaParaAlterar.setStatusDaTarefa(status);
+        return tarefaParaAlterar;
     }
 }

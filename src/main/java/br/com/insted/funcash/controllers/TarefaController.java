@@ -74,6 +74,14 @@ public class TarefaController {
     public ResponseEntity<Collection<TarefaResponseDTO>> buscarPeloIdCrianca(@PathVariable long id){
         return ResponseEntity.ok(tarefaService.buscarTarefasPelaCrianca(id));
     }
+
+    @Operation(summary = "Altera o status da tarefa para realizada")
+    @PutMapping(path = "/crianca/{idTarefa}/tarefas", consumes={"application/json"})
+    public ResponseEntity<String> alterarStatusTarefa(@RequestBody @Valid TarefaRequestDTO tarefaRequestDTO, @PathVariable Long idTarefa){
+        tarefaService.alterarStatusTarefa(tarefaRequestDTO, idTarefa);
+        return ResponseEntity.ok("Tarefa alterada para status realizado!");
+    }
+    
 }
 
 

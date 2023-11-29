@@ -1,5 +1,6 @@
 package br.com.insted.funcash.dtos;
 
+import br.com.insted.funcash.models.StatusDaTarefa;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,13 +13,15 @@ public class TarefaRequestDTO {
     private String nome;
     private String descricao;
     private Long idDaCrianca;
+    private StatusDaTarefa status;
 
-    public TarefaRequestDTO(String horaLimite, String dataLimite, double valor, String nome, String descricao, Long idDaCrianca) {
+    public TarefaRequestDTO(String horaLimite, String dataLimite, double valor, String nome, String descricao, Long idDaCrianca, StatusDaTarefa statusDaTarefa) {
         this.horaLimite = horaLimite;
         this.dataLimite = dataLimite;
         this.valor = valor;
         this.nome = nome;
         this.idDaCrianca = idDaCrianca;
         this.descricao = descricao;
+        this.status = statusDaTarefa;
     }
 }
