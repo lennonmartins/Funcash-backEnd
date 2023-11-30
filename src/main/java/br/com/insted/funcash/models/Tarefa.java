@@ -45,7 +45,7 @@ public class Tarefa extends EntidadeBase {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusDaTarefa statusDaTarefa;
+    private StatusDaTarefa status;
 
     public Tarefa(LocalDateTime horaLimite, LocalDate dataLimite, double valor, String titulo, String descricao,
             Crianca crianca) {
@@ -56,6 +56,6 @@ public class Tarefa extends EntidadeBase {
         this.dataDeCriacao = LocalDateTime.now();
         this.descricao = descricao;
         this.crianca = crianca;
-        this.statusDaTarefa = statusDaTarefa.A_FAZER;
+        this.status = status.A_FAZER;
     }
 }

@@ -11,14 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import br.com.insted.funcash.models.user.Usuario;
 import org.springframework.lang.Nullable;
 
+import br.com.insted.funcash.models.user.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.asm.Advice.Return;
 
 @Data
 @Entity
@@ -62,7 +61,7 @@ public class Crianca extends Pessoa {
     }
 
     public Tarefa realizarTarefa(Tarefa tarefaParaAlterar, StatusDaTarefa status) {
-        tarefaParaAlterar.setStatusDaTarefa(status);
+        tarefaParaAlterar.setStatus(status);
         return tarefaParaAlterar;
     }
 }
