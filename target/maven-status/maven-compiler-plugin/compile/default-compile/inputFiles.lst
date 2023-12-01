@@ -9,6 +9,7 @@ C:\Users\marti\OneDrive\Documentos\Projetos\Funcash\Funcash-backEnd\src\main\jav
 C:\Users\marti\OneDrive\Documentos\Projetos\Funcash\Funcash-backEnd\src\main\java\br\com\insted\funcash\mappers\DesejoMapper.java
 C:\Users\marti\OneDrive\Documentos\Projetos\Funcash\Funcash-backEnd\src\main\java\br\com\insted\funcash\repositories\ResponsavelRepository.java
 C:\Users\marti\OneDrive\Documentos\Projetos\Funcash\Funcash-backEnd\src\main\java\br\com\insted\funcash\controllers\TarefaController.java
+C:\Users\marti\OneDrive\Documentos\Projetos\Funcash\Funcash-backEnd\src\main\java\br\com\insted\funcash\models\StatusDaTarefa.java
 C:\Users\marti\OneDrive\Documentos\Projetos\Funcash\Funcash-backEnd\src\main\java\br\com\insted\funcash\models\Crianca.java
 C:\Users\marti\OneDrive\Documentos\Projetos\Funcash\Funcash-backEnd\src\main\java\br\com\insted\funcash\dtos\CriancaRequestDTO.java
 C:\Users\marti\OneDrive\Documentos\Projetos\Funcash\Funcash-backEnd\src\main\java\br\com\insted\funcash\repositories\CriancaRepository.java
