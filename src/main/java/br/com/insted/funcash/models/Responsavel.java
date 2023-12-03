@@ -43,4 +43,9 @@ public class Responsavel extends Pessoa {
         this.usuario = usuario;
         usuario.vincularResponsavel(this);
     }
+
+    public Tarefa concluirTarefa(Tarefa tarefaParaAlterar, StatusDaTarefa status) {
+        tarefaParaAlterar.setStatus(status);
+        return tarefaParaAlterar;
+    }
 }

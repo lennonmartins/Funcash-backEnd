@@ -1,9 +1,0 @@
-br\com\insted\funcash\builders\TarefaRequestDTOBuilder.class
-br\com\insted\funcash\builders\CriancaRequestDTOBuilder.class
-br\com\insted\funcash\builders\TarefaBuilder.class
-br\com\insted\funcash\builders\Image.class
-br\com\insted\funcash\FuncashApplicationTests.class
-br\com\insted\funcash\builders\ResponsavelBuilder.class
-br\com\insted\funcash\builders\CriancaBuilder.class
-br\com\insted\funcash\builders\DesejoBuilder.class
-br\com\insted\funcash\builders\ResponsavelRequestDTOBuilder.class

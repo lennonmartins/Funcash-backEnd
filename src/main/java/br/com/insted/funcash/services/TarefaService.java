@@ -9,10 +9,13 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.insted.funcash.dtos.AlterarStatusTarefaDTO;
 import br.com.insted.funcash.dtos.TarefaRequestDTO;
 import br.com.insted.funcash.dtos.TarefaResponseDTO;
+import br.com.insted.funcash.dtos.UsuarioRequestDTO;
 import br.com.insted.funcash.mappers.TarefaMapper;
 import br.com.insted.funcash.models.Tarefa;
+import br.com.insted.funcash.models.user.UserRole;
 import br.com.insted.funcash.repositories.TarefaRepository;
 import br.com.insted.funcash.utils.DataConvert;
 
@@ -70,12 +73,19 @@ public class TarefaService {
         tarefaRepository.deleteById(id);
     }
 
-    public void alterarStatusTarefa(@Valid TarefaRequestDTO tarefaRequestDTO, Long idTarefa) {
-        var tarefaARealizar = buscarTarefaPeloId(idTarefa);
-        var criancaDaTarefa = tarefaARealizar.getCrianca();
-        
-        var tarefaRealizada = criancaDaTarefa.realizarTarefa(tarefaARealizar, tarefaRequestDTO.getStatus());
+    public void alterarStatusTarefa(@Valid AlterarStatusTarefaDTO alteraStatusTarefaRequestDTO, Long idTarefa) {
+        var tarefaParaAlterar = buscarTarefaPeloId(idTarefa);
+        var tarefaRequest = alteraStatusTarefaRequestDTO.getTarefaRequestDTO();
+        var usuarioDarequisicao = alteraStatusTarefaRequestDTO.getUsuarioRequestDTO().getRole();
 
-        tarefaRepository.save(tarefaRealizada);
+        if(usuarioDarequisicao.equals(UserRole.CRIANCA)){
+            var criancaDaTarefa = tarefaParaAlterar.getCrianca();
+            var tarefaRealizada = criancaDaTarefa.realizarTarefa(tarefaParaAlterar, tarefaRequest.getStatus());
+            tarefaRepository.save(tarefaRealizada);
+        } else{
+            var responsavelDaTarefa = tarefaParaAlterar.getCrianca().getResponsavel();
+            var tarefaConcluida = responsavelDaTarefa.concluirTarefa(tarefaParaAlterar, tarefaRequest.getStatus());
+            tarefaRepository.save(tarefaConcluida);
+        }
     }
 }

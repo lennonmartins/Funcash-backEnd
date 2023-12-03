@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.insted.funcash.dtos.AlterarStatusTarefaDTO;
 import br.com.insted.funcash.dtos.TarefaRequestDTO;
 import br.com.insted.funcash.dtos.TarefaResponseDTO;
+import br.com.insted.funcash.dtos.UsuarioRequestDTO;
 import br.com.insted.funcash.services.TarefaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -77,9 +79,9 @@ public class TarefaController {
 
     @Operation(summary = "Altera o status da tarefa para realizada")
     @PutMapping(path = "/crianca/{idTarefa}/tarefas", consumes={"application/json"})
-    public ResponseEntity<String> alterarStatusTarefa(@RequestBody @Valid TarefaRequestDTO tarefaRequestDTO, @PathVariable Long idTarefa){
-        tarefaService.alterarStatusTarefa(tarefaRequestDTO, idTarefa);
-        return ResponseEntity.ok("Tarefa alterada para status realizado!");
+    public ResponseEntity<String> alterarStatusTarefa(@RequestBody @Valid AlterarStatusTarefaDTO alteraStatusTarefaRequestDTO, @PathVariable Long idTarefa){
+        tarefaService.alterarStatusTarefa(alteraStatusTarefaRequestDTO, idTarefa);
+        return ResponseEntity.ok("Status da tarefa alterado com sucesso!");
     }
     
 }
