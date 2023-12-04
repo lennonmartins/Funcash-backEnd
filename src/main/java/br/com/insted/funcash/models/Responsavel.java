@@ -33,19 +33,22 @@ public class Responsavel extends Pessoa {
     @OneToOne(mappedBy = "responsavel", cascade = CascadeType.ALL)
     private Usuario usuario;
 
-    public Responsavel(Usuario usuario, String nome, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero, String foto) throws Exception {
-       super(nome, dataDeNascimentoResponsavel, genero, foto);
+    public Responsavel(Usuario usuario, String nome, String cpf, LocalDate dataDeNascimentoResponsavel, Genero genero,
+            String foto) throws Exception {
+        super(nome, dataDeNascimentoResponsavel, genero, foto);
         this.cpf = cpf;
         setUsuario(usuario);
     }
 
-    public void setUsuario(Usuario usuario){
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         usuario.vincularResponsavel(this);
     }
 
-    public Tarefa concluirTarefa(Tarefa tarefaParaAlterar, StatusDaTarefa status) {
-        tarefaParaAlterar.setStatus(status);
+    public Tarefa concluirTarefa(Tarefa tarefaParaAlterar, StatusDaTarefa status) throws Exception {
+        tarefaParaAlterar.marcarComoConcluida(status, this);
+        var criancaDaTarefa = tarefaParaAlterar.getCrianca();
+        criancaDaTarefa.atribuirSaldo(tarefaParaAlterar.getValor(), this.usuario);
         return tarefaParaAlterar;
     }
 }

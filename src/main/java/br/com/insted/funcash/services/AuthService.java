@@ -1,11 +1,6 @@
 package br.com.insted.funcash.services;
 
-import javax.mail.event.MailEvent;
-import javax.validation.constraints.Email;
-
-import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -49,5 +44,4 @@ public class AuthService {
             return userDetails.getCrianca().getId();
         }
     }
-
 }

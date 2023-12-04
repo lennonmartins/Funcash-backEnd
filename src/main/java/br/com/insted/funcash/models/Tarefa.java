@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import br.com.insted.funcash.models.user.UserRole;
+import br.com.insted.funcash.models.user.Usuario;
 import br.com.insted.funcash.utils.EntidadeBase;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -57,5 +59,18 @@ public class Tarefa extends EntidadeBase {
         this.descricao = descricao;
         this.crianca = crianca;
         this.status = status.A_FAZER;
+    }
+
+    public void marcarComoConcluida(StatusDaTarefa status, Responsavel responsavel) throws Exception {
+        boolean usuarioResponsavel = responsavel.getUsuario().getRole().equals(UserRole.RESPONSAVEL);
+
+        if (!usuarioResponsavel) {
+            throw new Exception("Você não pode atualizar o status para concluído!");
+        }
+
+        if (this.status == status) {
+            throw new Exception("Esta tarefa já esta concluída!");
+        }
+        this.setStatus(status);
     }
 }
