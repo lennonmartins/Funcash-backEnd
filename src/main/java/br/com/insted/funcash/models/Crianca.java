@@ -11,9 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import br.com.insted.funcash.models.user.Usuario;
 import org.springframework.lang.Nullable;
 
+import br.com.insted.funcash.models.user.UserRole;
+import br.com.insted.funcash.models.user.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -58,5 +59,19 @@ public class Crianca extends Pessoa {
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
         usuario.vincularCrianca(this);
+    }
+
+    public Tarefa realizarTarefa(Tarefa tarefaParaAlterar, StatusDaTarefa status) {
+        tarefaParaAlterar.setStatus(status);
+        return tarefaParaAlterar;
+    }
+
+    public void atribuirSaldo(double valorAreceber, Usuario usuario) throws Exception{
+        boolean usuarioResponsavel = usuario.getRole().equals(UserRole.RESPONSAVEL);
+        
+        if(!usuarioResponsavel){
+            throw new Exception("Você não pode atribuir saldo para crianca!");
+        }
+        this.saldo += valorAreceber;
     }
 }

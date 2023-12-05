@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.insted.funcash.dtos.AlterarStatusTarefaDTO;
 import br.com.insted.funcash.dtos.TarefaRequestDTO;
 import br.com.insted.funcash.dtos.TarefaResponseDTO;
 import br.com.insted.funcash.services.TarefaService;
@@ -25,17 +26,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(path = {"api/v1/tarefas"}, produces ={"application/json"})
+@RequestMapping(path = { "api/v1/tarefas" }, produces = { "application/json" })
 public class TarefaController {
     private final TarefaService tarefaService;
-    
-    public TarefaController(TarefaService tarefaService){
+
+    public TarefaController(TarefaService tarefaService) {
         this.tarefaService = tarefaService;
     }
 
     @Operation(summary = "Cadastrar uma nova tarefa")
     @ApiResponse(responseCode = "201")
-    @PostMapping(consumes = {"application/json"})
+    @PostMapping(consumes = { "application/json" })
     @PreAuthorize("hasRole('RESPONSAVEL')")
     public ResponseEntity<TarefaResponseDTO> cadastrarTarefa(@RequestBody @Valid TarefaRequestDTO tarefaRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.cadastrar(tarefaRequestDTO));
@@ -47,33 +48,39 @@ public class TarefaController {
         tarefaService.deletar(id);
     }
 
-    @Operation(summary ="Buscar uma lista das tarefas")
+    @Operation(summary = "Buscar uma lista das tarefas")
     @ApiResponse(responseCode = "200", description = "Lista de tarefas cadastradas")
     @GetMapping
-    public ResponseEntity<Collection<TarefaResponseDTO>> buscarTodas(){
+    public ResponseEntity<Collection<TarefaResponseDTO>> buscarTodas() {
         return ResponseEntity.ok(tarefaService.buscarTodas());
     }
 
     @Operation(summary = "Buscar uma tarefa pelo seu id")
     @ApiResponse(responseCode = "200")
     @GetMapping(path = "/{id}")
-    public ResponseEntity<TarefaResponseDTO> buscarPorId(@PathVariable Long id){
+    public ResponseEntity<TarefaResponseDTO> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(tarefaService.buscarPorId(id));
     }
 
     @Operation(summary = "Atualizar uma tarefa")
     @ApiResponse(responseCode = "200")
     @PreAuthorize("hasRole('RESPONSAVEL')")
-    @PutMapping(path="/{id}", consumes = {"application/json"})
-    public ResponseEntity<TarefaResponseDTO> alteraTarefa(@RequestBody @Valid TarefaRequestDTO tarefaRequestDTO, @PathVariable Long id){
+    @PutMapping(path = "/{id}", consumes = { "application/json" })
+    public ResponseEntity<TarefaResponseDTO> alteraTarefa(@RequestBody @Valid TarefaRequestDTO tarefaRequestDTO,
+            @PathVariable Long id) {
         return ResponseEntity.ok(tarefaService.alterar(tarefaRequestDTO, id));
     }
 
     @Operation(summary = "Buscar tarefas pelo id da criança")
-    @GetMapping(path="/crianca/{id}/tarefas")
-    public ResponseEntity<Collection<TarefaResponseDTO>> buscarPeloIdCrianca(@PathVariable long id){
+    @GetMapping(path = "/crianca/{id}/tarefas")
+    public ResponseEntity<Collection<TarefaResponseDTO>> buscarPeloIdCrianca(@PathVariable long id) {
         return ResponseEntity.ok(tarefaService.buscarTarefasPelaCrianca(id));
     }
+
+    @Operation(summary = "Altera o status da tarefa para realizada")
+    @PutMapping(path = "/crianca/{idTarefa}/tarefas", consumes = { "application/json" })
+    public ResponseEntity<TarefaResponseDTO> alterarStatusTarefa(
+            @RequestBody @Valid AlterarStatusTarefaDTO alteraStatusTarefaRequestDTO, @PathVariable Long idTarefa) throws Exception {
+        return ResponseEntity.ok(tarefaService.alterarStatusTarefa(alteraStatusTarefaRequestDTO, idTarefa));
+    }
 }
-
-

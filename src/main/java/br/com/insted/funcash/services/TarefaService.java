@@ -4,13 +4,17 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.insted.funcash.dtos.AlterarStatusTarefaDTO;
 import br.com.insted.funcash.dtos.TarefaRequestDTO;
 import br.com.insted.funcash.dtos.TarefaResponseDTO;
 import br.com.insted.funcash.mappers.TarefaMapper;
 import br.com.insted.funcash.models.Tarefa;
+import br.com.insted.funcash.models.user.UserRole;
 import br.com.insted.funcash.repositories.TarefaRepository;
 import br.com.insted.funcash.utils.DataConvert;
 
@@ -19,6 +23,7 @@ public class TarefaService {
     
     private TarefaRepository tarefaRepository;
     private TarefaMapper tarefaMapper;
+    Tarefa tarefaAlterada = new Tarefa();
 
     public TarefaService (TarefaRepository tarefaRepository, TarefaMapper tarefaMapper){
         this.tarefaRepository = tarefaRepository;
@@ -66,5 +71,23 @@ public class TarefaService {
 
     public void deletar(Long id) {
         tarefaRepository.deleteById(id);
+    }
+
+    public TarefaResponseDTO alterarStatusTarefa(@Valid AlterarStatusTarefaDTO alteraStatusTarefaRequestDTO, Long idTarefa) throws Exception {
+        var tarefaParaAlterar = buscarTarefaPeloId(idTarefa);
+        var novoStatusDaTarefa = alteraStatusTarefaRequestDTO.getTarefaRequestDTO().getStatus();
+        var usuarioDarequisicao = alteraStatusTarefaRequestDTO.getUsuarioRequestDTO().getRole();
+
+        if(usuarioDarequisicao.equals(UserRole.CRIANCA)){
+            var criancaDaTarefa = tarefaParaAlterar.getCrianca();
+            tarefaAlterada = criancaDaTarefa.realizarTarefa(tarefaParaAlterar, novoStatusDaTarefa);
+            tarefaRepository.save(tarefaAlterada);
+        } else{
+            var responsavelDaTarefa = tarefaParaAlterar.getCrianca().getResponsavel();
+            tarefaAlterada = responsavelDaTarefa.concluirTarefa(tarefaParaAlterar, novoStatusDaTarefa);
+            tarefaRepository.save(tarefaAlterada);
+        }
+
+        return tarefaMapper.tarefaParaTarefaResponseDTO(tarefaAlterada);
     }
 }

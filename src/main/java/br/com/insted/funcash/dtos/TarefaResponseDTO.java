@@ -3,6 +3,7 @@ package br.com.insted.funcash.dtos;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import br.com.insted.funcash.models.StatusDaTarefa;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +21,7 @@ public class TarefaResponseDTO {
     private double valor;
     private String nome;
     private String descricao;
+    private StatusDaTarefa status;
     private long idDaCrianca;
+    
 }

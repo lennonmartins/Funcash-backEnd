@@ -31,6 +31,7 @@ public class TarefaMapperImpl implements TarefaMapper {
                 tarefa.getValor(),
                 tarefa.getTitulo(),
                 tarefa.getDescricao(),
+                tarefa.getStatus(),
                 tarefa.getCrianca().getId()
                 );
     }
