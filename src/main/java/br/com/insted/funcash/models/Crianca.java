@@ -72,6 +72,6 @@ public class Crianca extends Pessoa {
         if(!usuarioResponsavel){
             throw new Exception("Você não pode atribuir saldo para crianca!");
         }
-        this.setSaldo(valorAreceber);
+        this.saldo += valorAreceber;
     }
 }
